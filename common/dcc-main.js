@@ -64,7 +64,7 @@ const DirectCurrencyConverter = function() {
     };
     const currencyDataRequest = new XMLHttpRequest();
     currencyDataRequest.overrideMimeType("application/json");
-    currencyDataRequest.open("GET", "main-common/currencyData.json", true);
+    currencyDataRequest.open("GET", "common/currencyData.json", true);
     currencyDataRequest.onreadystatechange = () => {
         if (currencyDataRequest.readyState === XMLHttpRequest.DONE && currencyDataRequest.status === 200) {
             onCurrencyDataRead(currencyDataRequest.responseText);
@@ -83,7 +83,7 @@ const DirectCurrencyConverter = function() {
     };
     const iso4217CurrenciesRequest = new XMLHttpRequest();
     iso4217CurrenciesRequest.overrideMimeType("application/json");
-    iso4217CurrenciesRequest.open("GET", "main-common/iso4217Currencies.json", true);
+    iso4217CurrenciesRequest.open("GET", "common/iso4217Currencies.json", true);
     iso4217CurrenciesRequest.onreadystatechange = () => {
         if (iso4217CurrenciesRequest.readyState === XMLHttpRequest.DONE && iso4217CurrenciesRequest.status === 200) {
             onIso4217CurrenciesRead(iso4217CurrenciesRequest.responseText);
@@ -102,7 +102,7 @@ const DirectCurrencyConverter = function() {
     };
     const regexes1Request = new XMLHttpRequest();
     regexes1Request.overrideMimeType("application/json");
-    regexes1Request.open("GET", "main-common/regexes1.json", true);
+    regexes1Request.open("GET", "common/regexes1.json", true);
     regexes1Request.onreadystatechange = () => {
         if (regexes1Request.readyState === XMLHttpRequest.DONE && regexes1Request.status === 200) {
             onRegexes1RequestRead(regexes1Request.responseText);
@@ -121,7 +121,7 @@ const DirectCurrencyConverter = function() {
     };
     const regexes2Request = new XMLHttpRequest();
     regexes2Request.overrideMimeType("application/json");
-    regexes2Request.open("GET", "main-common/regexes2.json", true);
+    regexes2Request.open("GET", "common/regexes2.json", true);
     regexes2Request.onreadystatechange = () => {
         if (regexes2Request.readyState === XMLHttpRequest.DONE && regexes2Request.status === 200) {
             onRegexes2RequestRead(regexes2Request.responseText);

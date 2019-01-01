@@ -5,6 +5,8 @@ Data source switch works.
 File organisation.
 Exclude build files.
 
+Remove freegeoip and nekudo
+Use http://ip-api.com/json
 
 README add
 
