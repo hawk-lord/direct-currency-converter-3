@@ -1,0 +1,718 @@
+{
+  "buttontitle": {
+    "message": "On/off",
+    "description": ""
+  },
+  "AED": {
+    "message": "UAE Dirham (AED)",
+    "description": ""
+  },
+  "AFN": {
+    "message": "Afghani (AFN)",
+    "description": ""
+  },
+  "ALL": {
+    "message": "Lek (ALL)",
+    "description": ""
+  },
+  "AMD": {
+    "message": "Armenian Dram (AMD)",
+    "description": ""
+  },
+  "ANG": {
+    "message": "Netherlands Antillean Guilder (ANG)",
+    "description": ""
+  },
+  "AOA": {
+    "message": "Kwanza (AOA)",
+    "description": ""
+  },
+  "ARS": {
+    "message": "Argentine Peso (ARS)",
+    "description": ""
+  },
+  "AUD": {
+    "message": "Australian Dollar (AUD)",
+    "description": ""
+  },
+  "AWG": {
+    "message": "Aruban Florin (AWG)",
+    "description": ""
+  },
+  "AZN": {
+    "message": "Azerbaijan Manat (AZN)",
+    "description": ""
+  },
+  "BAM": {
+    "message": "Convertible Mark (BAM)",
+    "description": ""
+  },
+  "BBD": {
+    "message": "Barbados Dollar (BBD)",
+    "description": ""
+  },
+  "BDT": {
+    "message": "Taka (BDT)",
+    "description": ""
+  },
+  "BGN": {
+    "message": "Bulgarian Lev (BGN)",
+    "description": ""
+  },
+  "BHD": {
+    "message": "Bahraini Dinar (BHD)",
+    "description": ""
+  },
+  "BIF": {
+    "message": "Burundi Franc (BIF)",
+    "description": ""
+  },
+  "BMD": {
+    "message": "Bermudian Dollar (BMD)",
+    "description": ""
+  },
+  "BND": {
+    "message": "Brunei Dollar (BND)",
+    "description": ""
+  },
+  "BOB": {
+    "message": "Boliviano (BOB)",
+    "description": ""
+  },
+  "BOV": {
+    "message": "Mvdol (BOV)",
+    "description": ""
+  },
+  "BRL": {
+    "message": "Brazilian Real (BRL)",
+    "description": ""
+  },
+  "BSD": {
+    "message": "Bahamian Dollar (BSD)",
+    "description": ""
+  },
+  "BTN": {
+    "message": "Ngultrum (BTN)",
+    "description": ""
+  },
+  "BWP": {
+    "message": "Pula (BWP)",
+    "description": ""
+  },
+  "BYN": {
+    "message": "Belarusian Ruble (BYN)",
+    "description": ""
+  },
+  "BZD": {
+    "message": "Belize Dollar (BZD)",
+    "description": ""
+  },
+  "CAD": {
+    "message": "Canadian Dollar (CAD)",
+    "description": ""
+  },
+  "CDF": {
+    "message": "Congolese Franc (CDF)",
+    "description": ""
+  },
+  "CHE": {
+    "message": "WIR Euro (CHE)",
+    "description": ""
+  },
+  "CHF": {
+    "message": "Swiss Franc (CHF)",
+    "description": ""
+  },
+  "CHW": {
+    "message": "WIR Franc (CHW)",
+    "description": ""
+  },
+  "CLF": {
+    "message": "Unidad de Fomento (CLF)",
+    "description": ""
+  },
+  "CLP": {
+    "message": "Chilean Peso (CLP)",
+    "description": ""
+  },
+  "CNY": {
+    "message": "Yuan Renminbi (CNY)",
+    "description": ""
+  },
+  "COP": {
+    "message": "Colombian Peso (COP)",
+    "description": ""
+  },
+  "COU": {
+    "message": "Unidad de Valor Real (COU)",
+    "description": ""
+  },
+  "CRC": {
+    "message": "Costa Rican Colon (CRC)",
+    "description": ""
+  },
+  "CUC": {
+    "message": "Peso Convertible (CUC)",
+    "description": ""
+  },
+  "CUP": {
+    "message": "Cuban Peso (CUP)",
+    "description": ""
+  },
+  "CVE": {
+    "message": "Cape Verde Escudo (CVE)",
+    "description": ""
+  },
+  "CZK": {
+    "message": "Czech Koruna (CZK)",
+    "description": ""
+  },
+  "DJF": {
+    "message": "Djibouti Franc (DJF)",
+    "description": ""
+  },
+  "DKK": {
+    "message": "Danish Krone (DKK)",
+    "description": ""
+  },
+  "DOP": {
+    "message": "Dominican Peso (DOP)",
+    "description": ""
+  },
+  "DZD": {
+    "message": "Algerian Dinar (DZD)",
+    "description": ""
+  },
+  "EGP": {
+    "message": "Egyptian Pound (EGP)",
+    "description": ""
+  },
+  "ERN": {
+    "message": "Nakfa (ERN)",
+    "description": ""
+  },
+  "ETB": {
+    "message": "Ethiopian Birr (ETB)",
+    "description": ""
+  },
+  "EUR": {
+    "message": "Euro (EUR)",
+    "description": ""
+  },
+  "FJD": {
+    "message": "Fiji Dollar (FJD)",
+    "description": ""
+  },
+  "FKP": {
+    "message": "Falkland Islands Pound (FKP)",
+    "description": ""
+  },
+  "GBP": {
+    "message": "Pound Sterling (GBP)",
+    "description": ""
+  },
+  "GEL": {
+    "message": "Lari (GEL)",
+    "description": ""
+  },
+  "GHS": {
+    "message": "Ghana Cedi (GHS)",
+    "description": ""
+  },
+  "GIP": {
+    "message": "Gibraltar Pound (GIP)",
+    "description": ""
+  },
+  "GMD": {
+    "message": "Dalasi (GMD)",
+    "description": ""
+  },
+  "GNF": {
+    "message": "Guinean Franc (GNF)",
+    "description": ""
+  },
+  "GTQ": {
+    "message": "Quetzal (GTQ)",
+    "description": ""
+  },
+  "GYD": {
+    "message": "Guyana Dollar (GYD)",
+    "description": ""
+  },
+  "HKD": {
+    "message": "Hong Kong Dollar (HKD)",
+    "description": ""
+  },
+  "HNL": {
+    "message": "Lempira (HNL)",
+    "description": ""
+  },
+  "HRK": {
+    "message": "Kuna (HRK)",
+    "description": ""
+  },
+  "HTG": {
+    "message": "Gourde (HTG)",
+    "description": ""
+  },
+  "HUF": {
+    "message": "Forint (HUF)",
+    "description": ""
+  },
+  "IDR": {
+    "message": "Rupiah (IDR)",
+    "description": ""
+  },
+  "ILS": {
+    "message": "New Israeli Sheqel (ILS)",
+    "description": ""
+  },
+  "INR": {
+    "message": "Indian Rupee (INR)",
+    "description": ""
+  },
+  "IQD": {
+    "message": "Iraqi Dinar (IQD)",
+    "description": ""
+  },
+  "IRR": {
+    "message": "Iranian Rial (IRR)",
+    "description": ""
+  },
+  "ISK": {
+    "message": "Iceland Krona (ISK)",
+    "description": ""
+  },
+  "JMD": {
+    "message": "Jamaican Dollar (JMD)",
+    "description": ""
+  },
+  "JOD": {
+    "message": "Jordanian Dinar (JOD)",
+    "description": ""
+  },
+  "JPY": {
+    "message": "Yen (JPY)",
+    "description": ""
+  },
+  "KES": {
+    "message": "Kenyan Shilling (KES)",
+    "description": ""
+  },
+  "KGS": {
+    "message": "Som (KGS)",
+    "description": ""
+  },
+  "KHR": {
+    "message": "Riel (KHR)",
+    "description": ""
+  },
+  "KMF": {
+    "message": "Comorian Franc (KMF)",
+    "description": ""
+  },
+  "KPW": {
+    "message": "North Korean Won (KPW)",
+    "description": ""
+  },
+  "KRW": {
+    "message": "Won (KRW)",
+    "description": ""
+  },
+  "KWD": {
+    "message": "Kuwaiti Dinar (KWD)",
+    "description": ""
+  },
+  "KYD": {
+    "message": "Cayman Islands Dollar (KYD)",
+    "description": ""
+  },
+  "KZT": {
+    "message": "Tenge (KZT)",
+    "description": ""
+  },
+  "LAK": {
+    "message": "Lao Kip (LAK)",
+    "description": ""
+  },
+  "LBP": {
+    "message": "Lebanese Pound (LBP)",
+    "description": ""
+  },
+  "LKR": {
+    "message": "Sri Lanka Rupee (LKR)",
+    "description": ""
+  },
+  "LRD": {
+    "message": "Liberian Dollar (LRD)",
+    "description": ""
+  },
+  "LSL": {
+    "message": "Loti (LSL)",
+    "description": ""
+  },
+  "LYD": {
+    "message": "Libyan Dinar (LYD)",
+    "description": ""
+  },
+  "MAD": {
+    "message": "Moroccan Dirham (MAD)",
+    "description": ""
+  },
+  "MDL": {
+    "message": "Moldovan Leu (MDL)",
+    "description": ""
+  },
+  "MGA": {
+    "message": "Malagasy Ariary (MGA)",
+    "description": ""
+  },
+  "MKD": {
+    "message": "Denar (MKD)",
+    "description": ""
+  },
+  "MMK": {
+    "message": "Kyat (MMK)",
+    "description": ""
+  },
+  "MNT": {
+    "message": "Tugrik (MNT)",
+    "description": ""
+  },
+  "MOP": {
+    "message": "Pataca (MOP)",
+    "description": ""
+  },
+  "MRU": {
+    "message": "Ouguiya (MRU)",
+    "description": ""
+  },
+  "MUR": {
+    "message": "Mauritius Rupee (MUR)",
+    "description": ""
+  },
+  "MVR": {
+    "message": "Rufiyaa (MVR)",
+    "description": ""
+  },
+  "MWK": {
+    "message": "Kwacha (MWK)",
+    "description": ""
+  },
+  "MXN": {
+    "message": "Mexican Peso (MXN)",
+    "description": ""
+  },
+  "MXV": {
+    "message": "Mexican Unidad de Inversion (UDI) (MXV)",
+    "description": ""
+  },
+  "MYR": {
+    "message": "Malaysian Ringgit (MYR)",
+    "description": ""
+  },
+  "MZN": {
+    "message": "Mozambique Metical (MZN)",
+    "description": ""
+  },
+  "NAD": {
+    "message": "Namibia Dollar (NAD)",
+    "description": ""
+  },
+  "NGN": {
+    "message": "Naira (NGN)",
+    "description": ""
+  },
+  "NIO": {
+    "message": "Cordoba Oro (NIO)",
+    "description": ""
+  },
+  "NOK": {
+    "message": "Norwegian Krone (NOK)",
+    "description": ""
+  },
+  "NPR": {
+    "message": "Nepalese Rupee (NPR)",
+    "description": ""
+  },
+  "NZD": {
+    "message": "New Zealand Dollar (NZD)",
+    "description": ""
+  },
+  "OMR": {
+    "message": "Rial Omani (OMR)",
+    "description": ""
+  },
+  "PAB": {
+    "message": "Balboa (PAB)",
+    "description": ""
+  },
+  "PEN": {
+    "message": "Nuevo Sol (PEN)",
+    "description": ""
+  },
+  "PGK": {
+    "message": "Kina (PGK)",
+    "description": ""
+  },
+  "PHP": {
+    "message": "Philippine Piso (PHP)",
+    "description": ""
+  },
+  "PKR": {
+    "message": "Pakistan Rupee (PKR)",
+    "description": ""
+  },
+  "PLN": {
+    "message": "Zloty (PLN)",
+    "description": ""
+  },
+  "PYG": {
+    "message": "Guarani (PYG)",
+    "description": ""
+  },
+  "QAR": {
+    "message": "Qatari Rial (QAR)",
+    "description": ""
+  },
+  "RON": {
+    "message": "Romanian Leu (RON)",
+    "description": ""
+  },
+  "RSD": {
+    "message": "Serbian Dinar (RSD)",
+    "description": ""
+  },
+  "RUB": {
+    "message": "Russian Ruble (RUB)",
+    "description": ""
+  },
+  "RWF": {
+    "message": "Rwanda Franc (RWF)",
+    "description": ""
+  },
+  "SAR": {
+    "message": "Saudi Riyal (SAR)",
+    "description": ""
+  },
+  "SBD": {
+    "message": "Solomon Islands Dollar (SBD)",
+    "description": ""
+  },
+  "SCR": {
+    "message": "Seychelles Rupee (SCR)",
+    "description": ""
+  },
+  "SDG": {
+    "message": "Sudanese Pound (SDG)",
+    "description": ""
+  },
+  "SEK": {
+    "message": "Swedish Krona (SEK)",
+    "description": ""
+  },
+  "SGD": {
+    "message": "Singapore Dollar (SGD)",
+    "description": ""
+  },
+  "SHP": {
+    "message": "Saint Helena Pound (SHP)",
+    "description": ""
+  },
+  "SLL": {
+    "message": "Leone (SLL)",
+    "description": ""
+  },
+  "SOS": {
+    "message": "Somali Shilling (SOS)",
+    "description": ""
+  },
+  "SRD": {
+    "message": "Surinam Dollar (SRD)",
+    "description": ""
+  },
+  "SSP": {
+    "message": "South Sudanese Pound (SSP)",
+    "description": ""
+  },
+  "STN": {
+    "message": "Dobra (STN)",
+    "description": ""
+  },
+  "SVC": {
+    "message": "El Salvador Colon (SVC)",
+    "description": ""
+  },
+  "SYP": {
+    "message": "Syrian Pound (SYP)",
+    "description": ""
+  },
+  "SZL": {
+    "message": "Lilangeni (SZL)",
+    "description": ""
+  },
+  "THB": {
+    "message": "Baht (THB)",
+    "description": ""
+  },
+  "TJS": {
+    "message": "Somoni (TJS)",
+    "description": ""
+  },
+  "TMT": {
+    "message": "Turkmenistan New Manat (TMT)",
+    "description": ""
+  },
+  "TND": {
+    "message": "Tunisian Dinar (TND)",
+    "description": ""
+  },
+  "TOP": {
+    "message": "Pa’anga (TOP)",
+    "description": ""
+  },
+  "TRY": {
+    "message": "Turkish Lira (TRY)",
+    "description": ""
+  },
+  "TTD": {
+    "message": "Trinidad and Tobago Dollar (TTD)",
+    "description": ""
+  },
+  "TWD": {
+    "message": "New Taiwan Dollar (TWD)",
+    "description": ""
+  },
+  "TZS": {
+    "message": "Tanzanian Shilling (TZS)",
+    "description": ""
+  },
+  "UAH": {
+    "message": "Hryvnia (UAH)",
+    "description": ""
+  },
+  "UGX": {
+    "message": "Uganda Shilling (UGX)",
+    "description": ""
+  },
+  "USD": {
+    "message": "US Dollar (USD)",
+    "description": ""
+  },
+  "USN": {
+    "message": "US Dollar (Next day) (USN)",
+    "description": ""
+  },
+  "UYI": {
+    "message": "Uruguay Peso en Unidades Indexadas (URUIURUI) (UYI)",
+    "description": ""
+  },
+  "UYU": {
+    "message": "Peso Uruguayo (UYU)",
+    "description": ""
+  },
+  "UZS": {
+    "message": "Uzbekistan Sum (UZS)",
+    "description": ""
+  },
+  "VEF": {
+    "message": "Bolivar (VEF)",
+    "description": ""
+  },
+  "VND": {
+    "message": "Dong (VND)",
+    "description": ""
+  },
+  "VUV": {
+    "message": "Vatu (VUV)",
+    "description": ""
+  },
+  "WST": {
+    "message": "Tala (WST)",
+    "description": ""
+  },
+  "XAF": {
+    "message": "CFA Franc BEAC (XAF)",
+    "description": ""
+  },
+  "XAG": {
+    "message": "Silver (XAG)",
+    "description": ""
+  },
+  "XAU": {
+    "message": "Gold (XAU)",
+    "description": ""
+  },
+  "XBA": {
+    "message": "Bond Markets Unit European Composite Unit (EURCO) (XBA)",
+    "description": ""
+  },
+  "XBB": {
+    "message": "Bond Markets Unit European Monetary Unit (E.M.U.-6) (XBB)",
+    "description": ""
+  },
+  "XBC": {
+    "message": "Bond Markets Unit European Unit of Account 9 (E.U.A.-9) (XBC)",
+    "description": ""
+  },
+  "XBD": {
+    "message": "Bond Markets Unit European Unit of Account 17 (E.U.A.-17) (XBD)",
+    "description": ""
+  },
+  "XCD": {
+    "message": "East Caribbean Dollar (XCD)",
+    "description": ""
+  },
+  "XDR": {
+    "message": "SDR (Special Drawing Right) (XDR)",
+    "description": ""
+  },
+  "XOF": {
+    "message": "CFA Franc BCEAO (XOF)",
+    "description": ""
+  },
+  "XPD": {
+    "message": "Palladium (XPD)",
+    "description": ""
+  },
+  "XPF": {
+    "message": "CFP Franc (XPF)",
+    "description": ""
+  },
+  "XPT": {
+    "message": "Platinum (XPT)",
+    "description": ""
+  },
+  "XSU": {
+    "message": "Sucre (XSU)",
+    "description": ""
+  },
+  "XTS": {
+    "message": "Codes specifically reserved for testing purposes (XTS)",
+    "description": ""
+  },
+  "XUA": {
+    "message": "ADB Unit of Account (XUA)",
+    "description": ""
+  },
+  "XXX": {
+    "message": "The codes assigned for transactions where no currency is involved (XXX)",
+    "description": ""
+  },
+  "YER": {
+    "message": "Yemeni Rial (YER)",
+    "description": ""
+  },
+  "ZAR": {
+    "message": "Rand (ZAR)",
+    "description": ""
+  },
+  "ZMW": {
+    "message": "Zambian Kwacha (ZMW)",
+    "description": ""
+  },
+  "ZWL": {
+    "message": "Zimbabwe Dollar (ZWL)",
+    "description": ""
+  }
+}

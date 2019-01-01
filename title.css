@@ -1,0 +1,29 @@
+/*
+ * For hover title
+ */
+
+[data-dcctitle]:hover:after {
+    content: attr(data-dcctitle);
+    white-space: pre-line;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 10px !important;
+    line-height: normal;
+    font-family: sans-serif;
+    text-align: left;
+    text-transform: none;
+    list-style-type:none;
+    padding: 10px;
+    background-color: burlywood;
+    border-style: solid;
+    border-color: papayawhip;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 50vh;
+    z-index: 2147483647;
+}

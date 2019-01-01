@@ -1,0 +1,718 @@
+{
+  "buttontitle": {
+    "message": "På/av",
+    "description": ""
+  },
+  "AED": {
+    "message": "Emiratisk dirham (AED)",
+    "description": ""
+  },
+  "AFN": {
+    "message": "Afghani (AFN)",
+    "description": ""
+  },
+  "ALL": {
+    "message": "Lek (ALL)",
+    "description": ""
+  },
+  "AMD": {
+    "message": "Dram (AMD)",
+    "description": ""
+  },
+  "ANG": {
+    "message": "Antillergulden (ANG)",
+    "description": ""
+  },
+  "AOA": {
+    "message": "Kwanza (AOA)",
+    "description": ""
+  },
+  "ARS": {
+    "message": "Argentinsk peso (ARS)",
+    "description": ""
+  },
+  "AUD": {
+    "message": "Australisk dollar (AUD)",
+    "description": ""
+  },
+  "AWG": {
+    "message": "Arubansk florin (AWG)",
+    "description": ""
+  },
+  "AZN": {
+    "message": "Azerbajdzjansk manat (AZN)",
+    "description": ""
+  },
+  "BAM": {
+    "message": "Konvertibilna marka (BAM)",
+    "description": ""
+  },
+  "BBD": {
+    "message": "Barbadisk dollar (BBD)",
+    "description": ""
+  },
+  "BDT": {
+    "message": "Taka (BDT)",
+    "description": ""
+  },
+  "BGN": {
+    "message": "Lev (BGN)",
+    "description": ""
+  },
+  "BHD": {
+    "message": "Bahrainsk dinar (BHD)",
+    "description": ""
+  },
+  "BIF": {
+    "message": "Burundisk franc (BIF)",
+    "description": ""
+  },
+  "BMD": {
+    "message": "Bermudisk dollar (BMD)",
+    "description": ""
+  },
+  "BND": {
+    "message": "Bruneisk dollar (BND)",
+    "description": ""
+  },
+  "BOB": {
+    "message": "Boliviano (BOB)",
+    "description": ""
+  },
+  "BOV": {
+    "message": "Bolivian Mvdol (fonder) (BOV)",
+    "description": ""
+  },
+  "BRL": {
+    "message": "Real (BRL)",
+    "description": ""
+  },
+  "BSD": {
+    "message": "Bahamansk dollar (BSD)",
+    "description": ""
+  },
+  "BTN": {
+    "message": "Ngultrum (BTN)",
+    "description": ""
+  },
+  "BWP": {
+    "message": "Pula (BWP)",
+    "description": ""
+  },
+  "BYN": {
+    "message": "Vitrysk rubel (BYN)",
+    "description": ""
+  },
+  "BZD": {
+    "message": "Belizisk dollar (BZD)",
+    "description": ""
+  },
+  "CAD": {
+    "message": "Kanadensisk dollar (CAD)",
+    "description": ""
+  },
+  "CDF": {
+    "message": "Kongolesisk franc (CDF)",
+    "description": ""
+  },
+  "CHE": {
+    "message": "WIR euro (alternativ valuta) (CHE)",
+    "description": ""
+  },
+  "CHF": {
+    "message": "Schweizisk franc (CHF)",
+    "description": ""
+  },
+  "CHW": {
+    "message": "WIR franc (alternativ valuta) (CHW)",
+    "description": ""
+  },
+  "CLF": {
+    "message": "Unidad de Fomento (fonder) (CLF)",
+    "description": ""
+  },
+  "CLP": {
+    "message": "Chilensk peso (CLP)",
+    "description": ""
+  },
+  "CNY": {
+    "message": "Renminbi (CNY)",
+    "description": ""
+  },
+  "COP": {
+    "message": "Colombiansk peso (COP)",
+    "description": ""
+  },
+  "COU": {
+    "message": "Unidad de Valor Real (COU)",
+    "description": ""
+  },
+  "CRC": {
+    "message": "Costaricansk colón (CRC)",
+    "description": ""
+  },
+  "CUC": {
+    "message": "Peso Convertible (CUC)",
+    "description": ""
+  },
+  "CUP": {
+    "message": "Kubansk peso (CUP)",
+    "description": ""
+  },
+  "CVE": {
+    "message": "Kapverdisk escudo (CVE)",
+    "description": ""
+  },
+  "CZK": {
+    "message": "Tjeckisk krona (CZK)",
+    "description": ""
+  },
+  "DJF": {
+    "message": "Djiboutisk franc (DJF)",
+    "description": ""
+  },
+  "DKK": {
+    "message": "Dansk krona (DKK)",
+    "description": ""
+  },
+  "DOP": {
+    "message": "Dominikansk peso (DOP)",
+    "description": ""
+  },
+  "DZD": {
+    "message": "Algerisk dinar (DZD)",
+    "description": ""
+  },
+  "EGP": {
+    "message": "Egyptiskt pund (EGP)",
+    "description": ""
+  },
+  "ERN": {
+    "message": "Nakfa (ERN)",
+    "description": ""
+  },
+  "ETB": {
+    "message": "Birr (ETB)",
+    "description": ""
+  },
+  "EUR": {
+    "message": "Euro (EUR)",
+    "description": ""
+  },
+  "FJD": {
+    "message": "Fijidollar (FJD)",
+    "description": ""
+  },
+  "FKP": {
+    "message": "Falklandspund (FKP)",
+    "description": ""
+  },
+  "GBP": {
+    "message": "Brittiskt pund (GBP)",
+    "description": ""
+  },
+  "GEL": {
+    "message": "Georgiska lari (GEL)",
+    "description": ""
+  },
+  "GHS": {
+    "message": "Ghana Cedi (GHS)",
+    "description": ""
+  },
+  "GIP": {
+    "message": "Gibraltarpund (GIP)",
+    "description": ""
+  },
+  "GMD": {
+    "message": "Dalasi (GMD)",
+    "description": ""
+  },
+  "GNF": {
+    "message": "Guinesisk franc (GNF)",
+    "description": ""
+  },
+  "GTQ": {
+    "message": "Quetzal (GTQ)",
+    "description": ""
+  },
+  "GYD": {
+    "message": "Guyansk dollar (GYD)",
+    "description": ""
+  },
+  "HKD": {
+    "message": "Hongkongdollar (HKD)",
+    "description": ""
+  },
+  "HNL": {
+    "message": "Lempira (HNL)",
+    "description": ""
+  },
+  "HRK": {
+    "message": "Kuna (HRK)",
+    "description": ""
+  },
+  "HTG": {
+    "message": "Gourde (HTG)",
+    "description": ""
+  },
+  "HUF": {
+    "message": "Forint (HUF)",
+    "description": ""
+  },
+  "IDR": {
+    "message": "Rupiah (IDR)",
+    "description": ""
+  },
+  "ILS": {
+    "message": "Shekel (ILS)",
+    "description": ""
+  },
+  "INR": {
+    "message": "Indisk rupie (INR)",
+    "description": ""
+  },
+  "IQD": {
+    "message": "Irakisk dinar (IQD)",
+    "description": ""
+  },
+  "IRR": {
+    "message": "Iransk rial (IRR)",
+    "description": ""
+  },
+  "ISK": {
+    "message": "Isländsk krona (ISK)",
+    "description": ""
+  },
+  "JMD": {
+    "message": "Jamaicansk dollar (JMD)",
+    "description": ""
+  },
+  "JOD": {
+    "message": "Jordansk dinar (JOD)",
+    "description": ""
+  },
+  "JPY": {
+    "message": "Yen (JPY)",
+    "description": ""
+  },
+  "KES": {
+    "message": "Kenyansk shilling (KES)",
+    "description": ""
+  },
+  "KGS": {
+    "message": "Kirgizistansk som (KGS)",
+    "description": ""
+  },
+  "KHR": {
+    "message": "Riel (KHR)",
+    "description": ""
+  },
+  "KMF": {
+    "message": "Komoransk franc (KMF)",
+    "description": ""
+  },
+  "KPW": {
+    "message": "Nordkoreansk won (KPW)",
+    "description": ""
+  },
+  "KRW": {
+    "message": "Sydkoreansk won (KRW)",
+    "description": ""
+  },
+  "KWD": {
+    "message": "Kuwaitisk dinar (KWD)",
+    "description": ""
+  },
+  "KYD": {
+    "message": "Caymansk dollar (KYD)",
+    "description": ""
+  },
+  "KZT": {
+    "message": "Tenge (KZT)",
+    "description": ""
+  },
+  "LAK": {
+    "message": "Lao Kip (LAK)",
+    "description": ""
+  },
+  "LBP": {
+    "message": "Libanesiskt pund (LBP)",
+    "description": ""
+  },
+  "LKR": {
+    "message": "Lankesisk rupie (LKR)",
+    "description": ""
+  },
+  "LRD": {
+    "message": "Liberiansk dollar (LRD)",
+    "description": ""
+  },
+  "LSL": {
+    "message": "Loti (LSL)",
+    "description": ""
+  },
+  "LYD": {
+    "message": "Libysk dinar (LYD)",
+    "description": ""
+  },
+  "MAD": {
+    "message": "Marockansk dirham (MAD)",
+    "description": ""
+  },
+  "MDL": {
+    "message": "Moldavisk leu (MDL)",
+    "description": ""
+  },
+  "MGA": {
+    "message": "Ariary (MGA)",
+    "description": ""
+  },
+  "MKD": {
+    "message": "Makedonisk denar (MKD)",
+    "description": ""
+  },
+  "MMK": {
+    "message": "Kyat (MMK)",
+    "description": ""
+  },
+  "MNT": {
+    "message": "Tögrög (MNT)",
+    "description": ""
+  },
+  "MOP": {
+    "message": "Pataca (MOP)",
+    "description": ""
+  },
+  "MRU": {
+    "message": "Ouguiya (MRU)",
+    "description": ""
+  },
+  "MUR": {
+    "message": "Mauritisk rupie (MUR)",
+    "description": ""
+  },
+  "MVR": {
+    "message": "Rufiyah (MVR)",
+    "description": ""
+  },
+  "MWK": {
+    "message": "malawisk kwacha (MWK)",
+    "description": ""
+  },
+  "MXN": {
+    "message": "Mexikansk peso (MXN)",
+    "description": ""
+  },
+  "MXV": {
+    "message": "Mexican Unidad de Inversion (UDI) (fonder) (MXV)",
+    "description": ""
+  },
+  "MYR": {
+    "message": "Ringgit (MYR)",
+    "description": ""
+  },
+  "MZN": {
+    "message": "Metical (MZN)",
+    "description": ""
+  },
+  "NAD": {
+    "message": "Namibisk dollar (NAD)",
+    "description": ""
+  },
+  "NGN": {
+    "message": "Naira (NGN)",
+    "description": ""
+  },
+  "NIO": {
+    "message": "Córdoba (NIO)",
+    "description": ""
+  },
+  "NOK": {
+    "message": "Norsk krona (NOK)",
+    "description": ""
+  },
+  "NPR": {
+    "message": "Nepalesisk rupie (NPR)",
+    "description": ""
+  },
+  "NZD": {
+    "message": "Nyzeeländsk dollar (NZD)",
+    "description": ""
+  },
+  "OMR": {
+    "message": "Omansk rial (OMR)",
+    "description": ""
+  },
+  "PAB": {
+    "message": "Balboa (PAB)",
+    "description": ""
+  },
+  "PEN": {
+    "message": "Nuevo sol (PEN)",
+    "description": ""
+  },
+  "PGK": {
+    "message": "Kina (PGK)",
+    "description": ""
+  },
+  "PHP": {
+    "message": "Filippinsk piso (PHP)",
+    "description": ""
+  },
+  "PKR": {
+    "message": "Pakistansk rupie (PKR)",
+    "description": ""
+  },
+  "PLN": {
+    "message": "Złoty (PLN)",
+    "description": ""
+  },
+  "PYG": {
+    "message": "Guarani (PYG)",
+    "description": ""
+  },
+  "QAR": {
+    "message": "Qatarisk rial (QAR)",
+    "description": ""
+  },
+  "RON": {
+    "message": "Rumänsk leu (RON)",
+    "description": ""
+  },
+  "RSD": {
+    "message": "Serbisk dinar (RSD)",
+    "description": ""
+  },
+  "RUB": {
+    "message": "Rysk rubel (RUB)",
+    "description": ""
+  },
+  "RWF": {
+    "message": "Rwandisk franc (RWF)",
+    "description": ""
+  },
+  "SAR": {
+    "message": "Saudiarabisk rial (SAR)",
+    "description": ""
+  },
+  "SBD": {
+    "message": "Salomondollar (SBD)",
+    "description": ""
+  },
+  "SCR": {
+    "message": "Seychellisk rupie (SCR)",
+    "description": ""
+  },
+  "SDG": {
+    "message": "Sudanesiskt pund (SDG)",
+    "description": ""
+  },
+  "SEK": {
+    "message": "Svensk krona (SEK)",
+    "description": ""
+  },
+  "SGD": {
+    "message": "Singaporiansk dollar (SGD)",
+    "description": ""
+  },
+  "SHP": {
+    "message": "Sankthelenskt pund (SHP)",
+    "description": ""
+  },
+  "SLL": {
+    "message": "Leone (SLL)",
+    "description": ""
+  },
+  "SOS": {
+    "message": "Somalisk shilling (SOS)",
+    "description": ""
+  },
+  "SRD": {
+    "message": "Surinamesisk dollar (SRD)",
+    "description": ""
+  },
+  "SSP": {
+    "message": "Sydsudanesiskt pund (SSP)",
+    "description": ""
+  },
+  "STN": {
+    "message": "Dobra (STN)",
+    "description": ""
+  },
+  "SVC": {
+    "message": "El Salvador Colon (SVC)",
+    "description": ""
+  },
+  "SYP": {
+    "message": "Syriskt pund (SYP)",
+    "description": ""
+  },
+  "SZL": {
+    "message": "Lilangeni (SZL)",
+    "description": ""
+  },
+  "THB": {
+    "message": "Baht (THB)",
+    "description": ""
+  },
+  "TJS": {
+    "message": "Somoni (TJS)",
+    "description": ""
+  },
+  "TMT": {
+    "message": "Turkmenistansk ny manat (TMT)",
+    "description": ""
+  },
+  "TND": {
+    "message": "Tunisisk dinar (TND)",
+    "description": ""
+  },
+  "TOP": {
+    "message": "Pa'anga (TOP)",
+    "description": ""
+  },
+  "TRY": {
+    "message": "Turkisk lira (TRY)",
+    "description": ""
+  },
+  "TTD": {
+    "message": "Trinidaddollar (TTD)",
+    "description": ""
+  },
+  "TWD": {
+    "message": "Taiwanesisk dollar (TWD)",
+    "description": ""
+  },
+  "TZS": {
+    "message": "Tanzanisk shilling (TZS)",
+    "description": ""
+  },
+  "UAH": {
+    "message": "Hryvnja (UAH)",
+    "description": ""
+  },
+  "UGX": {
+    "message": "Ugandisk shilling (UGX)",
+    "description": ""
+  },
+  "USD": {
+    "message": "Amerikansk dollar (USD)",
+    "description": ""
+  },
+  "USN": {
+    "message": "United States dollar (nästa dag) (fonder) (USN)",
+    "description": ""
+  },
+  "UYI": {
+    "message": "Uruguay Peso en Unidades Indexadas (URUIURUI) (UYI)",
+    "description": ""
+  },
+  "UYU": {
+    "message": "Uruguayansk peso (UYU)",
+    "description": ""
+  },
+  "UZS": {
+    "message": "Uzbekistansk som (UZS)",
+    "description": ""
+  },
+  "VEF": {
+    "message": "Bolívar (VEF)",
+    "description": ""
+  },
+  "VND": {
+    "message": "Dong (VND)",
+    "description": ""
+  },
+  "VUV": {
+    "message": "Vatu (VUV)",
+    "description": ""
+  },
+  "WST": {
+    "message": "Tala (WST)",
+    "description": ""
+  },
+  "XAF": {
+    "message": "CFA-franc (BEAC) (XAF)",
+    "description": ""
+  },
+  "XAG": {
+    "message": "Silver (en troy ounce) (XAG)",
+    "description": ""
+  },
+  "XAU": {
+    "message": "Guld (en troy ounce) (XAU)",
+    "description": ""
+  },
+  "XBA": {
+    "message": "European Composite Unit (EURCO) (enhet använd på obligationsmarknaden) (XBA)",
+    "description": ""
+  },
+  "XBB": {
+    "message": "European Monetary Unit (E.M.U.-6) (enhet använd på obligationsmarknaden) (XBB)",
+    "description": ""
+  },
+  "XBC": {
+    "message": "European Unit of Account 9 (E.U.A.-9) (enhet använd på obligationsmarknaden) (XBC)",
+    "description": ""
+  },
+  "XBD": {
+    "message": "European Unit of Account 17 (E.U.A.-17) (enhet använd på obligationsmarknaden) (XBD)",
+    "description": ""
+  },
+  "XCD": {
+    "message": "Östkaribisk dollar (XCD)",
+    "description": ""
+  },
+  "XDR": {
+    "message": "Särskilda dragningsrätter (XDR)",
+    "description": ""
+  },
+  "XOF": {
+    "message": "CFA-franc (BCEAO) (XOF)",
+    "description": ""
+  },
+  "XPD": {
+    "message": "Palladium (en troy ounce) (XPD)",
+    "description": ""
+  },
+  "XPF": {
+    "message": "CFP-franc (XPF)",
+    "description": ""
+  },
+  "XPT": {
+    "message": "Platina (en troy ounce) (XPT)",
+    "description": ""
+  },
+  "XSU": {
+    "message": "Sucre (XSU)",
+    "description": ""
+  },
+  "XTS": {
+    "message": "Kod reserverad i testningssyfte (XTS)",
+    "description": ""
+  },
+  "XUA": {
+    "message": "ADB Unit of Account (XUA)",
+    "description": ""
+  },
+  "XXX": {
+    "message": "Ingen valuta (XXX)",
+    "description": ""
+  },
+  "YER": {
+    "message": "Jemenitisk rial (YER)",
+    "description": ""
+  },
+  "ZAR": {
+    "message": "Rand (ZAR)",
+    "description": ""
+  },
+  "ZMW": {
+    "message": "Zambisk kwacha (ZMW)",
+    "description": ""
+  },
+  "ZWL": {
+    "message": "Zimbabwisk dollar (ZWL)",
+    "description": ""
+  }
+}
