@@ -6,7 +6,7 @@ OK  File organisation.
 
 Rename module direct-currency-converter, and Github repo too.
 
-OK  Exclude build files.
+Exclude build files in distribution.
 
 Remove freegeoip and nekudo
 Use http://ip-api.com/json

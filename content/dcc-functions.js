@@ -662,7 +662,7 @@ if (!this.DccFunctions) {
 
         const findNumbers = (anOriginalCurrency, aCurrency, aText) => {
             const prices = [];
-            const regex = new RegExp("((?:\\d{1,3}(?:(?:,|\\.|\\s|')\\d{3})+|(?:\\d+))(?:(?:[.,:])\\d{1,9})?)", "g")
+            const regex = new RegExp("((?:\\d{1,3}(?:[,.\\s']\\d{3})+|(?:\\d+))((?:[.,:])\\d{1,9})?)", "g")
             let match;
             while (match = regex.exec(aText)) {
                 prices.push(new Price(aCurrency, true, anOriginalCurrency, match, true));
