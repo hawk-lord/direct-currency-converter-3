@@ -113,12 +113,12 @@ const GcContentInterface = function(anInformationHolder) {
             console.log("DCC executeScript tabId " + tabId + " URL " + tab.url);
             // console.log("customTabObjects[tabId] " + customTabObjects[tabId]);
             chrome.tabs.insertCSS(tabId, {file: "title.css", allFrames: true});
-            //chrome.tabs.executeScript(tabId, {file: "common/dcc-regexes.js", allFrames: true}, () => {
+            chrome.tabs.executeScript(tabId, {file: "content/dcc-functions.js", allFrames: true}, () => {
                 chrome.tabs.executeScript(tabId, {file: "content/dcc-content.js", allFrames: true}, () => {
                     chrome.tabs.executeScript(tabId, {file: "gc-content-adapter.js", allFrames: true},
                         onScriptExecuted);
                 });
-            //});
+            });
         }
     };
 

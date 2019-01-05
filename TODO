@@ -1,26 +1,37 @@
 Tests:
 Unit tests.
-Data source switch works.
+OK  Data source switch works.
 
-File organisation.
-Exclude build files.
+OK  File organisation.
+
+Rename module direct-currency-converter, and Github repo too.
+
+OK  Exclude build files.
 
 Remove freegeoip and nekudo
 Use http://ip-api.com/json
 
 README add
 
-help.html
+help.html add
 
-Bug with Android drag.
+Fix bug with Android drag.
 
-Popup use multiples.
+Popup should use multiples.
 
 Whitelist
 
 Use local test file instead of joint.ax if possible.
 
-Different currency sets for different data sources. (Less Unknown).
+Different currency sets for different data sources? (Less Unknown).
 
-ECB quotes, also currencies with fixed rates.
+ECB quotes, add also currencies with fixed rates.
+
+Check the set of quotes shown in the quotes list.
+
+ISO updates
+
+Add VES and other missing currencies.
+
+Use analysis patterns.
 
