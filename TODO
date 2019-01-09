@@ -1,21 +1,21 @@
-Tests:
-Unit tests.
-OK  Data source switch works.
+Bug: repeated currencies.
 
-OK  File organisation.
-
-Rename module direct-currency-converter, and Github repo too.
-
-Exclude build files in distribution.
-
-Remove freegeoip and nekudo
-Use http://ip-api.com/json
+Bug: with Android drag.
 
 README add
 
 help.html add
 
-Fix bug with Android drag.
+Rename module direct-currency-converter, and Github repo too.
+
+Exclude build files in distribution.
+
+Unit tests.
+
+Remove freegeoip and nekudo
+Use http://ip-api.com/json
+
+Change Price to Quantity.
 
 Popup should use multiples.
 
@@ -25,13 +25,17 @@ Use local test file instead of joint.ax if possible.
 
 Different currency sets for different data sources? (Less Unknown).
 
-ECB quotes, add also currencies with fixed rates.
+ECB quotes: add also currencies with fixed rates.
+IMF quotes?
 
 Check the set of quotes shown in the quotes list.
 
-ISO updates
-
-Add VES and other missing currencies.
-
 Use analysis patterns.
+
+
+Done:  Data source switch works.
+
+Done?  File organisation.
+
+Done: ISO updates 166 - 169
 

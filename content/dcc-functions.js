@@ -176,8 +176,9 @@ if (!this.DccFunctions) {
         minorUnits.push(new MinorUnit("USN", 2, []));
         minorUnits.push(new MinorUnit("UYI", 0, []));
         minorUnits.push(new MinorUnit("UYU", 2, ["centésimo"]));
+        minorUnits.push(new MinorUnit("UYW", 4, []));
         minorUnits.push(new MinorUnit("UZS", 2, ["tiyin"]));
-        minorUnits.push(new MinorUnit("VEF", 2, ["céntimo"]));
+        minorUnits.push(new MinorUnit("VES", 2, ["céntimo"]));
         minorUnits.push(new MinorUnit("VND", 0, []));
         minorUnits.push(new MinorUnit("VUV", 0, []));
         minorUnits.push(new MinorUnit("WST", 2, ["sene"]));

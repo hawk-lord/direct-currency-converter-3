@@ -611,12 +611,16 @@
     "message": "Uruguayansk peso (UYU)",
     "description": ""
   },
+  "UYW": {
+    "message": "Unidad Previsional (UYW)",
+    "description": ""
+  },
   "UZS": {
     "message": "Uzbekistansk som (UZS)",
     "description": ""
   },
-  "VEF": {
-    "message": "Bolívar (VEF)",
+  "VES": {
+    "message": "Bolívar Soberano (VES)",
     "description": ""
   },
   "VND": {

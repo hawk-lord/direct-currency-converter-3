@@ -456,7 +456,7 @@
     "description": ""
   },
   "PHP": {
-    "message": "Philippine Piso (PHP)",
+    "message": "Philippine Peso (PHP)",
     "description": ""
   },
   "PKR": {
@@ -611,12 +611,16 @@
     "message": "Peso Uruguayo (UYU)",
     "description": ""
   },
+  "UYW": {
+    "message": "Unidad Previsional (UYW)",
+    "description": ""
+  },
   "UZS": {
     "message": "Uzbekistan Sum (UZS)",
     "description": ""
   },
-  "VEF": {
-    "message": "Bolivar (VEF)",
+  "VES": {
+    "message": "Bolívar Soberano (VES)",
     "description": ""
   },
   "VND": {

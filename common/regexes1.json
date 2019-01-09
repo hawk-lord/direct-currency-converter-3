@@ -760,13 +760,18 @@
     "mult": "()"
   },
   {
+    "name": "UYW",
+    "regex": "(UYW)",
+    "mult": "()"
+  },
+  {
     "name": "UZS",
     "regex": "(UZS)",
     "mult": "()"
   },
   {
-    "name": "VEF",
-    "regex": "(VEF|[bB]s\\.?[fF]?\\.?)",
+    "name": "VES",
+    "regex": "(VES|[bB]s\\.?[fF]?\\.?)",
     "mult": "()"
   },
   {

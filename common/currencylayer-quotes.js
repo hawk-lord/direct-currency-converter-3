@@ -34,6 +34,9 @@ const CurrencylayerQuotesServiceProvider = function(anEventAggregator, anInforma
         if (!response.quotes["USDSTN"]) {
             anInformationHolder.setConversionQuote("STN", quote / response.quotes["USDSTD"] * 1000);
         }
+        if (!response.quotes["USDVES"]) {
+            anInformationHolder.setConversionQuote("VES", quote / response.quotes["USDVEF"] * 100000);
+        }
 
         eventAggregator.publish("quotesParsed");
     });
