@@ -1,6 +1,7 @@
-Bug: repeated currencies.
 
 Bug: with Android drag.
+
+Remove console.log.
 
 README add
 
@@ -33,9 +34,16 @@ Check the set of quotes shown in the quotes list.
 Use analysis patterns.
 
 
-Done:  Data source switch works.
+DONE:
 
-Done?  File organisation.
+Bugfix: wrong currency in popup.
 
-Done: ISO updates 166 - 169
+Bug: repeated currencies.
+
+
+Data source switch works.
+
+File organisation.
+
+ISO updates 166 - 169
 

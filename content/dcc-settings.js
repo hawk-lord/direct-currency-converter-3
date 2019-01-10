@@ -26,8 +26,8 @@ if (!this.DirectCurrencySettings) {
             // Why was this used?        jQuery("ol, li").disableSelection();
             jQuery("#convert_to_currency").change(function() {
                 const currencyCountry = jQuery(this).val();
-                convertToCurrency = currencyCountry.substr(0, 3);
-                convertToCountry = currencyCountry.substr(-2);
+                convertToCurrency = currencyCountry.substring(0, 3);
+                convertToCountry = currencyCountry.substring(currencyCountry.length - 2, currencyCountry.length);
                 onCurrencyChange(convertToCurrency);
             });
             jQuery("#enable_conversion").change(function() {

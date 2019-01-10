@@ -576,10 +576,11 @@ if (!this.DccFunctions) {
                     convertedPrice = convertedPrice + " (##__##)";
                 }
             }
+            // Replace all aPrice.full in convertedContent. RegExp does not work if $ and others are present.
             convertedContent = convertedContent.split(aPrice.full).join(convertedPrice);
             if (aShowOriginalPrices) {
-                convertedContent = convertedContent.replace("##__##", aPrice.full);
-                convertedContent = convertedContent.replace("¤¤¤", aReplacedUnit);
+                convertedContent = convertedContent.replace(/##__##/g, aPrice.full);
+                convertedContent = convertedContent.replace(/¤¤¤/g, aReplacedUnit);
             }
             return convertedContent;
         };
@@ -631,7 +632,11 @@ if (!this.DccFunctions) {
             let match;
             while (match = aRegex.exec(aText)) {
                 console.log(match);
-                prices.push(new Price(newUnit, anIso4217Currency, anOriginalCurrency, match, aBeforeCurrencySymbol));
+                // Add items that are not there already. Later, we do a replace all in the string.
+                if(!prices.find(oldPrice => oldPrice.full === match[0])) {
+                    const price = new Price(newUnit, anIso4217Currency, anOriginalCurrency, match, aBeforeCurrencySymbol);
+                    prices.push(price);
+                }
             }
             return prices;
         };
@@ -663,7 +668,7 @@ if (!this.DccFunctions) {
 
         const findNumbers = (anOriginalCurrency, aCurrency, aText) => {
             const prices = [];
-            const regex = new RegExp("((?:\\d{1,3}(?:[,.\\s']\\d{3})+|(?:\\d+))((?:[.,:])\\d{1,9})?)", "g")
+            const regex = new RegExp("((?:\\d{1,3}(?:[,.\\s']\\d{3})+|(?:\\d+))((?:[.,:])\\d{1,9})?)", "g");
             let match;
             while (match = regex.exec(aText)) {
                 prices.push(new Price(aCurrency, true, anOriginalCurrency, match, true));

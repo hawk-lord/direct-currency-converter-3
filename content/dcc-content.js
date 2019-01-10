@@ -36,36 +36,22 @@ if (!this.DirectCurrencyContent) {
         let showAsSymbol = false;
         const skippedElements = ["audio", "colgroup", "embed", "head", "html", "img", "object",  "ol", "script", "select", "style", "table", "tbody", "textarea", "thead", "tr", "ul", "video"];
 
-        /*
-         * Wait for PriceRegexes to be created before running makePriceRegexes.
-         * Should be executed once only.
+        /**
+         *
+         * @param aNode
+         * @param aCheckIfDataNode Check if dataNode has been created.
+         * Seems it always has to be true, otherwise the conversion will be repeated because of
+         * MutationHandler if the original currency is shown.
          */
-        /*
-        const makePriceRegexes = () => {
-            new Promise(
-                (resolve, reject) => PriceRegexes ? resolve(PriceRegexes) : reject(Error("makePriceRegexes rejected"))
-            ).then(
-                (aPriceRegexes) => aPriceRegexes.makePriceRegexes(regexes1, regexes2),
-                (err) => console.error("makePriceRegexes then error " + err)
-            ).catch(
-                (err) => console.error("makePriceRegexes catch error " + err)
-            );
-        };
-
-        makePriceRegexes();
-        */
-
-        //PriceRegexes.makePriceRegexes();
-
-        const replaceCurrency = (aNode, aCheckDataNode) => {
-            if (!aNode.parentNode) {
+        const replaceCurrency = (aNode, aCheckIfDataNode) => {
+            if (!aNode || !aNode.parentNode) {
                 return;
             }
             const isSibling = aNode.previousSibling;
             const dataNode = isSibling ? aNode.previousSibling : aNode.parentNode;
             // Can be [object SVGAnimatedString]
             // Extra check of "string" for Chrome
-            if (aCheckDataNode && dataNode
+            if (aCheckIfDataNode && dataNode
                 && dataNode.className
                 && typeof dataNode.className === "string"
                 && dataNode.className.includes("dccConverted")) {
@@ -173,7 +159,7 @@ if (!this.DirectCurrencyContent) {
             }
             else if (aMutationRecord.type === "characterData") {
                 mutationObserver.disconnect();
-                replaceCurrency(aMutationRecord.target, false);
+                replaceCurrency(aMutationRecord.target, true);
                 //mutationObserver.observe(document.body, mutationObserverInit);
             }
         };
