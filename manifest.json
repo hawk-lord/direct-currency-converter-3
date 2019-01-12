@@ -28,6 +28,7 @@
       "common/ecb-quotes.js",
       "common/eventAggregator.js",
       "common/freegeoip-service.js",
+      "common/functions.js",
       "common/informationHolder.js",
       "common/nekudo-service.js",
       "common/quotes-service.js",

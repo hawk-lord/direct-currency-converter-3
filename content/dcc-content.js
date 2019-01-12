@@ -18,7 +18,6 @@ if (!this.DirectCurrencyContent) {
         }
         let conversionQuotes = [];
         let currencyCode = "";
-        let excludedDomains = [];
         let isEnabled = true;
         let quoteAdjustmentPercent = 0;
         let regexes1 = {};
@@ -283,9 +282,6 @@ if (!this.DirectCurrencyContent) {
 
         const onSendEnabledStatus = (aStatus) => {
             isEnabled = aStatus.isEnabled;
-            if (aDccFunctions.isExcludedDomain(excludedDomains, document.URL)) {
-                return;
-            }
             if (aStatus.isEnabled && !aStatus.hasConvertedElements) {
                 startObserve();
                 //console.log("DCC onSendEnabledStatus " + document.URL);
@@ -301,7 +297,6 @@ if (!this.DirectCurrencyContent) {
          */
         const readParameters = (aSettings) => {
             conversionQuotes = aSettings.conversionQuotes;
-            excludedDomains = aSettings.excludedDomains;
             currencyCode = aSettings.convertToCurrency;
             roundAmounts = aSettings.roundAmounts;
             showOriginalPrices = aSettings.showOriginalPrices;
@@ -376,14 +371,6 @@ if (!this.DirectCurrencyContent) {
             const startConversion = () => {
                 readEnabledCurrencies(aSettings);
                 let process = true;
-                for (let excludedDomain of aSettings.excludedDomains) {
-                    const matcher = new RegExp(excludedDomain, "g");
-                    const found = matcher.test(document.URL);
-                    if (found) {
-                        process = false;
-                        break;
-                    }
-                }
                 let hasConvertedElements = false;
                 if (aSettings.isEnabled && process) {
                     startObserve();

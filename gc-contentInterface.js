@@ -94,6 +94,9 @@ const GcContentInterface = function(anInformationHolder) {
      */
     const sendSettingsToPage = (tabId, changeInfo, tab) => {
         console.log("sendSettingsToPage " + tabId + " status " + changeInfo.status + " url " + changeInfo.url);
+
+        const settings = new Settings(anInformationHolder);
+
         const onScriptExecuted = () => {
             // console.log("onScriptExecuted tabId " + tabId);
             try {
@@ -101,12 +104,17 @@ const GcContentInterface = function(anInformationHolder) {
                     console.log("Add finishedTabProcessingHandler");
                     chrome.runtime.onMessage.addListener(finishedTabProcessingHandler);
                 }
-                chrome.tabs.sendMessage(tabId, new Settings(anInformationHolder))
+                chrome.tabs.sendMessage(tabId, settings)
             }
             catch (err) {
                 console.error(err);
             }
         };
+
+        if (DccFunctions.isExcludedDomain(settings.excludedDomains, tab.url)) {
+            return;
+        }
+
         if (changeInfo.status === "complete" && tab && tab.url && tab.url.includes("http")
             && !tab.url.includes("https://chrome.google.com/webstore")
             && !tab.url.includes("https://addons.opera.com") ) {

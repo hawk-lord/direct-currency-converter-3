@@ -13,7 +13,7 @@ if (!this.DccFunctions) {
     /**
      * Functionality not dependent on the browser.
      *
-     * @type {{formatIso4217Price, checkMinorUnit, convertAmount, findPrices, useUnit, findNumbers, isExcludedDomain, saveNumberFormat, getMultiplicator, saveDefaultCurrencyNumberFormat, formatDefaultIso4217Price, formatOther, convertContent, parseAmount, findPricesInCurrency, replaceContent}}
+     * @type {{formatIso4217Price, checkMinorUnit, convertAmount, findPrices, useUnit, findNumbers, saveNumberFormat, getMultiplicator, saveDefaultCurrencyNumberFormat, formatDefaultIso4217Price, formatOther, convertContent, parseAmount, findPricesInCurrency, replaceContent}}
      */
     const DccFunctions = (function(){
 
@@ -676,21 +676,6 @@ if (!this.DccFunctions) {
             return prices;
         };
 
-        /**
-         *
-         * @param anExcludedDomains
-         * @param anUrl
-         * @returns {boolean}
-         */
-        const isExcludedDomain = (anExcludedDomains, anUrl) => {
-            for (let excludedDomain of anExcludedDomains) {
-                const matcher = new RegExp(excludedDomain, "g");
-                if (matcher.test(anUrl)){
-                    return true;
-                }
-            }
-            return false;
-        };
 
         return {
             checkMinorUnit: checkMinorUnit,
@@ -707,8 +692,7 @@ if (!this.DccFunctions) {
             convertContent: convertContent,
             findPricesInCurrency: findPricesInCurrency,
             findPrices: findPrices,
-            findNumbers: findNumbers,
-            isExcludedDomain: isExcludedDomain
+            findNumbers: findNumbers
         }
     })();
     this.DccFunctions = DccFunctions;
