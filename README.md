@@ -1,8 +1,8 @@
 # Direct Currency Converter - DCC
 
-Version 3.0.0, date 2019-01-10
+Version 3.0.0, date 2019-01-14
 
-No ads or spyware.
+## Introduction
 
 DCC finds and converts prices on any web page with currency quotes from external sources (ECB or Currencylayer).
 
@@ -10,9 +10,17 @@ If you hover the mouse over a converted price, the conversion quote and original
 shown as a tooltip in the upper left corner of the window. 
 The tooltip can be switched off in the settings.
 
+## Data protection
+
+DCC does not collect any information about you. 
+The communication is directly between you, the page you are viewing, 
+and the currency data providers. 
+There are no ads or spyware. 
+
 ## Settings
 
-The currencies to be converted is shown in a list in priority order. 
+The currencies to be converted is shown in a list in priority order.
+The currencies can be reordered using drag and drop. 
 For instance, if AUD is before USD and both are selected, "$100" will be converted from AUD.
 Select All will select all currencies.
 Select None will turn off all selections.
@@ -64,6 +72,8 @@ Thanks to Jetbrains s.r.o for a licence to use IntelliJ IDEA Ultimate for open s
 ## Changelog
 
 ### 3.0.0
+
+Added included domains (whitelist).
 
 Internal rewrite to improve the functionality. No changes in the settings storage.
 

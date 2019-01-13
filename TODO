@@ -1,14 +1,12 @@
-Whitelist
-
 Remove console.log.
 
-help.html add
+New screenshots?
 
-Rename module direct-currency-converter, and Github repo too.
+Rename module direct-currency-converter, and Github repo too?
 
-Exclude build files in distribution.
+Error with VEF.
 
-Version number.
+Make mult work with GSEK.
 
 Unit tests.
 
@@ -52,4 +50,9 @@ File organisation.
 
 README add
 
+On/off in Android
+
+Exclude build files in distribution.
+
+help.html add
 

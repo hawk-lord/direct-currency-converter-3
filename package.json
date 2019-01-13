@@ -1,0 +1,8 @@
+{
+  "name": "direct-currency-converter",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0"
+  }
+}
