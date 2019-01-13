@@ -60,14 +60,14 @@ const InformationHolder = function(aStorageService, aCurrencyData, _, aRegexes1,
             if (aCurrency.enabled) {
                 for (let regex1 of aRegexes1) {
                     if (regex1.name === aCurrency.isoName) {
-                        console.log(regex1);
+                        // console.log(regex1);
                         regexes1[regex1.name] = regex1;
                         break;
                     }
                 }
                 for (let regex2 of aRegexes2) {
                     if (regex2.name === aCurrency.isoName) {
-                        console.log(regex2);
+                        // console.log(regex2);
                         regexes2[regex2.name] = regex2;
                         break;
                     }

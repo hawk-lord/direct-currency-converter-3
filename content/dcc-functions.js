@@ -631,7 +631,7 @@ if (!this.DccFunctions) {
             const newUnit = anIso4217Currency ? aCurrency : useUnit(anOriginalCurrency);
             let match;
             while (match = aRegex.exec(aText)) {
-                console.log(match);
+                // console.log(match);
                 // Add items that are not there already. Later, we do a replace all in the string.
                 if(!prices.find(oldPrice => oldPrice.full === match[0])) {
                     const price = new Price(newUnit, anIso4217Currency, anOriginalCurrency, match, aBeforeCurrencySymbol);

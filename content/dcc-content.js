@@ -167,7 +167,7 @@ if (!this.DirectCurrencyContent) {
         const mutationObserver = new MutationObserver(mutationsHandler);
 
         const startObserve = () => {
-            console.log("startObserve");
+            // console.log("startObserve");
             if (document.body) {
                 mutationObserver.observe(document.body, mutationObserverInit);
             }
@@ -360,7 +360,7 @@ if (!this.DirectCurrencyContent) {
          * @param aSettings
          */
         const onUpdateSettings = (aSettings) => {
-            console.log("DCC onUpdateSettings " + document.URL);
+            // console.log("DCC onUpdateSettings " + document.URL);
             const showOriginal = true;
             substituteAll(document.body, showOriginal);
             resetDomTree(document.body);

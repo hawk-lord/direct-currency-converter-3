@@ -44,19 +44,19 @@ const GcDirectCurrencyConverter = (function() {
      */
     eventAggregator.subscribe("allSettingsRead", () => {
 
-        console.log("allSettingsRead");
+        // console.log("allSettingsRead");
 
         eventAggregator.subscribe("storageInitDone", () => {
             dcc.createInformationHolder(gcStorageServiceProvider, _);
             const contentInterface = new GcContentInterface(dcc.informationHolder);
             const chromeInterface = new GcChromeInterface(dcc.informationHolder.conversionEnabled);
             eventAggregator.subscribe("quotesParsed", () => {
-                console.log("quotesParsed");
+                // console.log("quotesParsed");
                 contentInterface.watchForPages();
             });
 
             eventAggregator.subscribe("toggleConversion", (eventArgs) => {
-                console.log("toggleConversion" + eventArgs);
+                // console.log("toggleConversion" + eventArgs);
                 contentInterface.toggleConversion(eventArgs);
             });
 

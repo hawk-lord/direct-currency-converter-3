@@ -93,7 +93,7 @@ const GcContentInterface = function(anInformationHolder) {
      * @param tab
      */
     const sendSettingsToPage = (tabId, changeInfo, tab) => {
-        console.log("sendSettingsToPage " + tabId + " status " + changeInfo.status + " url " + changeInfo.url);
+        // console.log("sendSettingsToPage " + tabId + " status " + changeInfo.status + " url " + changeInfo.url);
 
         const settings = new Settings(anInformationHolder);
 
@@ -101,7 +101,7 @@ const GcContentInterface = function(anInformationHolder) {
             // console.log("onScriptExecuted tabId " + tabId);
             try {
                 if (!chrome.runtime.onMessage.hasListener(finishedTabProcessingHandler)) {
-                    console.log("Add finishedTabProcessingHandler");
+                    // console.log("Add finishedTabProcessingHandler");
                     chrome.runtime.onMessage.addListener(finishedTabProcessingHandler);
                 }
                 chrome.tabs.sendMessage(tabId, settings)
@@ -122,7 +122,7 @@ const GcContentInterface = function(anInformationHolder) {
         if (changeInfo.status === "complete" && tab && tab.url && tab.url.includes("http")
             && !tab.url.includes("https://chrome.google.com/webstore")
             && !tab.url.includes("https://addons.opera.com") ) {
-            console.log("DCC executeScript tabId " + tabId + " URL " + tab.url);
+            // console.log("DCC executeScript tabId " + tabId + " URL " + tab.url);
             // console.log("customTabObjects[tabId] " + customTabObjects[tabId]);
             chrome.tabs.insertCSS(tabId, {file: "title.css", allFrames: true});
             chrome.tabs.executeScript(tabId, {file: "content/dcc-functions.js", allFrames: true}, () => {
@@ -136,7 +136,7 @@ const GcContentInterface = function(anInformationHolder) {
 
     const watchForPages = () => {
         if (!chrome.tabs.onUpdated.hasListener(sendSettingsToPage)) {
-            console.log("Add sendSettingsToPage");
+            // console.log("Add sendSettingsToPage");
             chrome.tabs.onUpdated.addListener(sendSettingsToPage);
         }
     };
