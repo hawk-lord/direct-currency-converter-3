@@ -11,6 +11,7 @@
 const DirectCurrencyConverter = function() {
 
     const defaultExcludedDomains = ["images.google.com", "docs.google.com", "drive.google.com", "twitter.com"];
+    const defaultIncludedDomains = [];
 
     /**
      * Fractions, regions, and dates.
@@ -226,6 +227,9 @@ const DirectCurrencyConverter = function() {
         },
         get defaultExcludedDomains(){
             return defaultExcludedDomains;
+        },
+        get defaultIncludedDomains(){
+            return defaultIncludedDomains;
         },
         get informationHolder(){
             return informationHolder;

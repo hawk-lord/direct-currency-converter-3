@@ -111,7 +111,11 @@ const GcContentInterface = function(anInformationHolder) {
             }
         };
 
-        if (DccFunctions.isExcludedDomain(settings.excludedDomains, tab.url)) {
+        if (settings.includedDomains && settings.includedDomains.length > 0 && !DccFunctions.isUrlInArray(settings.includedDomains, tab.url)) {
+            return;
+        }
+
+        if (DccFunctions.isUrlInArray(settings.excludedDomains, tab.url)) {
             return;
         }
 

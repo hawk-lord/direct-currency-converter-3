@@ -12,12 +12,12 @@ const DccFunctions = (function() {
 
     /**
      *
-     * @param anExcludedDomains parts of a URL
+     * @param aUrls parts of a URL
      * @param aUrl
      * @returns {boolean}
      */
-    const isExcludedDomain = (anExcludedDomains, aUrl) => {
-        for (let excludedDomain of anExcludedDomains) {
+    const isUrlInArray = (aUrls, aUrl) => {
+        for (let excludedDomain of aUrls) {
             const matcher = new RegExp(excludedDomain, "g");
             if (matcher.test(aUrl)){
                 return true;
@@ -27,7 +27,7 @@ const DccFunctions = (function() {
     };
 
     return {
-        isExcludedDomain: isExcludedDomain
+        isUrlInArray: isUrlInArray
     }
 })();
 

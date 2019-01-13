@@ -76,7 +76,7 @@ const GcDirectCurrencyConverter = (function() {
         });
         */
         const gcStorageServiceProvider = new GcStorageServiceProvider();
-        gcStorageServiceProvider.initSettings(dcc.iso4217CurrenciesEnabled, dcc.defaultExcludedDomains);
+        gcStorageServiceProvider.initSettings(dcc.iso4217CurrenciesEnabled, dcc.defaultExcludedDomains, dcc.defaultIncludedDomains);
 
     });
 

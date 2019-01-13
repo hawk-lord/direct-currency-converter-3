@@ -19,6 +19,7 @@ const Settings = function(anInformationHolder) {
     this.convertToCountry = anInformationHolder.convertToCountry;
     this.enableOnStart = anInformationHolder.enableOnStart;
     this.excludedDomains = anInformationHolder.excludedDomains;
+    this.includedDomains = anInformationHolder.includedDomains;
     // To <li id ="SEK" ... />
     this.convertFroms = anInformationHolder.convertFroms;
     this.quoteAdjustmentPercent = anInformationHolder.quoteAdjustmentPercent;

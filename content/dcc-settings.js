@@ -75,6 +75,14 @@ if (!this.DirectCurrencySettings) {
                     excludedLines = [];
                 }
                 excludedDomains = excludedLines;
+                const includedTextAreaString = escapeHtml(jQuery("#included_domains").val());
+                let includedLines = includedTextAreaString.replace(/\r\n/g, "\n").split("\n");
+                // remove empty entries
+                includedLines = jQuery.grep(includedLines, function(n){ return(n); });
+                if (includedLines === null || includedLines[0] === "") {
+                    includedLines = [];
+                }
+                includedDomains = includedLines;
                 convertFroms = [];
                 const liFromCurrencies = jQuery("#fromCurrencies").find("li");
                 liFromCurrencies.each(function () {
@@ -93,6 +101,8 @@ if (!this.DirectCurrencySettings) {
                 settings.enableOnStart = enableOnStart;
                 settings.excludedDomains = excludedDomains;
                 Object.keys(settings.excludedDomains).forEach(escapeHtml);
+                settings.includedDomains = includedDomains;
+                Object.keys(settings.includedDomains).forEach(escapeHtml);
                 settings.convertFroms = convertFroms;
                 //Object.keys(settings.convertFroms).forEach(escapeHtml);
                 settings.quoteAdjustmentPercent = escapeHtml(quoteAdjustmentPercent);
@@ -139,6 +149,7 @@ if (!this.DirectCurrencySettings) {
         let convertToCountry = null;
         let enableOnStart = null;
         let excludedDomains = [];
+        let includedDomains = [];
         let convertFroms = [];
         let quoteAdjustmentPercent = null;
         let roundAmounts = null;
@@ -158,6 +169,8 @@ if (!this.DirectCurrencySettings) {
             jQuery("#enable_conversion").prop("checked", enableOnStart);
             const excludedText = excludedDomains.join("\n").replace(/\n/g, "\r\n");
             jQuery("#excluded_domains").val(excludedText);
+            const includedText = includedDomains.join("\n").replace(/\n/g, "\r\n");
+            jQuery("#included_domains").val(includedText);
             for (let currency of convertFroms) {
                 let li = jQuery(document.createElement("li")).attr({
                     class: "ui-state-default",
@@ -220,6 +233,8 @@ if (!this.DirectCurrencySettings) {
             enableOnStart = aSettings.enableOnStart;
             excludedDomains = aSettings.excludedDomains;
             excludedDomains.map(escapeHtml);
+            includedDomains = aSettings.includedDomains;
+            includedDomains.map(escapeHtml);
             convertFroms = aSettings.convertFroms;
             convertFroms.map( (item) => { item.isoName = escapeHtml(item.isoName) });
             quoteAdjustmentPercent = escapeHtml(aSettings.quoteAdjustmentPercent);

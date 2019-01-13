@@ -18,6 +18,7 @@ const ParseSettings = function(aSettings, anInformationHolder) {
     anInformationHolder.convertToCountry = aSettings.convertToCountry;
     anInformationHolder.enableOnStart = aSettings.enableOnStart;
     anInformationHolder.excludedDomains = aSettings.excludedDomains;
+    anInformationHolder.includedDomains = aSettings.includedDomains;
     anInformationHolder.convertFroms = aSettings.convertFroms;
     anInformationHolder.quoteAdjustmentPercent = aSettings.quoteAdjustmentPercent;
     anInformationHolder.roundPrices = aSettings.roundAmounts;

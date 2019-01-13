@@ -161,6 +161,12 @@ const InformationHolder = function(aStorageService, aCurrencyData, _, aRegexes1,
         set excludedDomains (anExcludedDomains) {
             aStorageService.excludedDomains = anExcludedDomains;
         },
+        get includedDomains () {
+            return aStorageService.includedDomains;
+        },
+        set includedDomains (anIncludedDomains) {
+            aStorageService.includedDomains = anIncludedDomains;
+        },
         get convertFroms () {
             return aStorageService.convertFroms;
         },

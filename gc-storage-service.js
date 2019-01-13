@@ -11,11 +11,14 @@ const GcStorageServiceProvider = function() {
 
     let storage = {};
 
-    const initSettings = (aConvertFroms, anExcludedDomains) => {
+    const initSettings = (aConvertFroms, anExcludedDomains, anIncludedDomains) => {
         chrome.storage.local.get((aStorage) => {
             storage = aStorage;
             if (!storage.excludedDomains) {
                 storage.excludedDomains = anExcludedDomains;
+            }
+            if (!storage.includedDomains) {
+                storage.includedDomains = anIncludedDomains;
             }
             if (!storage.dccPrefs) {
                 storage.dccPrefs = {
@@ -154,6 +157,13 @@ const GcStorageServiceProvider = function() {
         },
         set excludedDomains (anExcludedDomains) {
             storage.excludedDomains = anExcludedDomains;
+            chrome.storage.local.set(storage);
+        },
+        get includedDomains () {
+            return storage.includedDomains;
+        },
+        set includedDomains (anIncludedDomains) {
+            storage.includedDomains = anIncludedDomains;
             chrome.storage.local.set(storage);
         },
         get convertFroms () {

@@ -12,12 +12,12 @@
         <title data-l10n-id="Direct Currency Converter">Direct Currency Converter</title>
         <link rel="icon" type="image/png" href="images/1402781551_currency_exchange_1.png">
         <link rel="stylesheet" type="text/css" href="settings.css">
-        <script type="text/javascript" src="content/purify.1.0.8.min.js"></script>
-        <script type="text/javascript" src="content/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="content/jquery-ui-1.12.1.min.js"></script>
-        <script type="text/javascript" src="content/dcc-settings.js"></script>
-        <script type="text/javascript" src="gc-settings-adapter.js"></script>
-        <script type="text/javascript" src="content/jquery.ui.touch-punch.js"></script>
+        <script src="content/purify.1.0.8.min.js"></script>
+        <script src="content/jquery-3.3.1.min.js"></script>
+        <script src="content/jquery-ui-1.12.1.min.js"></script>
+        <script src="content/dcc-settings.js"></script>
+        <script src="gc-settings-adapter.js"></script>
+        <script src="content/jquery.ui.touch-punch.js"></script>
     </head>
 
     <body>
@@ -379,12 +379,27 @@
         </ul>
     </fieldset>
     <fieldset>
-        <legend data-l10n-id="Excluded Domains">
-            Excluded Domains
+        <legend data-l10n-id="Excluded or included URLs">
+            Excluded or included URLs.
         </legend>
         <ul>
             <li>
                 <textarea id="excluded_domains" placeholder="Example: ebay.com" > </textarea>
+                    <br>
+                <label for="excluded_domains" data-l10n-id="">
+                    Excluded URLs. Add a blacklist of URLs that should be ignored. Regular expressions are used.
+                    Example: \.dk will exclude Danish URLs (and domains like www.dk.com too).
+                    dk without a dot will exclude any URL containing a dk, like www.anything.com/soundkarte-html.
+                </label>
+            </li>
+            <li>
+                <textarea id="included_domains" placeholder="Example: ebay.com" > </textarea>
+                <br>
+                <label for="included_domains" data-l10n-id="">
+                    Included URLs. Add a whitelist of the only URLs that should be included.
+                    If the list is empty, all URLs are included.
+                    It works like the list of excluded URLs.
+                </label>
             </li>
         </ul>
     </fieldset>
