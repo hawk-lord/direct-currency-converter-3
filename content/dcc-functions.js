@@ -334,15 +334,14 @@ if (!this.DccFunctions) {
          * @param aUnit
          * @returns {Intl.NumberFormat}
          */
-        const getCurrencyNumberFormat = (aUnit) => {
-            const locales = navigator.language;
+        const getCurrencyNumberFormat = (aLocales, aUnit) => {
             let options = {
                 style: "currency",
                 currency: aUnit,
                 currencyDisplay: showAsSymbol ? "symbol" : "code"
             };
             try {
-                new Intl.NumberFormat(locales, options);
+                new Intl.NumberFormat(aLocales, options);
             }
             catch(e) {
                 options = {};
@@ -354,7 +353,7 @@ if (!this.DccFunctions) {
                 options.maximumFractionDigits = 0;
             }
 
-            return new Intl.NumberFormat(locales, options);
+            return new Intl.NumberFormat(aLocales, options);
 
         };
 
@@ -365,17 +364,16 @@ if (!this.DccFunctions) {
          * @param aUnit
          * @param aShowAsSymbol
          */
-        const saveDefaultCurrencyNumberFormat = (aRoundAmounts, aUnit, aShowAsSymbol) => {
+        const saveDefaultCurrencyNumberFormat = (aLocales, aRoundAmounts, aUnit, aShowAsSymbol) => {
             roundAmounts = aRoundAmounts;
             showAsSymbol = aShowAsSymbol;
-            const locales = navigator.language;
             let options = {
                 style: "currency",
                 currency: aUnit,
                 currencyDisplay: aShowAsSymbol ? "symbol" : "code"
             };
             try {
-                new Intl.NumberFormat(locales, options);
+                new Intl.NumberFormat(aLocales, options);
             }
             catch(e) {
                 options = {};
@@ -387,18 +385,17 @@ if (!this.DccFunctions) {
                 options.maximumFractionDigits = 0;
             }
 
-            defaultCurrencyNumberFormat = new Intl.NumberFormat(locales, options);
+            defaultCurrencyNumberFormat = new Intl.NumberFormat(aLocales, options);
 
         };
 
-        const saveNumberFormat = (aRoundAmounts) => {
-            const locales = navigator.language;
+        const saveNumberFormat = (aLocales, aRoundAmounts) => {
             let options = {};
             if (aRoundAmounts) {
                 options.minimumFractionDigits = 0;
                 options.maximumFractionDigits = 0;
             }
-            numberFormat = new Intl.NumberFormat(locales, options);
+            numberFormat = new Intl.NumberFormat(aLocales, options);
 
         };
 
@@ -408,8 +405,8 @@ if (!this.DccFunctions) {
          * @param aUnit
          * @returns {string}
          */
-        const formatIso4217Price = (anAmount, aUnit) => {
-            const amountLocalised = isNaN(anAmount) ? "Unknown" : getCurrencyNumberFormat(aUnit).format(anAmount);
+        const formatIso4217Price = (aLocales, anAmount, aUnit) => {
+            const amountLocalised = isNaN(anAmount) ? "Unknown" : getCurrencyNumberFormat(aLocales, aUnit).format(anAmount);
             return " " + amountLocalised + " ";
         };
 

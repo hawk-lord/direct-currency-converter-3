@@ -111,7 +111,7 @@ if (!this.DirectCurrencyContent) {
                     dccTitle += "\n";
                     dccTitle += "Original value: ";
                     dccTitle += price.iso4217Currency ?
-                        aDccFunctions.formatIso4217Price(tempAmount, price.originalCurrency) :
+                        aDccFunctions.formatIso4217Price(navigator.language, tempAmount, price.originalCurrency) :
                         aDccFunctions.formatOther(tempAmount, price.originalCurrency);
                     dccTitle += "\n";
                     dccTitle += "Conversion quote " + price.originalCurrency + "/" + price.currency + " = " +
@@ -365,8 +365,8 @@ if (!this.DirectCurrencyContent) {
             substituteAll(document.body, showOriginal);
             resetDomTree(document.body);
             readParameters(aSettings);
-            aDccFunctions.saveDefaultCurrencyNumberFormat(roundAmounts, currencyCode, showAsSymbol);
-            aDccFunctions.saveNumberFormat(roundAmounts);
+            aDccFunctions.saveDefaultCurrencyNumberFormat(navigator.language, roundAmounts, currencyCode, showAsSymbol);
+            aDccFunctions.saveNumberFormat(navigator.language, roundAmounts);
 
             const startConversion = () => {
                 readEnabledCurrencies(aSettings);
