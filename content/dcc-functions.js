@@ -695,38 +695,31 @@ if (!this.DccFunctions) {
     this.DccFunctions = DccFunctions;
 }
 
-if (!this.Price) {
-    const Price = function(aCurrency, anIso4217Currency, anOriginalCurrency, aMatch, aBeforeCurrencySymbol) {
-        this.iso4217Currency = anIso4217Currency;
-        this.originalCurrency = anOriginalCurrency;
-        this.currency = aCurrency;
-        // 848,452.63 NOK
-        this.full = aMatch[0];
-        if (aBeforeCurrencySymbol) {
-            // 848,452.63
-            this.amount = aMatch[1].trim();
-            this.mult = aMatch[2];
-        }
-        else {
-            this.amount = aMatch[2].trim();
-            this.mult = aMatch[3];
-        }
-        //console.log(this.mult);
-        // 1 (position in the string where the price was found)
-        this.positionInString = aMatch.index;
-    };
-    this.Price = Price;
-}
+const Price = function(aCurrency, anIso4217Currency, anOriginalCurrency, aMatch, aBeforeCurrencySymbol) {
+    this.iso4217Currency = anIso4217Currency;
+    this.originalCurrency = anOriginalCurrency;
+    this.currency = aCurrency;
+    // 848,452.63 NOK
+    this.full = aMatch[0];
+    if (aBeforeCurrencySymbol) {
+        // 848,452.63
+        this.amount = aMatch[1].trim();
+        this.mult = aMatch[2];
+    }
+    else {
+        this.amount = aMatch[2].trim();
+        this.mult = aMatch[3];
+    }
+    //console.log(this.mult);
+    // 1 (position in the string where the price was found)
+    this.positionInString = aMatch.index;
+};
+this.Price = Price;
 
-if (!this.CurrencyRegex) {
-    const CurrencyRegex = function (anIso4217Currency, aCurrency, aRegex1, aRegex2) {
-        this.iso4217Currency = anIso4217Currency;
-        this.currency = aCurrency;
-        this.regex1 = aRegex1;
-        this.regex2 = aRegex2;
-    };
-    this.CurrencyRegex = CurrencyRegex;
-}
-
-
-
+const CurrencyRegex = function (anIso4217Currency, aCurrency, aRegex1, aRegex2) {
+    this.iso4217Currency = anIso4217Currency;
+    this.currency = aCurrency;
+    this.regex1 = aRegex1;
+    this.regex2 = aRegex2;
+};
+this.CurrencyRegex = CurrencyRegex;
