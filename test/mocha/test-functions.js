@@ -5,7 +5,7 @@ const functions = require("../../common/functions");
 const expect = require("chai").expect;
 
 
-describe("DccFunctions", () => {
+describe("DccFunctions", function ()  {
 
     // Passing arrow functions (“lambdas”) to Mocha is discouraged.
 

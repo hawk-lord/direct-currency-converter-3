@@ -1,3 +1,7 @@
+/**
+ * Using Mocha with the BDD interface.
+ */
+
 
 "use strict";
 
@@ -5,7 +9,7 @@ const dccFunctions = require("../../content/dcc-functions");
 const expect = require("chai").expect;
 
 
-describe("CurrencyRegex", () => {
+describe("CurrencyRegex", function() {
 
     // Passing arrow functions (“lambdas”) to Mocha is discouraged.
 
@@ -423,7 +427,7 @@ describe("DccFunctions", function () {
 
             const match = ["2 miljoner kronor", "2", "miljoner", "kronor", undefined, "onor"];
             match.index = 0;
-            match.input = "2 miljoner kronor till ungdomshandbollen";
+            match.input = text;
             match.groups = undefined;
             const price = new dccFunctions.Price(currency, iso4217Currency, originalCurrency, match, beforeCurrencySymbol);
             const expectedContent = [];
@@ -452,7 +456,7 @@ describe("DccFunctions", function () {
             const beforeCurrencySymbol = true;
             const match = ["2 miljoner kronor", "2", "miljoner", "kronor", undefined, "onor"];
             match.index = 0;
-            match.input = "2 miljoner kronor till ungdomshandbollen";
+            match.input = textContent;
             match.groups = undefined;
             const price = new dccFunctions.Price(newCurrency, iso4217Currency, originalCurrency, match, beforeCurrencySymbol);
             const expectedContent = [];
@@ -476,7 +480,7 @@ describe("DccFunctions", function () {
             const beforeCurrencySymbol = true;
             const match = ["2", "2", undefined];
             match.index = 0;
-            match.input = "2 miljoner kronor till ungdomshandbollen";
+            match.input = textContent;
             match.groups = undefined;
             const price = new dccFunctions.Price(newCurrency, iso4217Currency, originalCurrency, match, beforeCurrencySymbol);
             const expectedContent = [];
