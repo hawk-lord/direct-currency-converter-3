@@ -5,7 +5,17 @@ module.exports = function (config) {
 
     config.set({
 
-        browsers: ["ChromeHeadless"],
+        /**
+         * ChromeHeadless will use en locale as default.
+         */
+        browsers: ["ChromeHeadless_Sv", "Chrome"],
+
+        customLaunchers: {
+            ChromeHeadless_Sv: {
+                base: 'ChromeHeadless',
+                flags: ['--lang=sv']
+            }
+        },
 
         frameworks: ["mocha", "sinon-chrome", "chai"],
 
