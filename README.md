@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.0.0, date 2019-01-14
+Version 3.1.0, date 2019-08-21
 
 ## Introduction
 

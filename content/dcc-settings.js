@@ -9,17 +9,23 @@
 "use strict";
 
 if (!this.DirectCurrencySettings) {
+
     const DirectCurrencySettings = (function() {
+
         const escapeHtml = function(aString) {
             return DOMPurify.sanitize(aString);
         };
-        jQuery(document).ready(function() {
+
+
+//        jQuery(document).ready(function() {
             jQuery( "#toggleCurrencies" ).click(function() {
                 jQuery("fieldset.currencies").toggleClass( "minimised" );
             });
+/*
             jQuery("#fromCurrencies").sortable({
                 revert: true
             });
+*/
             // Why was this used?        jQuery("ol, li").disableSelection();
             jQuery("#convert_to_currency").change(function() {
                 const currencyCountry = jQuery(this).val();
@@ -83,6 +89,7 @@ if (!this.DirectCurrencySettings) {
                     includedLines = [];
                 }
                 includedDomains = includedLines;
+/*
                 convertFroms = [];
                 const liFromCurrencies = jQuery("#fromCurrencies").find("li");
                 liFromCurrencies.each(function () {
@@ -95,6 +102,19 @@ if (!this.DirectCurrencySettings) {
                         convertFroms.push({"isoName": jQuery(this).attr("id"), "enabled": false});
                     }
                 });
+*/
+
+                const sourceCurrencies = [];
+                const sourceCurrencyList = document.getElementById("sourceCurrencies");
+                for (let sourceCurrencyListElement of sourceCurrencyList) {
+                    const inputs = sourceCurrencyListElement.getElementsByTagName("input");
+                    const input = inputs.item(0);
+                    if (input) {
+                        const sourceCurrency = {"isoName": sourceCurrencyListElement.id, "enabled": input.checked};
+                        sourceCurrencies.push(sourceCurrency);
+                    }
+                }
+
                 const settings = {};
                 settings.convertToCurrency = escapeHtml(convertToCurrency);
                 settings.convertToCountry = escapeHtml(convertToCountry);
@@ -105,6 +125,7 @@ if (!this.DirectCurrencySettings) {
                 Object.keys(settings.includedDomains).forEach(escapeHtml);
                 settings.convertFroms = convertFroms;
                 //Object.keys(settings.convertFroms).forEach(escapeHtml);
+                settings.convertFroms = sourceCurrencies;
                 settings.quoteAdjustmentPercent = escapeHtml(quoteAdjustmentPercent);
                 settings.roundAmounts = roundAmounts;
                 settings.showOriginalPrices = showOriginalPrices;
@@ -144,7 +165,7 @@ if (!this.DirectCurrencySettings) {
                     }
                 });
             });
-        });
+//        });
         let convertToCurrency = null;
         let convertToCountry = null;
         let enableOnStart = null;
@@ -171,6 +192,7 @@ if (!this.DirectCurrencySettings) {
             jQuery("#excluded_domains").val(excludedText);
             const includedText = includedDomains.join("\n").replace(/\n/g, "\r\n");
             jQuery("#included_domains").val(includedText);
+/*
             for (let currency of convertFroms) {
                 let li = jQuery(document.createElement("li")).attr({
                     class: "ui-state-default",
@@ -192,6 +214,71 @@ if (!this.DirectCurrencySettings) {
                 }
                 label.append(currencyNames[currency.isoName]);
             }
+*/
+
+            let dragSrcEl;
+            const handleDragStart = (event) => {
+                dragSrcEl = event.target;
+                event.dataTransfer.effectAllowed = 'move';
+
+            };
+            const handleDragOver = (event) => {
+                event.preventDefault();
+                event.target.classList.add('over');
+                event.dataTransfer.dropEffect = 'move';
+            };
+            /**
+             * Drag the label but move the parent li element.
+             * @param event
+             */
+            const handleDrop = (event) => {
+                event.preventDefault();
+                if (event.target.draggable) {
+                    event.target.parentNode.insertAdjacentElement('beforebegin', dragSrcEl.parentNode);
+                }
+            };
+
+            const handleDragLeave = (event) => {
+                event.target.classList.remove('over');  // this / e.target is previous target element.
+            };
+
+            const fragment = document.createDocumentFragment();
+
+            const makeDraggable = (element) => {
+                element.draggable = true;
+                element.addEventListener("dragstart", handleDragStart, false);
+                element.addEventListener("drop", handleDrop, false);
+                element.addEventListener("dragover", handleDragOver, false);
+                element.addEventListener("dragleave", handleDragLeave, false);
+            };
+
+            for (let currency of convertFroms) {
+                const li = document.createElement("li");
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+
+                makeDraggable(label);
+                //makeDraggable(li);
+
+                input.id = currency.isoName;
+                input.type = "checkbox";
+                if (currency.enabled) {
+                    input.checked = "checked";
+                }
+                li.append(input);
+                label.htmlFor = input.id;
+                label.append(currencyNames[currency.isoName]);
+                li.append(label);
+                fragment.append(li);
+            }
+
+
+
+            const sourceCurrencies = document.getElementById("sourceCurrencies");
+            sourceCurrencies.append(fragment);
+
+
+
             jQuery("#adjustment_percentage").val(quoteAdjustmentPercent);
             jQuery("#always_round").prop("checked", roundAmounts);
             jQuery("#show_original_prices").prop("checked", showOriginalPrices);

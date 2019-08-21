@@ -35,7 +35,7 @@ if (!this.DirectCurrencyQuotes) {
                 caption.removeChild(caption.lastChild);
             }
             const textNodeCaption = document.createTextNode("Quotes XXX / " + currencyCode + " = ");
-            caption.appendChild(textNodeCaption);
+            caption.append(textNodeCaption);
 
             const tableBody =  document.getElementById("tableBody");
             while (tableBody.hasChildNodes()) {
@@ -61,13 +61,13 @@ if (!this.DirectCurrencyQuotes) {
                 const tableRow = document.createElement("tr");
                 const tableCell1 = document.createElement("td");
                 const textNode1 = document.createTextNode(conversionQuote.name);
-                tableCell1.appendChild(textNode1);
-                tableRow.appendChild(tableCell1);
+                tableCell1.append(textNode1);
+                tableRow.append(tableCell1);
                 const tableCell2 = document.createElement("td");
                 const textNode2 = document.createTextNode(numberFormat.format(conversionQuote.value));
-                tableCell2.appendChild(textNode2);
-                tableRow.appendChild(tableCell2);
-                tableBody.appendChild(tableRow);
+                tableCell2.append(textNode2);
+                tableRow.append(tableCell2);
+                tableBody.append(tableRow);
             }
             ascending = !ascending;
         };

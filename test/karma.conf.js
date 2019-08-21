@@ -17,7 +17,7 @@ module.exports = function (config) {
             }
         },
 
-        frameworks: ["mocha", "sinon-chrome", "chai"],
+        frameworks: ["mocha", "chai"],
 
         /**
          * Dependency order is important.

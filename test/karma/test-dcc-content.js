@@ -941,8 +941,8 @@ describe ("#DirectCurrencyContent", function() {
 
             const p = document.createElement("p");
             const text = document.createTextNode("100 SEK");
-            p.appendChild(text);
-            document.body.appendChild(p);
+            p.append(text);
+            document.body.append(p);
 
             DirectCurrencyContent.onUpdateSettings(convertToEurSettings);
 
@@ -951,12 +951,12 @@ describe ("#DirectCurrencyContent", function() {
         });
 
         // TODO won't work since "SEK 100" is found first.
-        xit ("should update settings and convert value", function() {
+        xit ("should update settings and convert values", function() {
 
             const p = document.createElement("p");
             const text = document.createTextNode("100 SEK 100 SEK");
-            p.appendChild(text);
-            document.body.appendChild(p);
+            p.append(text);
+            document.body.append(p);
 
             DirectCurrencyContent.onUpdateSettings(convertToEurSettings);
 
@@ -968,8 +968,8 @@ describe ("#DirectCurrencyContent", function() {
 
             const p = document.createElement("p");
             const text = document.createTextNode("100 SEK, 100 SEK");
-            p.appendChild(text);
-            document.body.appendChild(p);
+            p.append(text);
+            document.body.append(p);
 
             DirectCurrencyContent.onUpdateSettings(convertToEurSettings);
 
@@ -981,14 +981,41 @@ describe ("#DirectCurrencyContent", function() {
 
             const p = document.createElement("p");
             const text = document.createTextNode("99 SEK, 100 SEK");
-            p.appendChild(text);
-            document.body.appendChild(p);
+            p.append(text);
+            document.body.append(p);
 
             DirectCurrencyContent.onUpdateSettings(convertToEurSettings);
 
             expect(p.textContent).to.equal(" 9,34 EUR  (99 SEK),  9,43 EUR  (100 SEK)");
 
         });
+
+        it ("should update settings and convert value", function() {
+
+            const p = document.createElement("p");
+            const text = document.createTextNode("100 MSEK");
+            p.append(text);
+            document.body.append(p);
+
+            DirectCurrencyContent.onUpdateSettings(convertToEurSettings);
+
+            expect(p.textContent).to.equal(" 9 434 542,70 EUR  (100 miljoner kronor)");
+
+        });
+
+        it ("should update settings and convert value", function() {
+
+            const p = document.createElement("p");
+            const text = document.createTextNode("100 miljoner kronor");
+            p.append(text);
+            document.body.append(p);
+
+            DirectCurrencyContent.onUpdateSettings(convertToEurSettings);
+
+            expect(p.textContent).to.equal(" 9 434 542,70 EUR  (100 miljoner kronor)");
+
+        });
+
     });
 
     context ("" , function() {
@@ -996,8 +1023,8 @@ describe ("#DirectCurrencyContent", function() {
 
             const p = document.createElement("p");
             const text = document.createTextNode("99 SEK 100 SEK");
-            p.appendChild(text);
-            document.body.appendChild(p);
+            p.append(text);
+            document.body.append(p);
 
             DirectCurrencyContent.onUpdateSettings(convertToSekSettings);
 
@@ -1010,8 +1037,8 @@ describe ("#DirectCurrencyContent", function() {
 
             const p = document.createElement("p");
             const text = document.createTextNode("99 kr");
-            p.appendChild(text);
-            document.body.appendChild(p);
+            p.append(text);
+            document.body.append(p);
 
             DirectCurrencyContent.onUpdateSettings(convertToSekSettings);
 

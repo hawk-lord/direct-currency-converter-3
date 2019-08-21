@@ -631,8 +631,8 @@
   },
   {
     "name": "SEK",
-    "regex": "(SEK|öre|(svenska\\s)?kr(onor)?|mnkr|mdkr|mkr|s?[kK][rR]|kSEK|MSEK|GSEK|:-|,-)",
-    "mult": "(|miljon(?:er)?|miljard(?:er)?)"
+    "regex": "(M?SEK|öre|(svenska\\s)?kr(onor)?|mnkr|mdkr|mkr|s?[kK][rR]|kSEK|GSEK|:-|,-)",
+    "mult": "(|msek|MSEK|miljon(?:er)?|miljard(?:er)?)"
   },
   {
     "name": "SGD",

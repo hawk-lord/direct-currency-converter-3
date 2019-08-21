@@ -10,12 +10,9 @@
 
 
 if (!this.DirectCurrencyContent) {
+
     const DirectCurrencyContent = (function(aDccFunctions) {
-        if (!String.prototype.includes) {
-            String.prototype.includes = () => {
-                return String.prototype.indexOf.apply(this, arguments) !== -1;
-            };
-        }
+
         let conversionQuotes = [];
         let currencyCode = "";
         let isEnabled = true;
@@ -126,6 +123,7 @@ if (!this.DirectCurrencyContent) {
                 substituteOne(aNode, showOriginal, dccTitle);
             }
 
+            // TODO Does not work anymore in Firefox
             if (aNode.baseURI && aNode.baseURI.includes("pdf.js")) {
                 if (aNode.parentNode) {
                     aNode.parentNode.style.color = "black";
@@ -146,6 +144,8 @@ if (!this.DirectCurrencyContent) {
             attributeOldValue: false,
             characterDataOldValue: false
         };
+
+        // FIXME make this work again.
         const mutationHandler = (aMutationRecord) => {
             if (aMutationRecord.type === "childList") {
                 for (let i = 0; i < aMutationRecord.addedNodes.length; ++i) {
@@ -190,31 +190,30 @@ if (!this.DirectCurrencyContent) {
             }
         };
 
+        const filter = {
+            acceptNode: function (node) {
+                if (!skippedElements.includes(node.parentNode.tagName.toLowerCase())
+                    // Include only trees with numbers
+                    && /\d/.test(node.textContent)) {
+                    return NodeFilter.FILTER_ACCEPT;
+                } else {
+                    return NodeFilter.FILTER_REJECT;
+                }
+            }
+        };
+
         const traverseDomTree = (aNode) => {
             //console.log("DCC traverseDomTree " + document.URL);
             if (!aNode) {
                 return
             }
-            let textNode;
             const treeWalker = document.createTreeWalker(
                 aNode,
                 NodeFilter.SHOW_TEXT,
-                {
-                    acceptNode: function(node) {
-                        if (skippedElements.indexOf(node.parentNode.tagName.toLowerCase()) === -1
-                                // Avoid node trees without numbers
-                            && /\d/.test(node.textContent)) {
-                            return NodeFilter.FILTER_ACCEPT;
-                        }
-                        else {
-                            return NodeFilter.FILTER_REJECT;
-                        }
-                    }
-                },
-                false);
-            while (textNode = treeWalker.nextNode()) {
+                filter);
+            while (treeWalker.nextNode()) {
                 //console.log("replaceCurrency " + textNode.nodeValue);
-                replaceCurrency(textNode, true);
+                replaceCurrency(treeWalker.currentNode, true);
             }
 
         };

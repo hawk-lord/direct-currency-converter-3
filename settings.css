@@ -19,12 +19,12 @@ body {
     color:black;
 }
 
-fieldset {
+details, fieldset {
     background-color:papayawhip;
     border-color:silver;
 }
 
-legend {
+summary, legend {
     background-color:lightgoldenrodyellow;
     border-color:silver;
 }
@@ -54,6 +54,16 @@ legend {
 
 /* Other */
 
+[draggable] {
+    cursor: move;
+}
+
+.over {
+    border-top: 2px solid saddlebrown;
+}
+
+
+
 body {
     border-width:0;
     font-family:Arial,serif;
@@ -68,12 +78,12 @@ h1 {
     margin-left: 25px;
 }
 
-fieldset {
+details, fieldset {
     border: 1px solid;
     margin:10px;
 }
 
-legend {
+summary, legend {
     border: 1px solid;
     font-size:14px;
     font-weight:bold;
@@ -81,8 +91,8 @@ legend {
 }
 
 ol li {
-    display: inline-block;
-    padding: 0em 0.5em;
+    /* display: inline-block; */
+    padding: 0 0.5em;
 
 }
 
