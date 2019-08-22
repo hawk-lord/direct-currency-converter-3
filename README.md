@@ -65,11 +65,18 @@ Originally the currency quotes were fetched from Yahoo!. They closed their API, 
 meant to be used by outsiders, so DCC switched to the limited ECB quotes, 
 and Currencylayer to cover most currencies. 
 
-External libraries: jQuery, jQuery UI, jQuery UI Touch-Punch, DOM Purify.
+External libraries:  DOM Purify, Drag Drop Touch.
 
 Thanks to Jetbrains s.r.o for a licence to use IntelliJ IDEA Ultimate for open source development.
 
 ## Changelog
+
+### 3.1.0
+
+Internal changes:
+Using HTML drag and drop instead of jQuery.
+Removed external libraries jQuery, jQuery UI, jQuery UI Touch-Punch.
+Updated the external library DOM Purify.
 
 ### 3.0.0
 

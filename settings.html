@@ -12,17 +12,10 @@
     <title data-l10n-id="Direct Currency Converter">Direct Currency Converter</title>
     <link rel="icon" type="image/png" href="images/1402781551_currency_exchange_1.png">
     <link rel="stylesheet" type="text/css" href="settings.css">
-    <script src="content/purify.1.0.10.min.js"></script>
-    <script src="content/jquery-3.4.1.min.js"></script>
-    <!--
-            <script src="content/jquery-ui-1.12.1.min.js"></script>
-    -->
+    <script src="content/purify.1.0.11.min.js"></script>
     <script src="content/DragDropTouch.js"></script>
     <script src="content/dcc-settings.js"></script>
     <script src="gc-settings-adapter.js"></script>
-    <!--
-    <script src="content/jquery.ui.touch-punch.js"></script>
-    -->
 </head>
 
 <body>
@@ -34,20 +27,9 @@
     <ol id="sourceCurrencies"></ol>
 </details>
 
-<p class="caption" data-l10n-id="caption">Drag and drop currencies to reorder them. If an ambiguous currency such as
-    "kroner" (could be DKK or NOK) is found, it is converted to the first possible currency in the list.</p>
-<fieldset>
-    <legend data-l10n-id="enabled-legend">
-        Convert from, in this order:
-    </legend>
-    <ol id="fromCurrencies"></ol>
-</fieldset>
-<fieldset>
-    <legend data-l10n-id="convert-to-legend">
-        Convert to
-    </legend>
-    <label for="convert_to_currency"></label>
-    <select class="options-combo" id="convert_to_currency">
+<details>
+    <summary>Target currency</summary>
+    <select id="targetCurrencyOptions" class="options-combo">
         <option value="AFN_AF" data-l10n-id="AFGHANISTAN, Afghani (AFN)">AFGHANISTAN, Afghani (AFN)</option>
         <option value="EUR_AX" data-l10n-id="ÅLAND ISLANDS, Euro (EUR)">ÅLAND ISLANDS, Euro (EUR)</option>
         <option value="ALL_AL" data-l10n-id="ALBANIA, Lek (ALL)">ALBANIA, Lek (ALL)</option>
@@ -525,24 +507,25 @@
         <option value="XAG___" data-l10n-id="ZZ11_Silver, Silver (XAG)">ZZ11_Silver, Silver (XAG)</option>
         <option value="gAu___" data-l10n-id="Gold, grams (gAu)">Gold, grams (gAu)</option>
     </select>
-</fieldset>
-<fieldset>
-    <legend data-l10n-id="General">
+</details>
+
+<details>
+    <summary data-l10n-id="General">
         General
-    </legend>
+    </summary>
     <ul>
         <li>
-            <input type="checkbox" id="enable_conversion" checked="checked"/>
-            <label for="enable_conversion" data-l10n-id="Enable conversion on browser start">Enable conversion on
+            <input type="checkbox" id="enableConversion" checked="checked"/>
+            <label for="enableConversion" data-l10n-id="Enable conversion on browser start">Enable conversion on
                 program start</label>
         </li>
         <li>
-            <input type="checkbox" id="always_round"/>
-            <label for="always_round" data-l10n-id="Do not show amount subunits">Do not show amount subunits</label>
+            <input type="checkbox" id="alwaysRound"/>
+            <label for="alwaysRound" data-l10n-id="Do not show amount subunits">Do not show amount subunits</label>
         </li>
         <li>
-            <input type="checkbox" id="show_original_prices"/>
-            <label for="show_original_prices" data-l10n-id="Show original amounts in parentheses">Show original amounts
+            <input type="checkbox" id="showOriginalAmounts"/>
+            <label for="showOriginalAmounts" data-l10n-id="Show original amounts in parentheses">Show original amounts
                 in parentheses: 6,12 € (55 SEK).
                 If unselected, original amounts are shown in the element titles (tooltips).</label>
         </li>
@@ -570,8 +553,8 @@
         </li>
 
         <li>
-            <input type="text" id="adjustment_percentage"/>
-            <label for="adjustment_percentage" data-l10n-id="Percent exchange quote adjustment">% exchange quote
+            <input type="text" id="adjustmentPercentage"/>
+            <label for="adjustmentPercentage" data-l10n-id="Percent exchange quote adjustment">% exchange quote
                 adjustment</label>
         </li>
         <li>
@@ -582,22 +565,24 @@
             <label for="quotesProvider" data-l10n-id="Quotes provider">Quotes provider</label>
         </li>
         <li>
-            <input type="text" id="api_key" size="40"/>
-            <label for="api_key" data-l10n-id="API key">API key for <a
+            <input type="text" id="apiKey" size="40"/>
+            <label for="apiKey" data-l10n-id="API key">API key for <a
                     href="https://currencylayer.com/">Currencylayer</a>.</label>
         </li>
         <li>
-            <input type="checkbox" id="temp_convert_units"/>
-            <label for="temp_convert_units" data-l10n-id="Convert other units">Convert other units such as inches and
+            <input type="checkbox" id="tempConvertUnits"/>
+            <label for="tempConvertUnits" data-l10n-id="Convert other units">Convert other units such as inches and
                 miles to <a href="https://en.wikipedia.org/wiki/International_System_of_Units">SI</a>
                 (experimental)</label>
         </li>
     </ul>
-</fieldset>
-<fieldset>
-    <legend data-l10n-id="Excluded or included URLs">
+</details>
+
+
+<details>
+    <summary data-l10n-id="Excluded or included URLs">
         Excluded or included URLs.
-    </legend>
+    </summary>
     <ul>
         <li>
             <textarea id="excluded_domains" placeholder="Example: ebay.com"> </textarea>
@@ -618,7 +603,8 @@
             </label>
         </li>
     </ul>
-</fieldset>
+</details>
+
 <div class="footer">
     <div id="save-button">
         <span id="savebutton_text" class="loc" data-l10n-id="Save">Save</span>

@@ -19,12 +19,12 @@ body {
     color:black;
 }
 
-details, fieldset {
+details {
     background-color:papayawhip;
     border-color:silver;
 }
 
-summary, legend {
+summary {
     background-color:lightgoldenrodyellow;
     border-color:silver;
 }
@@ -42,7 +42,7 @@ summary, legend {
     background-color:silver;
 }
 
-#save-button, #reset-button, #reset-quotes-button, #select-all-button, #select-none-button, #toggleCurrencies {
+#save-button, #reset-button, #reset-quotes-button, #select-all-button, #select-none-button {
     background-color:burlywood;
     border-color:brown;
     color:white;
@@ -191,11 +191,6 @@ li {
     margin-right:1em;
 }
 
-#toggleCurrencies {
-    padding:0 5px;
-    height:60px !important;
-    width:100px;
-}
 
 #save-button, #reset-button, #reset-quotes-button, #select-all-button, #select-none-button {
     margin-left:10px !important;
@@ -206,7 +201,7 @@ li {
     /** height:45px !important; */
 }
 
-#save-button, #reset-button, #reset-quotes-button, #select-all-button, #select-none-button, #toggleCurrencies {
+#save-button, #reset-button, #reset-quotes-button, #select-all-button, #select-none-button {
     border-radius:0;
     border: 1px solid;
     box-shadow:0 2px 0 0 rgba(255, 255, 255, .06) inset, 0 1px 3px 0 rgba(0, 0, 0, .2);
