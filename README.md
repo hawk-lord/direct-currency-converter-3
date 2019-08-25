@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.1.0, date 2019-08-21
+Version 3.1.0, date 2019-08-25
 
 ## Introduction
 
@@ -61,6 +61,8 @@ Settings
 DCC was originally created in 2014 as a remake of the Firefox add-on Simple Currency Converter.
 Later it was ported to work in SeaMonkey, Chrome, Opera, Safari and Edge browsers.
 Since Mozilla abandoned its own API to use the Chrome API instead, the Chrome version became the master branch.
+Since Microsoft decided to change Edge into a Chromium based application, DCC for Edge has been discontinued.
+
 Originally the currency quotes were fetched from Yahoo!. They closed their API, that was never
 meant to be used by outsiders, so DCC switched to the limited ECB quotes, 
 and Currencylayer to cover most currencies. 
@@ -73,10 +75,13 @@ Thanks to Jetbrains s.r.o for a licence to use IntelliJ IDEA Ultimate for open s
 
 ### 3.1.0
 
+The options/settings screen now has all sections minimised when opened.
+
 Internal changes:
 Using HTML drag and drop instead of jQuery.
 Removed external libraries jQuery, jQuery UI, jQuery UI Touch-Punch.
 Updated the external library DOM Purify.
+
 
 ### 3.0.0
 

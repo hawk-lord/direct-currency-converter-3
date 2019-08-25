@@ -49,6 +49,9 @@ if (!this.DirectCurrencySettings) {
             if (!isNaN(event.target.value)) {
                 quoteAdjustmentPercent = parseFloat(event.target.value);
             }
+            else if (event.target.value === "") {
+                quoteAdjustmentPercent = 0;
+            }
         };
 
         const alwaysRoundChanged = (event) => {
@@ -259,7 +262,7 @@ if (!this.DirectCurrencySettings) {
 
             document.getElementById("adjustmentPercentage").value = quoteAdjustmentPercent;
             document.getElementById("alwaysRound").checked = roundAmounts ? "checked" : "";
-            document.getElementById("showOriginalAmounts").checked = showOriginalAmounts ? "checked" : "";
+            document.getElementById("showOriginalAmounts").checked = showOriginalPrices ? "checked" : "";
             document.getElementById("showOriginalCurrencies").checked = showOriginalCurrencies ? "checked" : "";
             document.getElementById("showTooltip").checked = showTooltip ? "checked" : "";
             document.getElementById("tempConvertUnits").checked = tempConvertUnits ? "checked" : "";
@@ -300,5 +303,7 @@ if (!this.DirectCurrencySettings) {
             showSettings : showSettings
         };
     })();
+
     this.DirectCurrencySettings = DirectCurrencySettings;
+
 }
