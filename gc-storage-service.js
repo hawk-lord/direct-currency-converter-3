@@ -36,7 +36,8 @@ const GcStorageServiceProvider = function() {
                     convertFroms: aConvertFroms,
                     convertFromCurrency: "GBP",
                     alwaysConvertFromCurrency: false,
-                    showAsSymbol: false
+                    showAsSymbol: false,
+                    ignoredElements: ["audio", "colgroup", "embed", "head", "html", "img", "object",  "ol", "script", "select", "style", "table", "tbody", "textarea", "thead", "tr", "ul", "video"]
                 };
             }
             else {
@@ -100,6 +101,9 @@ const GcStorageServiceProvider = function() {
                 if (storage.dccPrefs.showAsSymbol === null || storage.dccPrefs.showAsSymbol == null) {
                     storage.dccPrefs.showAsSymbol = false;
                 }
+                if (storage.dccPrefs.ignoredElements === null || storage.dccPrefs.ignoredElements == null) {
+                    storage.dccPrefs.ignoredElements = ["audio", "colgroup", "embed", "head", "html", "img", "object",  "ol", "script", "select", "style", "table", "tbody", "textarea", "thead", "tr", "ul", "video"];
+                }
             }
             chrome.storage.local.set(storage);
             eventAggregator.publish("storageInitDone");
@@ -122,7 +126,8 @@ const GcStorageServiceProvider = function() {
             convertFroms: aDefaultEnabled,
             convertFromCurrency: "GBP",
             alwaysConvertFromCurrency: false,
-            showAsSymbol: false
+            showAsSymbol: false,
+            ignoredElements: ["audio", "colgroup", "embed", "head", "html", "img", "object",  "ol", "script", "select", "style", "table", "tbody", "textarea", "thead", "tr", "ul", "video"]
         };
         chrome.storage.local.set(storage);
         eventAggregator.publish("storageReInitDone");
@@ -248,6 +253,13 @@ const GcStorageServiceProvider = function() {
         },
         set showAsSymbol (aShowAsSymbol) {
             storage.dccPrefs.showAsSymbol = aShowAsSymbol;
+            chrome.storage.local.set(storage);
+        },
+        get ignoredElements () {
+            return storage.dccPrefs.ignoredElements;
+        },
+        set ignoredElements (anIgnoredElements) {
+            storage.dccPrefs.ignoredElements = anIgnoredElements;
             chrome.storage.local.set(storage);
         },
         setEnabledCurrency(aCurrency, anEnabled) {

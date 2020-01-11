@@ -30,6 +30,7 @@ if (!this.DirectCurrencySettings) {
         let quotesProvider = null;
         let alwaysConvertFromCurrency = null;
         let showAsSymbol = null;
+        let ignoredElements = null;
 
         const escapeHtml = function(aString) {
             return DOMPurify.sanitize(aString);
@@ -104,6 +105,7 @@ if (!this.DirectCurrencySettings) {
         const saveSettings = () => {
             excludedDomains = textToArray(escapeHtml(document.getElementById("excluded_domains").value));
             includedDomains = textToArray(escapeHtml(document.getElementById("included_domains").value));
+            ignoredElements = textToArray(escapeHtml(document.getElementById("ignoredElements").value));
             const sourceCurrencies = [];
             const sourceCurrencyList = document.getElementById("sourceCurrencies").children;
             for (let sourceCurrencyListElement of sourceCurrencyList) {
@@ -137,6 +139,7 @@ if (!this.DirectCurrencySettings) {
             settings.convertFromCurrency = convertFromCurrency;
             settings.alwaysConvertFromCurrency = alwaysConvertFromCurrency;
             settings.showAsSymbol = showAsSymbol;
+            settings.ignoredElements = ignoredElements;
             SettingsAdapter.save(settings);
         };
 
@@ -201,6 +204,8 @@ if (!this.DirectCurrencySettings) {
             document.getElementById("excluded_domains").value = excludedText;
             const includedText = includedDomains.join("\n").replace(/\n/g, "\r\n");
             document.getElementById("included_domains").value = includedText;
+            const ignoredElementsText = ignoredElements.join("\n").replace(/\n/g, "\r\n");
+            document.getElementById("ignoredElements").value = ignoredElementsText;
 
             let dragSrcEl;
             const handleDragStart = (event) => {
@@ -296,6 +301,7 @@ if (!this.DirectCurrencySettings) {
             quotesProvider = aSettings.quotesProvider;
             alwaysConvertFromCurrency = aSettings.alwaysConvertFromCurrency;
             showAsSymbol = aSettings.showAsSymbol;
+            ignoredElements = aSettings.ignoredElements;
             setUIFromPreferences();
         };
 

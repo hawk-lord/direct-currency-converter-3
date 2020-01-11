@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.1.0, date 2019-08-25
+Version 3.2.0, date 2019-10-29
 
 ## Introduction
 
@@ -73,7 +73,14 @@ Thanks to Jetbrains s.r.o for a licence to use IntelliJ IDEA Ultimate for open s
 
 ## Changelog
 
-### 3.1.0
+### 3.2.0, 2019-10-29
+
+Added setting for HTML elements that should be ignored. 
+Even if an element is ignored, its children will still be checked.
+
+Also converts head elements, such as page title.
+
+### 3.1.0, 2019-08-25
 
 The options/settings screen now has all sections minimised when opened.
 

@@ -36,6 +36,7 @@ const Settings = function(anInformationHolder) {
     this.convertFromCurrency = anInformationHolder.convertFromCurrency;
     this.alwaysConvertFromCurrency = anInformationHolder.alwaysConvertFromCurrency;
     this.showAsSymbol = anInformationHolder.showAsSymbol;
+    this.ignoredElements = anInformationHolder.ignoredElements;
     this.regexes1 = anInformationHolder.regexes1;
     this.regexes2 = anInformationHolder.regexes2;
 

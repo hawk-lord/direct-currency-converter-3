@@ -27,7 +27,7 @@ if (!this.DirectCurrencyContent) {
         let convertFromCurrency = "GBP";
         let alwaysConvertFromCurrency = false;
         let showAsSymbol = false;
-        const skippedElements = ["audio", "colgroup", "embed", "head", "html", "img", "object",  "ol", "script", "select", "style", "table", "tbody", "textarea", "thead", "tr", "ul", "video"];
+        let ignoredElements = ["audio", "colgroup", "embed", "head", "html", "img", "object",  "ol", "script", "select", "style", "table", "tbody", "textarea", "thead", "tr", "ul", "video"];
 
         /**
          *
@@ -168,8 +168,8 @@ if (!this.DirectCurrencyContent) {
 
         const startObserve = () => {
             // console.log("startObserve");
-            if (document.body) {
-                mutationObserver.observe(document.body, mutationObserverInit);
+            if (document) {
+                mutationObserver.observe(document, mutationObserverInit);
             }
         };
 
@@ -192,7 +192,7 @@ if (!this.DirectCurrencyContent) {
 
         const filter = {
             acceptNode: function (node) {
-                if (!skippedElements.includes(node.parentNode.tagName.toLowerCase())
+                if (!ignoredElements.includes(node.parentNode.tagName.toLowerCase())
                     // Include only trees with numbers
                     && /\d/.test(node.textContent)) {
                     return NodeFilter.FILTER_ACCEPT;
@@ -284,10 +284,10 @@ if (!this.DirectCurrencyContent) {
             if (aStatus.isEnabled && !aStatus.hasConvertedElements) {
                 startObserve();
                 //console.log("DCC onSendEnabledStatus " + document.URL);
-                traverseDomTree(document.body);
+                traverseDomTree(document);
             }
             const showOriginal = !aStatus.isEnabled;
-            substituteAll(document.body, showOriginal);
+            substituteAll(document, showOriginal);
         };
 
         /**
@@ -305,6 +305,7 @@ if (!this.DirectCurrencyContent) {
             convertFromCurrency = aSettings.convertFromCurrency;
             alwaysConvertFromCurrency = aSettings.alwaysConvertFromCurrency;
             showAsSymbol = aSettings.showAsSymbol;
+            ignoredElements = aSettings.ignoredElements;
             regexes1 = aSettings.regexes1;
             regexes2 = aSettings.regexes2;
         };
@@ -361,8 +362,8 @@ if (!this.DirectCurrencyContent) {
         const onUpdateSettings = (aSettings) => {
             // console.log("DCC onUpdateSettings " + document.URL);
             const showOriginal = true;
-            substituteAll(document.body, showOriginal);
-            resetDomTree(document.body);
+            substituteAll(document, showOriginal);
+            resetDomTree(document);
             readParameters(aSettings);
             aDccFunctions.saveDefaultCurrencyNumberFormat(navigator.language, roundAmounts, currencyCode, showAsSymbol);
             aDccFunctions.saveNumberFormat(navigator.language, roundAmounts);
@@ -375,9 +376,9 @@ if (!this.DirectCurrencyContent) {
                     startObserve();
                     if (document) {
                         //console.log("DCC startConversion " + document.URL);
-                        traverseDomTree(document.body);
+                        traverseDomTree(document);
                         const showOriginal = false;
-                        substituteAll(document.body, showOriginal);
+                        substituteAll(document, showOriginal);
                         hasConvertedElements = true;
                     }
                 }

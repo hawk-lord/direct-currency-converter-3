@@ -257,6 +257,12 @@ const InformationHolder = function(aStorageService, aCurrencyData, _, aRegexes1,
         set showAsSymbol (aShowAsSymbol) {
             aStorageService.showAsSymbol = aShowAsSymbol;
         },
+        get ignoredElements () {
+            return aStorageService.ignoredElements;
+        },
+        set ignoredElements (anIgnoredElements) {
+            aStorageService.ignoredElements = anIgnoredElements;
+        },
         get regexes1 () {
             return regexes1;
         },

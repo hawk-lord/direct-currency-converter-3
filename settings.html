@@ -580,10 +580,15 @@
 
 
 <details>
-    <summary data-l10n-id="Excluded or included URLs">
-        Excluded or included URLs.
+    <summary data-l10n-id="Filters">
+        Filters
     </summary>
     <ul>
+        <li>
+            <textarea id="ignoredElements"></textarea>
+            <br>
+            <label for="ignoredElements" data-l10n-id="ignoredElements">Ignored elements.</label>
+        </li>
         <li>
             <textarea id="excluded_domains" placeholder="Example: ebay.com"> </textarea>
             <br>
@@ -598,8 +603,9 @@
             <br>
             <label for="included_domains" data-l10n-id="">
                 Included URLs. Add a whitelist of the only URLs that should be included.
-                If the list is empty, all URLs are included.
-                It works like the list of excluded URLs.
+                If the list is empty, all URLs are included, except excluded ones.
+                Regular expressions are used, like the list of excluded URLs.
+                If a URL matches excluded and included URLs, it will be excluded.
             </label>
         </li>
     </ul>

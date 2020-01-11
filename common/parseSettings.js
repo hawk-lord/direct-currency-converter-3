@@ -31,6 +31,7 @@ const ParseSettings = function(aSettings, anInformationHolder) {
     anInformationHolder.convertFromCurrency = aSettings.convertFromCurrency;
     anInformationHolder.alwaysConvertFromCurrency = aSettings.alwaysConvertFromCurrency;
     anInformationHolder.showAsSymbol = aSettings.showAsSymbol;
+    anInformationHolder.ignoredElements = aSettings.ignoredElements;
 };
 
 if (typeof exports === "object") {
