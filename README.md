@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.2.0, date 2019-10-29
+Version 3.2.1, date 2020-01-25
 
 ## Introduction
 
@@ -72,6 +72,10 @@ External libraries:  DOM Purify, Drag Drop Touch.
 Thanks to Jetbrains s.r.o for a licence to use IntelliJ IDEA Ultimate for open source development.
 
 ## Changelog
+
+### 3.2.1, 2020-01-25
+
+Fix for identifiers that have already been declared. 
 
 ### 3.2.0, 2019-10-29
 
