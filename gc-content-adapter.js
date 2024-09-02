@@ -61,3 +61,4 @@ if (!this.ContentAdapter) {
     this.ContentAdapter = ContentAdapter;
 
 }
+

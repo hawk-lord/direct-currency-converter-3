@@ -7,12 +7,14 @@
 
 "use strict";
 
-const CurrencylayerQuotesServiceProvider = function(anEventAggregator, anInformationHolder) {
+
+export const CurrencylayerQuotesServiceProvider = function(anEventAggregator, anInformationHolder) {
     const eventAggregator = anEventAggregator;
 
     eventAggregator.subscribe("quotesReceivedCurrencylayer", (eventArgs) => {
         // Convert from Currencylayer response.
-        const response = JSON.parse(eventArgs.response);
+//        const response = JSON.parse(eventArgs.response);
+        const response = eventArgs;
         let quote = 1;
         // Currencylayer free subscription always converts from USD.
         // Check quote between USD and target currency.

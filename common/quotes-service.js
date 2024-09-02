@@ -7,7 +7,9 @@
 
 "use strict";
 
-const QuotesServiceProvider = function(anEventAggregator) {
+import {eventAggregator} from './eventAggregator.js';
+
+export const QuotesServiceProvider = function(anEventAggregator) {
 
     // Perhaps better with separate classes.
     let source;
@@ -25,6 +27,7 @@ const QuotesServiceProvider = function(anEventAggregator) {
         // console.log("fetchQuotes ");
         source = aSource;
         const urlString = aUrlString;
+        /*
         const request = new XMLHttpRequest();
         request.open("GET", aUrlString, true);
         request.onreadystatechange = () => {
@@ -33,12 +36,14 @@ const QuotesServiceProvider = function(anEventAggregator) {
             }
         };
         request.send(null);
+        */
+		fetch(urlString)
+    		.then((resp) => resp.json())
+    		.then(onComplete);
+
     };
     return {
         fetchQuotes: fetchQuotes
     };
 };
 
-if (typeof exports === "object") {
-    exports.GcQuotesServiceProvider = GcQuotesServiceProvider;
-}

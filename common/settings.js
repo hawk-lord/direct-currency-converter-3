@@ -13,7 +13,7 @@
  * @param anInformationHolder
  * @constructor
  */
-const Settings = function(anInformationHolder) {
+export const Settings = function(anInformationHolder) {
     this.conversionQuotes = anInformationHolder.getConversionQuotes();
     this.convertToCurrency = anInformationHolder.convertToCurrency;
     this.convertToCountry = anInformationHolder.convertToCountry;
@@ -51,6 +51,3 @@ const Settings = function(anInformationHolder) {
 
 };
 
-if (typeof exports === "object") {
-    exports.Settings = Settings;
-}

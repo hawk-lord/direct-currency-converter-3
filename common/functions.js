@@ -8,7 +8,7 @@
 "use strict";
 
 
-const DccFunctions = (function() {
+export const DccFunctions = (function() {
 
     /**
      *
@@ -31,6 +31,3 @@ const DccFunctions = (function() {
     }
 })();
 
-if (typeof exports === "object") {
-    exports.DccFunctions = DccFunctions;
-}
