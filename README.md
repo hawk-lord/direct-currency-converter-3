@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.2.1, date 2020-01-25
+Version 3.3.0, date 2024-09-05
 
 ## Introduction
 
@@ -35,7 +35,7 @@ It's convenient when you use a page without currency units.
 
 ECB is the default currency source, but rather limited. 
 You can use Currencylayer for free (or paid) if you sign up with them and get an API key.
-DCC reloads quotes on demand only, so the query limitation of Currencylayer should not
+DCC reloads quotes on demand only, so the query limitation of Currencylayer may not
 be a problem.
 
 You can exclude any URL from being converted. Regular Expressions are valid.
@@ -44,17 +44,6 @@ Reset settings will reset to default settings.
 
 Reset quotes will reload the currency quotes.
  
-
-## Menu
-
-Toggle conversion: shows and hides the conversion.
-
-Open quotes page: shows a page with all currency quotes sorted by value or name.
-
-Open test page: shows a page with several price examples, to verify that conversion works.
-
-Settings
-
 
 ## About
 
@@ -69,9 +58,13 @@ and Currencylayer to cover most currencies.
 
 External libraries:  DOM Purify, Drag Drop Touch.
 
-Thanks to Jetbrains s.r.o for a licence to use IntelliJ IDEA Ultimate for open source development.
-
 ## Changelog
+
+### 3.3.0, 2024-09-05
+
+Now conversion of prices is done on a newly opened tab when you press the $€ icon.
+It also means that there is no general On/Off state any more. Every tab has its own state.
+Internal change: Using Chrome Manifest V3 (future safe)
 
 ### 3.2.1, 2020-01-25
 

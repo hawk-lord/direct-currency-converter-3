@@ -7,27 +7,40 @@
 
 "use strict";
 
-const GcChromeInterface = function(conversionEnabled) {
-    let buttonStatus = conversionEnabled;
-    const setButtonAppearance = () => {
-        const colour = buttonStatus ? "#00FF00" : "#FF0000";
-        const text = buttonStatus ? "On" : "Off";
-        if (typeof chrome.browserAction.setBadgeBackgroundColor === "function") {
-            chrome.browserAction.setBadgeBackgroundColor({color: colour});
-        }
-        if (typeof chrome.browserAction.setBadgeText === "function") {
-            chrome.browserAction.setBadgeText({text: text});
-        }
+import {eventAggregator} from './common/eventAggregator.js';
 
+export const GcChromeInterface = function(conversionEnabled) {
+    let buttonStatus = false;
+    const setButtonAppearance = () => {
+        const colour = buttonStatus ? "green" : "red";
+        const text = buttonStatus ? "On" : "Off";
+		chrome.action.setBadgeBackgroundColor(
+		  {color: colour}
+		);
+		chrome.action.setBadgeText(
+		  {text: text}
+		);
 
     };
     setButtonAppearance();
-    const onBrowserAction = () => {
-        buttonStatus = !buttonStatus;
+    const onBrowserAction = (tab) => {
+		if (tab) {
+			console.log("onBrowserAction tab id: " + tab.id )
+		}
+		console.log("Before: " + buttonStatus);
+		buttonStatus = !buttonStatus;
+		console.log("After: " + buttonStatus);
         setButtonAppearance();
+        console.log("toggleConversion");
         eventAggregator.publish("toggleConversion", {conversionEnabled: buttonStatus, url: ""});
     };
-    chrome.browserAction.onClicked.addListener(onBrowserAction);
+	console.log("gc-chromeInterface chrome.action.onClicked.addListener");
+    chrome.action.onClicked.addListener(onBrowserAction);
+    
+    const setButtonStatus = (aButtonStatus) => {
+		buttonStatus = aButtonStatus;
+		setButtonAppearance();
+	}
 
     const onMessageFromPanel = (message, sender, sendResponse) => {
         if (message.command === "toggleConversion") {
@@ -41,4 +54,9 @@ const GcChromeInterface = function(conversionEnabled) {
         }
     };
     chrome.runtime.onMessage.addListener(onMessageFromPanel);
+    
+	return {
+        setButtonStatus: setButtonStatus
+    }
+
 };

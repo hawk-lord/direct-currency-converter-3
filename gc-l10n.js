@@ -7,7 +7,7 @@
 
 "use strict";
 
-const GcLocalisation = function() {
+export const GcLocalisation = function() {
 
     /**
      * Returns a localised String from /_locales/xx/messages.json
@@ -24,6 +24,3 @@ const GcLocalisation = function() {
     }
 };
 
-if (typeof exports === "object") {
-    exports.GcLocalisation = GcLocalisation;
-}

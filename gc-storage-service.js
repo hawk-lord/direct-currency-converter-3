@@ -7,7 +7,9 @@
 
 "use strict";
 
-const GcStorageServiceProvider = function() {
+import {eventAggregator} from './common/eventAggregator.js';
+
+export const GcStorageServiceProvider = function() {
 
     let storage = {};
 
@@ -24,7 +26,7 @@ const GcStorageServiceProvider = function() {
                 storage.dccPrefs = {
                     //convertToCurrency: "CHF",
                     //convertToCountry: "CH",
-                    enableOnStart: true,
+                    enableOnStart: false,
                     quoteAdjustmentPercent: 0,
                     roundAmounts: false,
                     showOriginalPrices: false,
@@ -47,9 +49,10 @@ const GcStorageServiceProvider = function() {
                 if (!storage.dccPrefs.convertToCountry) {
                     storage.dccPrefs.convertToCountry = "CH";
                 }
-                if (storage.dccPrefs.enableOnStart === null || storage.dccPrefs.enableOnStart == null) {
-                    storage.dccPrefs.enableOnStart = true;
-                }
+                // TODO Put this back if used by default.
+                // if (storage.dccPrefs.enableOnStart === null || storage.dccPrefs.enableOnStart == null) {
+                    storage.dccPrefs.enableOnStart = false;
+                //}
                 if (!storage.dccPrefs.quoteAdjustmentPercent) {
                     storage.dccPrefs.quoteAdjustmentPercent = 0;
                 }
@@ -114,7 +117,7 @@ const GcStorageServiceProvider = function() {
         storage.dccPrefs = {
             convertToCurrency: "CHF",
             convertToCountry: "CH",
-            enableOnStart: true,
+            enableOnStart: false,
             quoteAdjustmentPercent: 0,
             roundAmounts: false,
             showOriginalPrices: false,

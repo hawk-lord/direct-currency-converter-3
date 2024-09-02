@@ -18,7 +18,7 @@
  * @returns {{conversionEnabled, conversionEnabled, convertToCountry, convertToCountry, convertToCurrency, convertToCurrency, getConversionQuotes: (function()), setConversionQuote: (function(*, *)), excludedDomains, excludedDomains, convertFroms, convertFroms, enableOnStart, enableOnStart, quoteAdjustmentPercent, quoteAdjustmentPercent, roundPrices, roundPrices, showOriginalPrices, showOriginalPrices, showOriginalCurrencies, showOriginalCurrencies, showTooltip, showTooltip, tempConvertUnits, tempConvertUnits, showDccToolsButton, showDccToolsButton, showDccConversionButton, showDccConversionButton, getCurrencyNames: (function()), isAllCurrenciesRead: (function()), getQuoteString: (function()), resetReadCurrencies: (function()), resetSettings: (function(*=))}}
  * @constructor
  */
-const InformationHolder = function(aStorageService, aCurrencyData, _, aRegexes1, aRegexes2) {
+export const InformationHolder = function(aStorageService, aCurrencyData, _, aRegexes1, aRegexes2) {
     const conversionQuotes = {
         "inch": 25.4,
         "kcal": 4.184,
@@ -278,6 +278,3 @@ const InformationHolder = function(aStorageService, aCurrencyData, _, aRegexes1,
     }
 };
 
-if (typeof exports === "object") {
-    exports.InformationHolder = InformationHolder;
-}

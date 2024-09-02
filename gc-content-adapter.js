@@ -61,3 +61,9 @@ if (!this.ContentAdapter) {
     this.ContentAdapter = ContentAdapter;
 
 }
+
+chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+    if (msg.text === 'are_you_there_content_script?') {
+      sendResponse({status: "yes"});
+    }
+});

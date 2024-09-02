@@ -8,7 +8,14 @@
 
 "use strict";
 
-const DirectCurrencyConverter = function() {
+import {eventAggregator} from './eventAggregator.js';
+import {InformationHolder} from './informationHolder.js';
+import {QuotesServiceProvider} from './quotes-service.js';
+import {EcbQuotesServiceProvider} from './ecb-quotes.js';
+import {ParseSettings} from './parseSettings.js';
+import {CurrencylayerQuotesServiceProvider} from './currencylayer-quotes.js';
+
+export const DirectCurrencyConverter = function() {
 
     const defaultExcludedDomains = ["images.google.com", "docs.google.com", "drive.google.com", "twitter.com"];
     const defaultIncludedDomains = [];
@@ -59,76 +66,51 @@ const DirectCurrencyConverter = function() {
      * @param result
      */
     const onCurrencyDataRead = (result) => {
-        const currencyDataJson = result;
-        iso4217CurrencyMetaData = JSON.parse(currencyDataJson);
+        iso4217CurrencyMetaData = result;
         onSettingsRead();
     };
-    const currencyDataRequest = new XMLHttpRequest();
-    currencyDataRequest.overrideMimeType("application/json");
-    currencyDataRequest.open("GET", "common/currencyData.json", true);
-    currencyDataRequest.onreadystatechange = () => {
-        if (currencyDataRequest.readyState === XMLHttpRequest.DONE && currencyDataRequest.status === 200) {
-            onCurrencyDataRead(currencyDataRequest.responseText);
-        }
-    };
-    currencyDataRequest.send();
+    // TODO Do not use chrome funtions here
+	fetch(chrome.runtime.getURL('common/currencyData.json'))
+    	.then((resp) => resp.json())
+    	.then(onCurrencyDataRead);
+    
 
     /**
      * Read currencies enabled
      * @param result
      */
     const onIso4217CurrenciesRead = (result) => {
-        const iso4217CurrenciesJson = result;
-        iso4217CurrenciesEnabled = JSON.parse(iso4217CurrenciesJson);
+        iso4217CurrenciesEnabled = result;
         onSettingsRead();
     };
-    const iso4217CurrenciesRequest = new XMLHttpRequest();
-    iso4217CurrenciesRequest.overrideMimeType("application/json");
-    iso4217CurrenciesRequest.open("GET", "common/iso4217Currencies.json", true);
-    iso4217CurrenciesRequest.onreadystatechange = () => {
-        if (iso4217CurrenciesRequest.readyState === XMLHttpRequest.DONE && iso4217CurrenciesRequest.status === 200) {
-            onIso4217CurrenciesRead(iso4217CurrenciesRequest.responseText);
-        }
-    };
-    iso4217CurrenciesRequest.send();
+	fetch(chrome.runtime.getURL('common/iso4217Currencies.json'))
+    	.then((resp) => resp.json())
+    	.then(onIso4217CurrenciesRead);
+    
 
     /**
      * Read default regexes
      * @param result
      */
     const onRegexes1RequestRead = (result) => {
-        const regexes1Json = result;
-        regexes1 = JSON.parse(regexes1Json);
+        regexes1 = result;
         onSettingsRead();
     };
-    const regexes1Request = new XMLHttpRequest();
-    regexes1Request.overrideMimeType("application/json");
-    regexes1Request.open("GET", "common/regexes1.json", true);
-    regexes1Request.onreadystatechange = () => {
-        if (regexes1Request.readyState === XMLHttpRequest.DONE && regexes1Request.status === 200) {
-            onRegexes1RequestRead(regexes1Request.responseText);
-        }
-    };
-    regexes1Request.send();
+	fetch(chrome.runtime.getURL('common/regexes1.json'))
+    	.then((resp) => resp.json())
+    	.then(onRegexes1RequestRead);
 
     /**
      * Read default regexes
      * @param result
      */
     const onRegexes2RequestRead = (result) => {
-        const regexes2Json = result;
-        regexes2 = JSON.parse(regexes2Json);
+        regexes2 = result;
         onSettingsRead();
     };
-    const regexes2Request = new XMLHttpRequest();
-    regexes2Request.overrideMimeType("application/json");
-    regexes2Request.open("GET", "common/regexes2.json", true);
-    regexes2Request.onreadystatechange = () => {
-        if (regexes2Request.readyState === XMLHttpRequest.DONE && regexes2Request.status === 200) {
-            onRegexes2RequestRead(regexes2Request.responseText);
-        }
-    };
-    regexes2Request.send();
+	fetch(chrome.runtime.getURL('common/regexes2.json'))
+    	.then((resp) => resp.json())
+    	.then(onRegexes2RequestRead);
 
 
     /**
@@ -151,8 +133,8 @@ const DirectCurrencyConverter = function() {
      */
     const onStorageServiceInitDone = () => {
 
-        geoServiceFreegeoip = new FreegeoipServiceProvider();
-        geoServiceNekudo = new NekudoServiceProvider();
+        //geoServiceFreegeoip = new FreegeoipServiceProvider();
+        //geoServiceNekudo = new NekudoServiceProvider();
         commonQuotesService = new QuotesServiceProvider(eventAggregator);
         if (informationHolder.quotesProvider === "ECB") {
             quotesService = new EcbQuotesServiceProvider(eventAggregator, informationHolder);
@@ -246,6 +228,3 @@ const DirectCurrencyConverter = function() {
 
 };
 
-if (typeof exports === "object") {
-    exports.DirectCurrencyConverter = DirectCurrencyConverter;
-}

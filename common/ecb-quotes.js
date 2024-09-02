@@ -7,51 +7,69 @@
 
 "use strict";
 
-const EcbQuotesServiceProvider = function(anEventAggregator, anInformationHolder) {
+export const EcbQuotesServiceProvider = function(anEventAggregator, anInformationHolder) {
 
-    const eventAggregator = anEventAggregator;
+	const eventAggregator = anEventAggregator;
 
-    eventAggregator.subscribe("quotesReceivedEcb", (eventArgs) => {
-        // Convert from ECB response.
-        const response = eventArgs.responseXml;
-        const cubes = response.getElementsByTagName("Cube");
-        let quote = 1;
-        for (let cube of cubes) {
-            // ECB always converts from EUR.
-            // Check quote between ECB and target currency.
-            if (cube.getAttribute("time")) {
-                for (let childCube of cube.childNodes) {
-                    if (childCube.nodeType === Node.ELEMENT_NODE) {
-                        if (anInformationHolder.convertToCurrency === childCube.getAttribute("currency")) {
-                            quote = childCube.getAttribute("rate");
-                            anInformationHolder.setConversionQuote("EUR", quote);
-                            break;
-                        }
-                    }
-                }
-                for (let childCube of cube.childNodes) {
-                    if (childCube.nodeType === Node.ELEMENT_NODE) {
-                        anInformationHolder.setConversionQuote(childCube.getAttribute("currency"), quote / childCube.getAttribute("rate"));
-                    }
-                }
-                break;
-            }
-        }
+	// Old version. Unused because there is no XML converter in content scripts.
+	eventAggregator.subscribe("quotesReceivedEcbOld", (eventArgs) => {
+		// Convert from ECB response.
+		const response = eventArgs.responseXml;
 
-        eventAggregator.publish("quotesParsed");
-    });
+		const cubes = response.getElementsByTagName("Cube");
+		let quote = 1;
+		for (let cube of cubes) {
+			// ECB always converts from EUR.
+			// Check quote between ECB and target currency.
+			if (cube.getAttribute("time")) {
+				for (let childCube of cube.childNodes) {
+					if (childCube.nodeType === Node.ELEMENT_NODE) {
+						if (anInformationHolder.convertToCurrency === childCube.getAttribute("currency")) {
+							quote = childCube.getAttribute("rate");
+							anInformationHolder.setConversionQuote("EUR", quote);
+							break;
+						}
+					}
+				}
+				for (let childCube of cube.childNodes) {
+					if (childCube.nodeType === Node.ELEMENT_NODE) {
+						anInformationHolder.setConversionQuote(childCube.getAttribute("currency"), quote / childCube.getAttribute("rate"));
+					}
+				}
+				break;
+			}
+		}
 
-    const loadQuotes = (aQuotesService) => {
-        const urlString = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
-        aQuotesService.fetchQuotes(urlString, "Ecb");
-    };
-    return {
-        loadQuotes: loadQuotes
-    };
+		eventAggregator.publish("quotesParsed");
+	});
+
+	eventAggregator.subscribe("quotesReceivedEcb", (eventArgs) => {
+		// Convert from ECB response.
+		const data = eventArgs;
+		const cs = [];
+		// First quotes
+		Object.keys(data.dataSets[0].series).forEach(key => cs.push({ currency: "", quote: data.dataSets[0].series[key].observations[0][0] }));
+		// Then currencies
+		Object.keys(data.structure.dimensions.series[1].values).forEach(key => cs[key].currency = data.structure.dimensions.series[1].values[key].id);
+		const eurCurrencyQuote = cs.find((element) => element.currency === anInformationHolder.convertToCurrency);
+		let eurQuote = 1;
+		if (eurCurrencyQuote) {
+			eurQuote = eurCurrencyQuote.quote;
+		}
+		anInformationHolder.setConversionQuote("EUR", eurQuote);
+		cs.forEach((element) => anInformationHolder.setConversionQuote(element.currency, eurQuote / element.quote));
+		eventAggregator.publish("quotesParsed");
+	});
+
+	const loadQuotes = (aQuotesService) => {
+		const today = new Date().toISOString().substring(0, 10);
+		const urlString = "https://data-api.ecb.europa.eu/service/data/EXR/D..EUR.SP00.A?lastNObservations=1&format=jsondata&detail=dataonly&startPeriod=" + today;
+		aQuotesService.fetchQuotes(urlString, "Ecb");
+	};
+	return {
+		loadQuotes: loadQuotes
+	};
 };
 
-if (typeof exports === "object") {
-    exports.CurrencylayerQuotesServiceProvider = CurrencylayerQuotesServiceProvider;
-}
 
 

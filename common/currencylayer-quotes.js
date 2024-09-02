@@ -7,7 +7,8 @@
 
 "use strict";
 
-const CurrencylayerQuotesServiceProvider = function(anEventAggregator, anInformationHolder) {
+
+export const CurrencylayerQuotesServiceProvider = function(anEventAggregator, anInformationHolder) {
     const eventAggregator = anEventAggregator;
 
     eventAggregator.subscribe("quotesReceivedCurrencylayer", (eventArgs) => {

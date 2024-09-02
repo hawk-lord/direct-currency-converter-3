@@ -8,6 +8,15 @@
 
 "use strict";
 
+import {GcLocalisation} from './gc-l10n.js';
+import {DirectCurrencyConverter} from './common/dcc-main.js';
+import {eventAggregator} from './common/eventAggregator.js';
+import {GcContentInterface} from './gc-contentInterface.js';
+import {Settings} from './common/settings.js';
+import {GcStorageServiceProvider} from './gc-storage-service.js';
+import {GcChromeInterface} from './gc-chromeInterface.js';
+
+
 const GcDirectCurrencyConverter = (function() {
 
     const localisation = new GcLocalisation();
@@ -48,15 +57,15 @@ const GcDirectCurrencyConverter = (function() {
 
         eventAggregator.subscribe("storageInitDone", () => {
             dcc.createInformationHolder(gcStorageServiceProvider, _);
-            const contentInterface = new GcContentInterface(dcc.informationHolder);
             const chromeInterface = new GcChromeInterface(dcc.informationHolder.conversionEnabled);
+            const contentInterface = new GcContentInterface(dcc.informationHolder, chromeInterface);
             eventAggregator.subscribe("quotesParsed", () => {
                 // console.log("quotesParsed");
                 contentInterface.watchForPages();
             });
 
             eventAggregator.subscribe("toggleConversion", (eventArgs) => {
-                // console.log("toggleConversion" + eventArgs);
+                console.log("toggleConversion" + eventArgs);
                 contentInterface.toggleConversion(eventArgs);
             });
 
@@ -82,8 +91,9 @@ const GcDirectCurrencyConverter = (function() {
 
     chrome.runtime.onInstalled.addListener((details) => {
         if (details.reason === "install" || details.reason === "update") {
-            chrome.tabs.create({ url:chrome.extension.getURL("common/help.html")} );
+            chrome.tabs.create({ url:chrome.runtime.getURL("common/help.html")} );
         }
     });
+    
 
 })();

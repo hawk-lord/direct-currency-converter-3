@@ -7,7 +7,7 @@
 
 "use strict";
 
-const eventAggregator = (function() {
+export const eventAggregator = (function() {
     const grep = function grep( elems, callback, inv ) {
         let retVal,
             ret = [],
