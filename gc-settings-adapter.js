@@ -9,23 +9,23 @@
 "use strict";
 
 if (!this.SettingsAdapter) {
-    const SettingsAdapter = function() {
+    const SettingsAdapter = function () {
         const options = null;
         chrome.runtime.sendMessage({command: "show"}, DirectCurrencySettings.showSettings);
         document.addEventListener("DOMContentLoaded", DirectCurrencySettings);
         return {
-            save : (aSettings) => {
+            save: (aSettings) => {
                 chrome.runtime.sendMessage({command: "save", settings: aSettings});
                 window.close();
             },
-            reset : () => {
+            reset: () => {
                 chrome.runtime.sendMessage({command: "reset"});
                 window.close();
             },
-            resetQuotes : () => {
+            resetQuotes: () => {
                 chrome.runtime.sendMessage({command: "resetQuotes"});
             }
         }
     }();
-    this.SettingsAdapter = SettingsAdapter;
+    window.SettingsAdapter = SettingsAdapter;
 }

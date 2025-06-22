@@ -11,6 +11,9 @@
  *
  * @param config
  */
+
+const webpackConfig = require('../webpack.common.cjs'); // Updated path
+
 module.exports = function (config) {
 
     config.set({
@@ -48,8 +51,7 @@ module.exports = function (config) {
          * Dependency order is important.
          */
         files: [
-            {pattern: "content/dcc-functions.js", included: false},
-            {pattern: "content/dcc-content.js", included: false},
+            { pattern: "content-bundle.js", included: false },
             {pattern: "test/karma/test-dcc-content.js", included: true},
             {pattern: "node_modules/sinon/pkg/sinon.js", included: true},
 // SyntaxError: export declarations may only appear at top level of a module
@@ -58,30 +60,9 @@ module.exports = function (config) {
         ],
         preprocessors: {
             'test/karma/test-dcc-content.js': ['webpack'],
-            'content/dcc-functions.js': ['webpack'],
-            'content/dcc-content.js': ['webpack']
-        },
-        webpack: {
-            mode: 'development',
-            resolve: {
-                extensions: ['.js', '.mjs'],
-                mainFields: ['browser', 'main']
+            'content-bundle.js': ['webpack']
             },
-            module: {
-                rules: [
-                    {
-                        test: /\.js$/,
-                        exclude: /node_modules/,
-                        use: {
-                            loader: 'babel-loader',
-                            options: {
-                                presets: ['@babel/preset-env']
-                            }
-                        }
-                    }
-                ]
-            }
-        },
+        webpack: webpackConfig,
         debug: true
     });
 };

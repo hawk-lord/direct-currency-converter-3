@@ -8,9 +8,9 @@
 
 "use strict";
 
-if (!this.DirectCurrencySettings) {
+if (!window.DirectCurrencySettings) {
 
-    const DirectCurrencySettings = (function() {
+    const DirectCurrencySettings = (function () {
 
         let convertToCurrency = null;
         let convertToCountry = null;
@@ -32,7 +32,7 @@ if (!this.DirectCurrencySettings) {
         let showAsSymbol = null;
         let ignoredElements = null;
 
-        const escapeHtml = function(aString) {
+        const escapeHtml = function (aString) {
             return DOMPurify.sanitize(aString);
         };
 
@@ -49,8 +49,7 @@ if (!this.DirectCurrencySettings) {
         const adjustmentPercentageChanged = (event) => {
             if (!isNaN(event.target.value)) {
                 quoteAdjustmentPercent = parseFloat(event.target.value);
-            }
-            else if (event.target.value === "") {
+            } else if (event.target.value === "") {
                 quoteAdjustmentPercent = 0;
             }
         };
@@ -196,7 +195,7 @@ if (!this.DirectCurrencySettings) {
 
         document.addEventListener("DOMContentLoaded", onLoaded);
 
-        const setUIFromPreferences = function() {
+        const setUIFromPreferences = function () {
             const targetCurrencyOptions = document.getElementById("targetCurrencyOptions");
             targetCurrencyOptions.value = convertToCurrency + "_" + convertToCountry;
             document.getElementById("enableConversion").checked = enableOnStart ? "checked" : "";
@@ -278,7 +277,7 @@ if (!this.DirectCurrencySettings) {
             document.getElementById("showAsSymbol").checked = showAsSymbol ? "checked" : "";
         };
 
-        const showSettings = function(aSettings) {
+        const showSettings = function (aSettings) {
             convertToCurrency = escapeHtml(aSettings.convertToCurrency);
             convertToCountry = escapeHtml(aSettings.convertToCountry);
             enableOnStart = aSettings.enableOnStart;
@@ -287,7 +286,9 @@ if (!this.DirectCurrencySettings) {
             includedDomains = aSettings.includedDomains;
             includedDomains.map(escapeHtml);
             convertFroms = aSettings.convertFroms;
-            convertFroms.map( (item) => { item.isoName = escapeHtml(item.isoName) });
+            convertFroms.map((item) => {
+                item.isoName = escapeHtml(item.isoName)
+            });
             quoteAdjustmentPercent = escapeHtml(aSettings.quoteAdjustmentPercent);
             roundAmounts = aSettings.roundAmounts;
             showOriginalPrices = aSettings.showOriginalPrices;
@@ -295,7 +296,9 @@ if (!this.DirectCurrencySettings) {
             showTooltip = aSettings.showTooltip;
             tempConvertUnits = aSettings.tempConvertUnits;
             currencyNames = aSettings.currencyNames;
-            Object.keys(currencyNames).forEach( (key) => { currencyNames[key] = escapeHtml(currencyNames[key]) });
+            Object.keys(currencyNames).forEach((key) => {
+                currencyNames[key] = escapeHtml(currencyNames[key])
+            });
             convertFromCurrency = aSettings.convertFromCurrency;
             apiKey = escapeHtml(aSettings.apiKey);
             quotesProvider = aSettings.quotesProvider;
@@ -306,10 +309,10 @@ if (!this.DirectCurrencySettings) {
         };
 
         return {
-            showSettings : showSettings
+            showSettings: showSettings
         };
     })();
 
-    this.DirectCurrencySettings = DirectCurrencySettings;
+    window.DirectCurrencySettings = DirectCurrencySettings;
 
 }

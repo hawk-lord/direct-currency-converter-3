@@ -8,9 +8,9 @@
 
 "use strict";
 
-if (!this.ContentAdapter) {
+if (!window.ContentAdapter) {
 
-    const ContentAdapter = function() {
+    const ContentAdapter = function () {
 
         const sendResponse = (hasConvertedElements) => {
             return {"hasConvertedElements": hasConvertedElements, "url": document.URL};
@@ -21,8 +21,7 @@ if (!this.ContentAdapter) {
             //console.log("DCC msq.url " + msg.url);
             if (message.conversionQuotes) {
                 DirectCurrencyContent.onUpdateSettings(message);
-            }
-            else {
+            } else {
                 if (message.url === "" || message.url === document.URL) {
                     //console.log("DCC msg.url === " + document.URL);
                     DirectCurrencyContent.onSendEnabledStatus(message);
@@ -48,7 +47,11 @@ if (!this.ContentAdapter) {
          * When conversion is done
          */
         const finish = (hasConvertedElements) => {
-            chrome.runtime.sendMessage({"command": "getEnabledState", "hasConvertedElements": hasConvertedElements, "url": document.URL});
+            chrome.runtime.sendMessage({
+                "command": "getEnabledState",
+                "hasConvertedElements": hasConvertedElements,
+                "url": document.URL
+            });
         };
 
         return {
@@ -58,7 +61,7 @@ if (!this.ContentAdapter) {
 
     }();
 
-    this.ContentAdapter = ContentAdapter;
+    window.ContentAdapter = ContentAdapter;
 
 }
 

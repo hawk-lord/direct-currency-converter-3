@@ -8,11 +8,11 @@
 
 "use strict";
 
-if (!this.QuotesAdapter) {
-    const QuotesAdapter = function() {
+if (!window.QuotesAdapter) {
+    const QuotesAdapter = function () {
         chrome.runtime.sendMessage({"command": "getQuotes"}, (response) => {
             DirectCurrencyQuotes.onUpdateQuotes(response);
         });
     }();
-    this.QuotesAdapter = QuotesAdapter;
+    window.QuotesAdapter = QuotesAdapter;
 }

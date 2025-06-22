@@ -7,8 +7,8 @@
  */
 "use strict";
 
-if (!this.DirectCurrencyQuotes) {
-    const DirectCurrencyQuotes = (function() {
+if (!window.DirectCurrencyQuotes) {
+    const DirectCurrencyQuotes = (function () {
         let conversionQuotes = [];
         let currencyCode = "";
         let isEnabled = true;
@@ -17,7 +17,7 @@ if (!this.DirectCurrencyQuotes) {
         const regex2 = {};
         const enabledCurrenciesWithRegexes = [];
 
-        const numberFormat = new Intl.NumberFormat(window.navigator.language, { minimumFractionDigits: 6 });
+        const numberFormat = new Intl.NumberFormat(window.navigator.language, {minimumFractionDigits: 6});
         var ascending = false;
 
         /**
@@ -30,14 +30,14 @@ if (!this.DirectCurrencyQuotes) {
         };
 
         const populateTable = (aSortByValue) => {
-            const caption =  document.getElementById("caption");
+            const caption = document.getElementById("caption");
             while (caption.hasChildNodes()) {
                 caption.removeChild(caption.lastChild);
             }
             const textNodeCaption = document.createTextNode("Quotes XXX / " + currencyCode + " = ");
             caption.append(textNodeCaption);
 
-            const tableBody =  document.getElementById("tableBody");
+            const tableBody = document.getElementById("tableBody");
             while (tableBody.hasChildNodes()) {
                 tableBody.removeChild(tableBody.lastChild);
             }
@@ -49,7 +49,10 @@ if (!this.DirectCurrencyQuotes) {
                 if (!conversionQuote.match(/[A-Z][A-Z][A-Z]/)) {
                     continue;
                 }
-                conversionQuotesArray.push({name: DOMPurify.sanitize(conversionQuote), value: DOMPurify.sanitize(conversionQuotes[conversionQuote])});
+                conversionQuotesArray.push({
+                    name: DOMPurify.sanitize(conversionQuote),
+                    value: DOMPurify.sanitize(conversionQuotes[conversionQuote])
+                });
             }
             const sortByValue = (anA, aB) => {
                 const a = ascending ? aB : anA;
@@ -92,10 +95,10 @@ if (!this.DirectCurrencyQuotes) {
             populateTable(true);
         };
         return {
-            onUpdateQuotes : onUpdateQuotes
+            onUpdateQuotes: onUpdateQuotes
         };
     })();
 
-    this.DirectCurrencyQuotes = DirectCurrencyQuotes;
+    window.DirectCurrencyQuotes = DirectCurrencyQuotes;
 
 }

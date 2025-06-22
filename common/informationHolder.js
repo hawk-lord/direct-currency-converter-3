@@ -1,9 +1,9 @@
 /*
- * © Per Johansson
- * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
- * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- */
+* © Per Johansson
+* This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+* If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*
+*/
 
 "use strict";
 
@@ -18,7 +18,7 @@
  * @returns {{conversionEnabled, conversionEnabled, convertToCountry, convertToCountry, convertToCurrency, convertToCurrency, getConversionQuotes: (function()), setConversionQuote: (function(*, *)), excludedDomains, excludedDomains, convertFroms, convertFroms, enableOnStart, enableOnStart, quoteAdjustmentPercent, quoteAdjustmentPercent, roundPrices, roundPrices, showOriginalPrices, showOriginalPrices, showOriginalCurrencies, showOriginalCurrencies, showTooltip, showTooltip, tempConvertUnits, tempConvertUnits, showDccToolsButton, showDccToolsButton, showDccConversionButton, showDccConversionButton, getCurrencyNames: (function()), isAllCurrenciesRead: (function()), getQuoteString: (function()), resetReadCurrencies: (function()), resetSettings: (function(*=))}}
  * @constructor
  */
-export const InformationHolder = function(aStorageService, aCurrencyData, _, aRegexes1, aRegexes2) {
+export const InformationHolder = function (aStorageService, aCurrencyData, _, aRegexes1, aRegexes2) {
     const conversionQuotes = {
         "inch": 25.4,
         "kcal": 4.184,
@@ -32,7 +32,7 @@ export const InformationHolder = function(aStorageService, aCurrencyData, _, aRe
         const regions = aCurrencyData.region;
         // TODO Default currency
         let foundCurrency = "GBP";
-        const findCurrentCurrency = (aCurrency) =>{
+        const findCurrentCurrency = (aCurrency) => {
             if (!aCurrency["@to"]) {
                 if (aCurrency["@tender"] !== "false") {
                     foundCurrency = aCurrency["@iso4217"];
@@ -45,8 +45,7 @@ export const InformationHolder = function(aStorageService, aCurrencyData, _, aRe
                 const currencies = regions[regionKey]["currency"];
                 if (Array.isArray(currencies)) {
                     return currencies.some(findCurrentCurrency);
-                }
-                else {
+                } else {
                     findCurrentCurrency(currencies);
                 }
             }
@@ -111,8 +110,7 @@ export const InformationHolder = function(aStorageService, aCurrencyData, _, aRe
             if (isNaN(quote)) {
                 const quoteString = "1 " + aConvertFromCurrency.isoName + " = - " + aStorageService.convertToCurrency;
                 quoteStrings.push(quoteString);
-            }
-            else {
+            } else {
                 const conversionQuote = quote.toFixed(4);
                 const quoteString = "1 " + aConvertFromCurrency.isoName + " = " + conversionQuote + " " + aStorageService.convertToCurrency;
                 quoteStrings.push(quoteString);
@@ -132,141 +130,141 @@ export const InformationHolder = function(aStorageService, aCurrencyData, _, aRe
     };
 
     return {
-        get conversionEnabled () {
+        get conversionEnabled() {
             return conversionEnabled;
         },
-        set conversionEnabled (aConversionEnabled) {
+        set conversionEnabled(aConversionEnabled) {
             conversionEnabled = aConversionEnabled;
         },
-        get convertToCountry () {
+        get convertToCountry() {
             return aStorageService.convertToCountry;
         },
-        set convertToCountry (aCountry) {
+        set convertToCountry(aCountry) {
             aStorageService.convertToCountry = aCountry;
-                if (!aStorageService.convertToCurrency) {
-                    aStorageService.convertToCurrency = findCurrency(aCountry);
-                }
+            if (!aStorageService.convertToCurrency) {
+                aStorageService.convertToCurrency = findCurrency(aCountry);
+            }
         },
-        get convertToCurrency () {
+        get convertToCurrency() {
             return aStorageService.convertToCurrency;
         },
-        set convertToCurrency (aCurrency) {
+        set convertToCurrency(aCurrency) {
             aStorageService.convertToCurrency = aCurrency;
         },
         getConversionQuotes: getConversionQuotes,
         setConversionQuote: setConversionQuote,
-        get excludedDomains () {
+        get excludedDomains() {
             return aStorageService.excludedDomains;
         },
-        set excludedDomains (anExcludedDomains) {
+        set excludedDomains(anExcludedDomains) {
             aStorageService.excludedDomains = anExcludedDomains;
         },
-        get includedDomains () {
+        get includedDomains() {
             return aStorageService.includedDomains;
         },
-        set includedDomains (anIncludedDomains) {
+        set includedDomains(anIncludedDomains) {
             aStorageService.includedDomains = anIncludedDomains;
         },
-        get convertFroms () {
+        get convertFroms() {
             return aStorageService.convertFroms;
         },
-        set convertFroms (aConvertFroms) {
+        set convertFroms(aConvertFroms) {
             aStorageService.convertFroms = aConvertFroms;
         },
-        get enableOnStart () {
+        get enableOnStart() {
             return aStorageService.enableOnStart;
         },
-        set enableOnStart (anEnableOnStart) {
+        set enableOnStart(anEnableOnStart) {
             aStorageService.enableOnStart = anEnableOnStart;
         },
-        get quoteAdjustmentPercent () {
+        get quoteAdjustmentPercent() {
             return aStorageService.quoteAdjustmentPercent;
         },
-        set quoteAdjustmentPercent (aQuoteAdjustmentPercent) {
+        set quoteAdjustmentPercent(aQuoteAdjustmentPercent) {
             aStorageService.quoteAdjustmentPercent = aQuoteAdjustmentPercent;
         },
-        get roundPrices () {
+        get roundPrices() {
             return aStorageService.roundPrices;
         },
-        set roundPrices (aRoundPrices) {
+        set roundPrices(aRoundPrices) {
             aStorageService.roundPrices = aRoundPrices;
         },
-        get showOriginalPrices () {
+        get showOriginalPrices() {
             return aStorageService.showOriginalPrices;
         },
-        set showOriginalPrices (aShowOriginalPrices) {
+        set showOriginalPrices(aShowOriginalPrices) {
             aStorageService.showOriginalPrices = aShowOriginalPrices;
         },
-        get showOriginalCurrencies () {
+        get showOriginalCurrencies() {
             return aStorageService.showOriginalCurrencies;
         },
-        set showOriginalCurrencies (aShowOriginalCurrencies) {
+        set showOriginalCurrencies(aShowOriginalCurrencies) {
             aStorageService.showOriginalCurrencies = aShowOriginalCurrencies;
         },
-        get showTooltip () {
+        get showTooltip() {
             return aStorageService.showTooltip;
         },
-        set showTooltip (aShowTooltip) {
+        set showTooltip(aShowTooltip) {
             aStorageService.showTooltip = aShowTooltip;
         },
-        get tempConvertUnits () {
+        get tempConvertUnits() {
             return aStorageService.tempConvertUnits;
         },
-        set tempConvertUnits (aTempConvertUnits) {
+        set tempConvertUnits(aTempConvertUnits) {
             aStorageService.tempConvertUnits = aTempConvertUnits;
         },
-        get apiKey () {
+        get apiKey() {
             return aStorageService.apiKey;
         },
-        set apiKey (anApiKey) {
+        set apiKey(anApiKey) {
             aStorageService.apiKey = anApiKey;
         },
-        get quotesProvider () {
+        get quotesProvider() {
             return aStorageService.quotesProvider;
         },
-        set quotesProvider (aQuotesProvider) {
+        set quotesProvider(aQuotesProvider) {
             aStorageService.quotesProvider = aQuotesProvider;
         },
-        get showDccToolsButton () {
+        get showDccToolsButton() {
             return aStorageService.showDccToolsButton;
         },
-        set showDccToolsButton (aShowDccToolsButton) {
+        set showDccToolsButton(aShowDccToolsButton) {
             aStorageService.showDccToolsButton = aShowDccToolsButton;
         },
-        get showDccConversionButton () {
+        get showDccConversionButton() {
             return aStorageService.showDccConversionButton;
         },
-        set showDccConversionButton (aShowDccConversionButton) {
+        set showDccConversionButton(aShowDccConversionButton) {
             aStorageService.showDccConversionButton = aShowDccConversionButton;
         },
-        get convertFromCurrency () {
+        get convertFromCurrency() {
             return aStorageService.convertFromCurrency;
         },
-        set convertFromCurrency (aConvertFromCurrency) {
+        set convertFromCurrency(aConvertFromCurrency) {
             aStorageService.convertFromCurrency = aConvertFromCurrency;
         },
-        get alwaysConvertFromCurrency () {
+        get alwaysConvertFromCurrency() {
             return aStorageService.alwaysConvertFromCurrency;
         },
-        set alwaysConvertFromCurrency (anAlwaysConvertFromCurrency) {
+        set alwaysConvertFromCurrency(anAlwaysConvertFromCurrency) {
             aStorageService.alwaysConvertFromCurrency = anAlwaysConvertFromCurrency;
         },
-        get showAsSymbol () {
+        get showAsSymbol() {
             return aStorageService.showAsSymbol;
         },
-        set showAsSymbol (aShowAsSymbol) {
+        set showAsSymbol(aShowAsSymbol) {
             aStorageService.showAsSymbol = aShowAsSymbol;
         },
-        get ignoredElements () {
+        get ignoredElements() {
             return aStorageService.ignoredElements;
         },
-        set ignoredElements (anIgnoredElements) {
+        set ignoredElements(anIgnoredElements) {
             aStorageService.ignoredElements = anIgnoredElements;
         },
-        get regexes1 () {
+        get regexes1() {
             return regexes1;
         },
-        get regexes2 () {
+        get regexes2() {
             return regexes2;
         },
         getCurrencyNames: getCurrencyNames,

@@ -4,13 +4,20 @@
   "type": "module",
   "scripts": {
     "test": "karma start test/karma.conf.cjs",
-    "test:mocha": "npx mocha test/mocha --require test/mocha/setup.js"
+    "test:mocha": "npx mocha test/mocha --require test/mocha/setup.js",
+    "build:dev": "webpack --config webpack.dev.cjs",
+    "build:prod": "webpack --config webpack.prod.cjs"
+  },
+  "dependencies": {
+    "dompurify": "^3.2.6",
+    "drag-drop-touch": "github:Bernardo-Castilho/DragDropTouch#master"
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",
     "@babel/preset-env": "^7.27.2",
     "babel-loader": "^10.0.0",
     "chai": "^5.2.0",
+    "copy-webpack-plugin": "^12.0.2",
     "intl": "^1.2.5",
     "karma": "^6.4.4",
     "karma-chrome-launcher": "^3.2.0",
@@ -19,6 +26,8 @@
     "karma-webpack": "^5.0.1",
     "mocha": "^10.8.2",
     "sinon": "^18.0.1",
-    "webpack": "^5.99.9"
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-merge": "^6.0.1"
   }
 }
