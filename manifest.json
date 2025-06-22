@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Direct Currency Converter",
-  "version": "3.3.0",
+  "version": "3.4.0",
 
   "default_locale": "en",
   "description": "Converts prices from any currency (€, $, £, ¥, ؋, ৳, ฿, ៛, ₡, etc.) to prices in a selectable currency automatically while browsing.",

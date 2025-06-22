@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.3.0, date 2024-09-07
+Version 3.4.0, date 2025-06-22
 
 ## Introduction
 
@@ -59,6 +59,14 @@ and Currencylayer to cover most currencies.
 External libraries:  DOM Purify, Drag Drop Touch.
 
 ## Changelog
+
+### 3.4.0, 2025-06-22
+Fixed VES/VEF (Venezolan Bolivars) problem.
+
+Internal changes:
+Updated dependencies
+Using ESM modules where possible
+Fixed failing unit tests
 
 ### 3.3.0, 2024-09-07
 

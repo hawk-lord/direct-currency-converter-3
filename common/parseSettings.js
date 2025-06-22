@@ -13,7 +13,7 @@
  * @param anInformationHolder
  * @constructor
  */
-export const ParseSettings = function(aSettings, anInformationHolder) {
+export const ParseSettings = function (aSettings, anInformationHolder) {
     anInformationHolder.convertToCurrency = aSettings.convertToCurrency;
     anInformationHolder.convertToCountry = aSettings.convertToCountry;
     anInformationHolder.enableOnStart = aSettings.enableOnStart;
@@ -33,7 +33,3 @@ export const ParseSettings = function(aSettings, anInformationHolder) {
     anInformationHolder.showAsSymbol = aSettings.showAsSymbol;
     anInformationHolder.ignoredElements = aSettings.ignoredElements;
 };
-
-if (typeof exports === "object") {
-    exports.ParseSettings = ParseSettings;
-}

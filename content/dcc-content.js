@@ -8,10 +8,12 @@
 
 "use strict";
 
+import DccFunctions, {CurrencyRegex} from './dcc-functions.js';
 
-if (!this.DirectCurrencyContent) {
+let DirectCurrencyContent;
 
-    const DirectCurrencyContent = (function(aDccFunctions) {
+if (!globalThis.DirectCurrencyContent) {
+    DirectCurrencyContent = (function (aDccFunctions) {
 
         let conversionQuotes = [];
         let currencyCode = "";
@@ -27,7 +29,7 @@ if (!this.DirectCurrencyContent) {
         let convertFromCurrency = "GBP";
         let alwaysConvertFromCurrency = false;
         let showAsSymbol = false;
-        let ignoredElements = ["audio", "colgroup", "embed", "head", "html", "img", "object",  "ol", "script", "select", "style", "table", "tbody", "textarea", "thead", "tr", "ul", "video"];
+        let ignoredElements = ["audio", "colgroup", "embed", "head", "html", "img", "object", "ol", "script", "select", "style", "table", "tbody", "textarea", "thead", "tr", "ul", "video"];
 
         /**
          *
@@ -53,8 +55,7 @@ if (!this.DirectCurrencyContent) {
             let prices = [];
             if (alwaysConvertFromCurrency) {
                 prices = aDccFunctions.findNumbers(convertFromCurrency, currencyCode, aNode.nodeValue);
-            }
-            else {
+            } else {
                 prices = aDccFunctions.findPrices(enabledCurrenciesWithRegexes, currencyCode, aNode.nodeValue);
             }
             if (prices.length === 0) {
@@ -78,8 +79,7 @@ if (!this.DirectCurrencyContent) {
                     if (!dataNode.className.includes("dccConvertedSibling")) {
                         dataNode.className += " dccConvertedSibling";
                     }
-                }
-                else {
+                } else {
                     dataNode.dataset.dccConvertedContent = convertedContent;
                     if (!dataNode.dataset.dccOriginalContent) {
                         dataNode.dataset.dccOriginalContent = aNode.nodeValue;
@@ -88,8 +88,7 @@ if (!this.DirectCurrencyContent) {
                         dataNode.className += " dccConverted";
                     }
                 }
-            }
-            else {
+            } else {
                 console.error("dataNode.dataset is undefined or null");
             }
 
@@ -114,7 +113,7 @@ if (!this.DirectCurrencyContent) {
                     dccTitle += "Conversion quote " + price.originalCurrency + "/" + price.currency + " = " +
                         aDccFunctions.formatOther(conversionQuote, "") + "\n";
                     dccTitle += "Conversion quote " + price.currency + "/" + price.originalCurrency + " = " +
-                        aDccFunctions.formatOther(1/conversionQuote, "") + "\n";
+                        aDccFunctions.formatOther(1 / conversionQuote, "") + "\n";
                 }
             }
 
@@ -152,8 +151,7 @@ if (!this.DirectCurrencyContent) {
                     const node = aMutationRecord.addedNodes[i];
                     traverseDomTree(node);
                 }
-            }
-            else if (aMutationRecord.type === "characterData") {
+            } else if (aMutationRecord.type === "characterData") {
                 mutationObserver.disconnect();
                 replaceCurrency(aMutationRecord.target, true);
                 //mutationObserver.observe(document.body, mutationObserverInit);
@@ -192,7 +190,7 @@ if (!this.DirectCurrencyContent) {
 
         const filter = {
             acceptNode: function (node) {
-                if (!ignoredElements.includes(node.parentNode.tagName.toLowerCase())
+                if (!ignoredElements || !ignoredElements.includes(node.parentNode.tagName.toLowerCase())
                     // Include only trees with numbers
                     && /\d/.test(node.textContent)) {
                     return NodeFilter.FILTER_ACCEPT;
@@ -240,8 +238,7 @@ if (!this.DirectCurrencyContent) {
                         aNode.nodeValue = isShowOriginal ? dataNode.dataset.dccOriginalContentSibling : dataNode.dataset.dccConvertedContentSibling;
                     }
                 }
-            }
-            else {
+            } else {
                 if (dataNode.dataset && dataNode.dataset.dccOriginalContent) {
                     if (aDccTitle) {
                         aNode.parentNode.dataset.dcctitle = aNode.parentNode.dataset.dcctitle ? aNode.parentNode.dataset.dcctitle : "";
@@ -330,8 +327,7 @@ if (!this.DirectCurrencyContent) {
                             currency.isoName,
                             regex1,
                             regex2));
-                    }
-                    catch(e) {
+                    } catch (e) {
                         console.error(currency.isoName + " " + e.message);
                     }
                 }
@@ -393,18 +389,21 @@ if (!this.DirectCurrencyContent) {
 
         };
 
-        document.addEventListener("DOMContentLoaded", function(event) {
+        document.addEventListener("DOMContentLoaded", function (event) {
             if (typeof ContentAdapter !== 'undefined') {
                 ContentAdapter.loaded();
             }
         });
 
         return {
-            onSendEnabledStatus : onSendEnabledStatus,
-            onUpdateSettings : onUpdateSettings
+            onSendEnabledStatus: onSendEnabledStatus,
+            onUpdateSettings: onUpdateSettings
         };
-    })(this.DccFunctions);
+    })(DccFunctions);
 
-    this.DirectCurrencyContent = DirectCurrencyContent;
-
+    globalThis.DirectCurrencyContent = DirectCurrencyContent;
+} else {
+    DirectCurrencyContent = globalThis.DirectCurrencyContent;
 }
+
+export {DirectCurrencyContent};

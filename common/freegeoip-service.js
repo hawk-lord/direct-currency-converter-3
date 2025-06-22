@@ -7,22 +7,20 @@
 
 "use strict";
 
-const FreegeoipServiceProvider = function() {
-    const onComplete = function() {
+const FreegeoipServiceProvider = function () {
+    const onComplete = function () {
         try {
             if (this.readyState === this.DONE) {
                 let countryCode;
                 if (this.status === 200) {
                     const response = JSON.parse(this.responseText);
                     countryCode = response.country_code;
-                }
-                else {
+                } else {
                     countryCode = "CH";
                 }
                 eventAggregator.publish("countryReceivedFreegeoip", countryCode);
             }
-        }
-        catch(err) {
+        } catch (err) {
             console.error("err " + err);
             eventAggregator.publish("countryReceivedFreegeoip", "CH");
         }
@@ -45,6 +43,3 @@ const FreegeoipServiceProvider = function() {
     };
 };
 
-if (typeof exports === "object") {
-    exports.FreegeoipServiceProvider = FreegeoipServiceProvider;
-}

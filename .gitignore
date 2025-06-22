@@ -9,7 +9,7 @@
 # Node.js
 /node_modules/
 /package-lock.json
-# Allow package.json (needed for dependencies and scripts)
+# Allow package.json (for test dependencies)
 
 # Temporary directories
 .tmp/
@@ -19,6 +19,11 @@ tmp/
 # Build outputs
 out/
 dist/
+build/
+
+# Test artifacts
+coverage/
+.nyc_output/
 
 # Other IDE-specific files
 *.ipr

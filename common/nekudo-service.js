@@ -7,22 +7,20 @@
 
 "use strict";
 
-const NekudoServiceProvider = function() {
-    const onComplete = function() {
+const NekudoServiceProvider = function () {
+    const onComplete = function () {
         try {
             if (this.readyState === this.DONE) {
                 let countryCode;
                 if (this.status === 200) {
                     const response = JSON.parse(this.responseText);
                     countryCode = response.country.code;
-                }
-                else {
+                } else {
                     countryCode = "CH";
                 }
                 eventAggregator.publish("countryReceivedNekudo", countryCode);
             }
-        }
-        catch(err) {
+        } catch (err) {
             console.error("err " + err);
             eventAggregator.publish("countryReceivedNekudo", "CH");
         }
@@ -45,6 +43,3 @@ const NekudoServiceProvider = function() {
     };
 };
 
-if (typeof exports === "object") {
-    exports.NekudoServiceProvider = NekudoServiceProvider;
-}
