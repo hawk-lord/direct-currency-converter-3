@@ -3,14 +3,24 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
-        'content-bundle': [
+        'content-bundle': {
+            import: [
             './content/dcc-functions.js',
             './content/dcc-content.js',
             './gc-content-adapter.js'
         ],
-        //'gc-main': './common/dcc-main.js',
-        'dragdroptouch': 'drag-drop-touch',
-        'dompurify': 'dompurify'
+            library: {
+                type: 'window',
+                name: 'DirectCurrencyConverter'
+            }
+        },
+        'dragdroptouch': {
+            import: 'drag-drop-touch',
+            library: {
+                type: 'window',
+                name: 'DragDropTouch'
+            }
+        }
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -48,6 +58,7 @@ module.exports = {
                 {from: 'settings.css', to: 'settings.css'},
                 {from: 'panel-style.css', to: 'panel-style.css'},
                 {from: 'images', to: 'images'},
+                { from: 'node_modules/dompurify/dist/purify.min.js', to: 'content/purify.min.js' },
                 // Root JavaScript files
                 {from: 'gc-chromeInterface.js', to: 'gc-chromeInterface.js'},
                 {from: 'gc-contentInterface.js', to: 'gc-contentInterface.js'},
@@ -80,42 +91,5 @@ module.exports = {
                 {from: '_locales', to: '_locales'}
             ]
         })
-    ],
-    // Custom output for each entry point
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js',
-        clean: true
-    },
-    entry: {
-        'content-bundle': {
-            import: [
-                './content/dcc-functions.js',
-                './content/dcc-content.js',
-                './gc-content-adapter.js'
-            ],
-            library: {
-                type: 'window',
-                name: 'DirectCurrencyConverter'
-            }
-        },
-//        'gc-main': {
-//            import: './common/dcc-main.js' // Updated path
-        // No library export for service worker
-        //       },
-        'dragdroptouch': {
-            import: 'drag-drop-touch',
-            library: {
-                type: 'window',
-                name: 'DragDropTouch'
-            }
-        },
-        'dompurify': {
-            import: 'dompurify',
-            library: {
-                type: 'window',
-                name: 'DOMPurify'
-            }
-        }
-    }
+    ]
 };

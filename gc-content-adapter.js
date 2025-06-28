@@ -12,23 +12,20 @@ if (!window.ContentAdapter) {
 
     const ContentAdapter = function () {
 
-        const sendResponse = (hasConvertedElements) => {
-            return {"hasConvertedElements": hasConvertedElements, "url": document.URL};
-        };
-
         const messageListener = (message, sender, sendResponse) => {
-            //console.log("DCC messageListener URL " + document.URL);
-            //console.log("DCC msq.url " + msg.url);
+            console.log("messageListener:", message, "from:", sender);
             if (message.conversionQuotes) {
                 DirectCurrencyContent.onUpdateSettings(message);
+                sendResponse({success: true});
+                return false;
+            } else if (message.url === "" || message.url === document.URL) {
+                DirectCurrencyContent.onSendEnabledStatus(message);
+                sendResponse({success: true});
+                return false;
             } else {
-                if (message.url === "" || message.url === document.URL) {
-                    //console.log("DCC msg.url === " + document.URL);
-                    DirectCurrencyContent.onSendEnabledStatus(message);
-                }
+                sendResponse({error: "Unknown command"});
+                return false;
             }
-            // async
-            return true;
         };
 
         /**
@@ -47,19 +44,33 @@ if (!window.ContentAdapter) {
          * When conversion is done
          */
         const finish = (hasConvertedElements) => {
-            chrome.runtime.sendMessage({
-                "command": "getEnabledState",
-                "hasConvertedElements": hasConvertedElements,
-                "url": document.URL
-            });
+            if (document.visibilityState === "hidden") {
+                console.warn("Skipping message send due to page unload");
+                return;
+            }
+            chrome.runtime.sendMessage(
+                {
+                    command: "getEnabledState",
+                    hasConvertedElements,
+                    url: document.URL
+                },
+                (response) => {
+                    if (chrome.runtime.lastError) {
+                        console.error("Error sending message:", chrome.runtime.lastError);
+                        return;
+                    }
+                    console.log("Response:", response);
+                }
+            );
         };
 
         return {
-            loaded: loaded,
-            finish: finish
+            loaded: loaded //,
+            //finish: finish
         };
 
-    }();
+    }
+    ();
 
     window.ContentAdapter = ContentAdapter;
 

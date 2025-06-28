@@ -131,22 +131,52 @@ export const DirectCurrencyConverter = function () {
      * @param informationHolder
      */
     const onStorageServiceInitDone = () => {
+        const mockSelect = "currencyLayerMock"; // Set to "currencyLayerMock", "ecbMock", or null
 
         commonQuotesService = new QuotesServiceProvider(eventAggregator);
-        if (informationHolder.quotesProvider === "ECB") {
-            quotesService = new EcbQuotesServiceProvider(eventAggregator, informationHolder);
-        } else if (informationHolder.quotesProvider === "Currencylayer") {
-            quotesService = new CurrencylayerQuotesServiceProvider(eventAggregator, informationHolder);
+        let quotesProvider;
+        let mockMode;
+
+        // Determine provider and mock mode
+        if (mockSelect === "currencyLayerMock") {
+            quotesProvider = "Currencylayer";
+            mockMode = true;
+        } else if (mockSelect === "ecbMock") {
+            quotesProvider = "ECB";
+            mockMode = true;
+        } else {
+            quotesProvider = informationHolder.quotesProvider || "ECB";
+            mockMode = false;
+        }
+
+        // Initialize quotes service
+        if (quotesProvider === "ECB") {
+            quotesService = new EcbQuotesServiceProvider(eventAggregator, informationHolder, mockMode);
+        } else if (quotesProvider === "Currencylayer") {
+            quotesService = new CurrencylayerQuotesServiceProvider(eventAggregator, informationHolder, mockMode);
         }
 
         eventAggregator.subscribe("saveSettings", (eventArgs) => {
             const toCurrencyChanged = informationHolder.convertToCurrency !== eventArgs.settings.convertToCurrency;
             const quotesProviderChanged = informationHolder.quotesProvider !== eventArgs.settings.quotesProvider;
             if (quotesProviderChanged) {
-                if (eventArgs.settings.quotesProvider === "ECB") {
-                    quotesService = new EcbQuotesServiceProvider(eventAggregator, informationHolder);
-                } else if (eventArgs.settings.quotesProvider === "Currencylayer") {
-                    quotesService = new CurrencylayerQuotesServiceProvider(eventAggregator, informationHolder);
+                let newQuotesProvider;
+                let newMockMode;
+                if (mockSelect === "currencyLayerMock") {
+                    newQuotesProvider = "Currencylayer";
+                    newMockMode = true;
+                } else if (mockSelect === "ecbMock") {
+                    newQuotesProvider = "ECB";
+                    newMockMode = true;
+                } else {
+                    newQuotesProvider = eventArgs.settings.quotesProvider || "ECB";
+                    newMockMode = false;
+                }
+
+                if (newQuotesProvider === "ECB") {
+                    quotesService = new EcbQuotesServiceProvider(eventAggregator, informationHolder, newMockMode);
+                } else if (newQuotesProvider === "Currencylayer") {
+                    quotesService = new CurrencylayerQuotesServiceProvider(eventAggregator, informationHolder, newMockMode);
                 }
             }
             informationHolder.resetReadCurrencies();

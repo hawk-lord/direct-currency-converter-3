@@ -17,7 +17,7 @@ import {GcStorageServiceProvider} from './gc-storage-service.js';
 import {GcChromeInterface} from './gc-chromeInterface.js';
 
 
-const GcDirectCurrencyConverter = (function() {
+const GcDirectCurrencyConverter = (function () {
 
     const localisation = new GcLocalisation();
     const _ = localisation._;
@@ -31,20 +31,22 @@ const GcDirectCurrencyConverter = (function() {
      * @param sendResponse
      */
     const onMessageFromSettings = (message, sender, sendResponse) => {
+        console.log("onMessageFromSettings:", message);
         if (message.command === "show") {
             sendResponse(new Settings(dcc.informationHolder));
-        }
-        else if (message.command === "save") {
-            eventAggregator.publish("saveSettings", {
-                settings: message.settings
-            })
-        }
-        else if (message.command === "reset") {
+        } else if (message.command === "saveSettings") {
+            eventAggregator.publish("saveSettings", {settings: message.settings});
+            sendResponse({success: true});
+        } else if (message.command === "reset") {
             eventAggregator.publish("resetSettings");
-        }
-        else if (message.command === "resetQuotes") {
+            sendResponse({success: true});
+        } else if (message.command === "resetQuotes") {
             eventAggregator.publish("resetQuotes");
+            sendResponse({success: true});
+        } else {
+            sendResponse({error: "Unknown command"});
         }
+        return false;
     };
     chrome.runtime.onMessage.addListener(onMessageFromSettings);
 
@@ -91,9 +93,9 @@ const GcDirectCurrencyConverter = (function() {
 
     chrome.runtime.onInstalled.addListener((details) => {
         if (details.reason === "install" || details.reason === "update") {
-            chrome.tabs.create({ url:chrome.runtime.getURL("common/help.html")} );
+            //FIXME chrome.tabs.create({url: chrome.runtime.getURL("common/help.html")});
         }
     });
-    
+
 
 })();

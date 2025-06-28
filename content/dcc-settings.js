@@ -33,7 +33,7 @@ if (!window.DirectCurrencySettings) {
         let ignoredElements = null;
 
         const escapeHtml = function (aString) {
-            return DOMPurify.sanitize(aString);
+            return window.DOMPurify.sanitize(aString);
         };
 
         const targetCurrencyChanged = (event) => {
@@ -173,6 +173,7 @@ if (!window.DirectCurrencySettings) {
         };
 
         const onLoaded = () => {
+            console.log("onLoaded started")
             document.getElementById("targetCurrencyOptions").addEventListener("input", targetCurrencyChanged);
             document.getElementById("enableConversion").addEventListener("input", enableConversionChanged);
             document.getElementById("adjustmentPercentage").addEventListener("input", adjustmentPercentageChanged);

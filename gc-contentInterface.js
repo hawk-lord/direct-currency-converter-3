@@ -63,10 +63,13 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
             // console.log("sendEnabledStatus onScriptExecuted injectionResult " + injectionResult);
             // console.log("sendEnabledStatus onScriptExecuted tabId " + tabId);
             try {
+                /*
                 if (!chrome.runtime.onMessage.hasListener(finishedTabProcessingHandler)) {
                     // console.log("Add finishedTabProcessingHandler");
                     chrome.runtime.onMessage.addListener(finishedTabProcessingHandler);
                 }
+
+                 */
                 chrome.tabs.sendMessage(tabId, settings)
             } catch (err) {
                 console.error(err);
@@ -108,36 +111,6 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
 
     };
 
-    const finishedTabProcessingHandler = (message, sender, sendResponse) => {
-        //console.log("finishedTabProcessingHandler message: " + message.command);
-        if (message.command === "getEnabledState") {
-            /*
-            try {
-                console.log("finishedTabProcessingHandler message " + message);
-                console.log("finishedTabProcessingHandler sender " + sender);
-                console.log("finishedTabProcessingHandler tab " + sender.tab.id);
-                if (sender.tab) {
-                    let tabIdState = tabIdStates.find(tabIdState => tabIdState.tabId === sender.tab.id);
-                    console.log("finishedTabProcessingHandler tabIdState: " + tabIdState);
-                    if (!tabIdState) {
-                        tabIdState = new TabState(sender.tab.id, false);
-                        tabIdStates.push(tabIdState);
-                        console.log("finishedTabProcessingHandler Pushed tabIdState to tabIdStates");
-                    }
-                    else {
-                        // Switch state
-                        console.log("finishedTabProcessingHandler Before: " + tabIdState.state);
-                        tabIdState.state = !tabIdState.state;
-                        console.log("finishedTabProcessingHandler After: " + tabIdState.state);
-                    }
-                }
-            }
-            catch (err) {
-                console.error("finishedTabProcessingHandler " + err);
-            }
-            */
-        }
-    };
 
     /**
      * Called from tabs.onUpdated
@@ -293,9 +266,17 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
 
     const showQuotesTab = () => {
         const quotesListener = (message, sender, sendResponse) => {
-            sendResponse(new Settings(anInformationHolder));
+            console.log("quotesListener:", message, "from:", sender);
+        if (message.command === "getQuotes") {
+                sendResponse(new Settings(anInformationHolder));
+            } else {
+                sendResponse({error: "Unknown command"});
+            }
+            return false;
         };
         const quotesCallback = (aTab) => {
+            // Prevent duplicate listeners
+            chrome.runtime.onMessage.removeListener(quotesListener);
             chrome.runtime.onMessage.addListener(quotesListener);
         };
         chrome.tabs.create({url: chrome.runtime.getURL("quotes.html")}, quotesCallback);

@@ -11,6 +11,10 @@
 if (!window.QuotesAdapter) {
     const QuotesAdapter = function () {
         chrome.runtime.sendMessage({"command": "getQuotes"}, (response) => {
+            if (chrome.runtime.lastError) {
+                console.error("Error sending getQuotes:", chrome.runtime.lastError);
+                return;
+            }
             DirectCurrencyQuotes.onUpdateQuotes(response);
         });
     }();

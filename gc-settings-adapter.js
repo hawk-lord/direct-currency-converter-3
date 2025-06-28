@@ -8,24 +8,56 @@
 
 "use strict";
 
-if (!this.SettingsAdapter) {
+if (!window.SettingsAdapter) {
     const SettingsAdapter = function () {
         const options = null;
+        console.log("Showing Settings Adapter");
         chrome.runtime.sendMessage({command: "show"}, DirectCurrencySettings.showSettings);
         document.addEventListener("DOMContentLoaded", DirectCurrencySettings);
         return {
             save: (aSettings) => {
-                chrome.runtime.sendMessage({command: "save", settings: aSettings});
-                window.close();
+                console.log("SettingsAdapter.save");
+                chrome.runtime.sendMessage(
+                    {command: "saveSettings", settings: aSettings},
+                    (response) => {
+                        if (chrome.runtime.lastError) {
+                            console.error("Error sending saveSettings:", chrome.runtime.lastError);
+                            return;
+                        }
+                        console.log("saveSettings response:", response);
+                        window.close(); // Close after response
+                    }
+                );
             },
             reset: () => {
-                chrome.runtime.sendMessage({command: "reset"});
-                window.close();
+                console.log("SettingsAdapter.reset");
+                chrome.runtime.sendMessage(
+                    {command: "reset"},
+                    (response) => {
+                        if (chrome.runtime.lastError) {
+                            console.error("Error sending reset:", chrome.runtime.lastError);
+                            return;
+                        }
+                        console.log("reset response:", response);
+                        window.close();
+                    }
+                );
             },
             resetQuotes: () => {
-                chrome.runtime.sendMessage({command: "resetQuotes"});
+                console.log("SettingsAdapter.resetQuotes");
+                chrome.runtime.sendMessage(
+                    {command: "resetQuotes"},
+                    (response) => {
+                        if (chrome.runtime.lastError) {
+                            console.error("Error sending resetQuotes:", chrome.runtime.lastError);
+                            return;
             }
+                        console.log("resetQuotes response:", response);
+                        // Optional: window.close() if desired
         }
+                );
+            }
+        };
     }();
     window.SettingsAdapter = SettingsAdapter;
 }
