@@ -378,9 +378,6 @@ if (!globalThis.DirectCurrencyContent) {
                         hasConvertedElements = true;
                     }
                 }
-                if (typeof ContentAdapter !== 'undefined') {
-                    // TODO removed ContentAdapter.finish(hasConvertedElements);
-                }
                 isEnabled = aSettings.isEnabled;
 
             };

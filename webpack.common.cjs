@@ -1,3 +1,9 @@
+/*
+ * © Per Johansson
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ */
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -5,10 +11,10 @@ module.exports = {
     entry: {
         'content-bundle': {
             import: [
-            './content/dcc-functions.js',
-            './content/dcc-content.js',
-            './gc-content-adapter.js'
-        ],
+                './content/dcc-functions.js',
+                './content/dcc-content.js',
+                './gc-content-adapter.js'
+            ],
             library: {
                 type: 'window',
                 name: 'DirectCurrencyConverter'
@@ -32,18 +38,7 @@ module.exports = {
         mainFields: ['browser', 'main']
     },
     module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
-            }
-        ]
+        rules: []
     },
     plugins: [
         new CopyWebpackPlugin({
@@ -58,7 +53,9 @@ module.exports = {
                 {from: 'settings.css', to: 'settings.css'},
                 {from: 'panel-style.css', to: 'panel-style.css'},
                 {from: 'images', to: 'images'},
-                { from: 'node_modules/dompurify/dist/purify.min.js', to: 'content/purify.min.js' },
+                {from: 'node_modules/dompurify/dist/purify.min.js', to: 'content/purify.min.js'},
+                {from: 'LICENCE', to: 'LICENCE'},
+                {from: 'THIRD-PARTY-LICENCES', to: 'THIRD-PARTY-LICENCES'},
                 // Root JavaScript files
                 {from: 'gc-chromeInterface.js', to: 'gc-chromeInterface.js'},
                 {from: 'gc-contentInterface.js', to: 'gc-contentInterface.js'},
