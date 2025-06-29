@@ -40,28 +40,53 @@ export const GcChromeInterface = function (conversionEnabled) {
     const setButtonStatus = (aButtonStatus) => {
         buttonStatus = aButtonStatus;
         setButtonAppearance();
-    }
-
-    const onMessageFromPanel = (message, sender, sendResponse) => {
-        console.log("onMessageFromPanel:", message, "from:", sender);
-        if (message.command === "toggleConversion") {
-            onBrowserAction();
-            sendResponse({success: true});
-        } else if (message.command === "showQuotesTab") {
-            eventAggregator.publish("showQuotesTab");
-            sendResponse({success: true});
-        } else if (message.command === "showTestTab") {
-            eventAggregator.publish("showTestTab");
-            sendResponse({success: true});
-        } else {
-            sendResponse({error: "Unknown command"});
-        }
-        return false;
     };
-    chrome.runtime.onMessage.addListener(onMessageFromPanel);
+
+    // Send ready signal when a new quotes tab is created
+    chrome.tabs.onCreated.addListener((tab) => {
+        if (tab.url && tab.url.includes("quotes.html")) {
+            chrome.runtime.sendMessage({
+                command: "ready",
+                requestId: crypto.randomUUID() // Generate a new ID for each tab
+            });
+        }
+    });
+
+    // Add context menu items
+    chrome.contextMenus.create({
+        id: "toggle-conversion",
+        title: "Toggle conversion",
+        contexts: ["page"]
+    });
+
+    chrome.contextMenus.create({
+        id: "open-quotes",
+        title: "Open quotes page",
+        contexts: ["page"]
+    });
+
+    chrome.contextMenus.create({
+        id: "open-test",
+        title: "Open test page",
+        contexts: ["page"]
+    });
+
+    // Handle context menu clicks
+    chrome.contextMenus.onClicked.addListener((info, tab) => {
+        switch (info.menuItemId) {
+            case "toggle-conversion":
+                onBrowserAction(tab);
+                break;
+            case "open-quotes":
+                eventAggregator.publish("showQuotesTab");
+                break;
+            case "open-test":
+                eventAggregator.publish("showTestTab");
+                break;
+        }
+    });
 
     return {
         setButtonStatus: setButtonStatus
-    }
-
+    };
 };

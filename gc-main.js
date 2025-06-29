@@ -23,6 +23,15 @@ const GcDirectCurrencyConverter = (function () {
     const _ = localisation._;
     const dcc = new DirectCurrencyConverter();
 
+    const quotesListener = (message, sender, sendResponse) => {
+        console.log("quotesListener:", message, "from:", sender);
+        if (message.target === "quotesTab" && message.command === "getQuotes") {
+            sendResponse(new Settings(dcc.informationHolder)); // Assume Settings is imported or globally available
+        }
+        return false;  // No response if not targeted
+    };
+    chrome.runtime.onMessage.addListener(quotesListener);
+
 
     /**
      * Communicate with the Settings tab
@@ -32,19 +41,17 @@ const GcDirectCurrencyConverter = (function () {
      */
     const onMessageFromSettings = (message, sender, sendResponse) => {
         console.log("onMessageFromSettings:", message);
-        if (message.command === "show") {
+        if (message.target !== "quotesTab" && message.command === "show") {
             sendResponse(new Settings(dcc.informationHolder));
-        } else if (message.command === "saveSettings") {
+        } else if (message.target !== "quotesTab" && message.command === "saveSettings") {
             eventAggregator.publish("saveSettings", {settings: message.settings});
             sendResponse({success: true});
-        } else if (message.command === "reset") {
+        } else if (message.target !== "quotesTab" && message.command === "reset") {
             eventAggregator.publish("resetSettings");
             sendResponse({success: true});
-        } else if (message.command === "resetQuotes") {
+        } else if (message.target !== "quotesTab" && message.command === "resetQuotes") {
             eventAggregator.publish("resetQuotes");
             sendResponse({success: true});
-        } else {
-            sendResponse({error: "Unknown command"});
         }
         return false;
     };

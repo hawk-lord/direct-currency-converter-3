@@ -265,25 +265,27 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
     };
 
     const showQuotesTab = () => {
-        const quotesListener = (message, sender, sendResponse) => {
-            console.log("quotesListener:", message, "from:", sender);
-        if (message.command === "getQuotes") {
-                sendResponse(new Settings(anInformationHolder));
-            } else {
-                sendResponse({error: "Unknown command"});
-            }
-            return false;
-        };
-        const quotesCallback = (aTab) => {
-            // Prevent duplicate listeners
-            chrome.runtime.onMessage.removeListener(quotesListener);
-            chrome.runtime.onMessage.addListener(quotesListener);
-        };
-        chrome.tabs.create({url: chrome.runtime.getURL("quotes.html")}, quotesCallback);
+        const requestId = crypto.randomUUID();
+        chrome.tabs.create({
+            url: chrome.runtime.getURL("quotes.html") + `?requestId=${requestId}`
+        }, (tab) => {
+            // Wait for tab to update and send ready signal
+            const onTabUpdated = (updatedTabId, changeInfo, updatedTab) => {
+                if (updatedTabId === tab.id && changeInfo.status === "complete") {
+                    // For extension pages, url might not be fully reliable; use tab.id match
+                    chrome.runtime.sendMessage({
+                        command: "ready",
+                        requestId: requestId
+                    });
+                    chrome.tabs.onUpdated.removeListener(onTabUpdated);
+                }
+            };
+            chrome.tabs.onUpdated.addListener(onTabUpdated);
+        });
     };
 
     const showTestTab = () => {
-        chrome.tabs.create({"url": "http://home.aland.net/ma37296-p1/extensions/prices.html"});
+        chrome.tabs.create({url: "http://home.aland.net/ma37296-p1/extensions/prices.html"});
     };
 
     return {

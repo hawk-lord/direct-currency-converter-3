@@ -7,18 +7,20 @@
 <html>
 <head>
     <title>Quotes</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8">
-    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
         body {
-            font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
+
         span {
             margin: 1em;
             background-color: beige;
         }
+
         td {
             text-align: right;
         }
@@ -26,19 +28,19 @@
 </head>
 <body>
 <table>
-<caption id="caption">Quotes</caption>
-<thead>
-<tr>
-    <th><a id="currency" href="#">Currency</a></th>
-    <th><a id="value" href="#">Value</a></th>
-</tr>
-</thead>
-<tbody id="tableBody">
-</tbody>
+    <caption id="caption">Quotes</caption>
+    <thead>
+    <tr>
+        <th><a id="currency" href="#">Currency</a></th>
+        <th><a id="value" href="#">Value</a></th>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
 </table>
-<script type="text/javascript" src="content/purify.min.js" ></script>
-<script type="text/javascript" src="content/dcc-quotes.js" ></script>
-<script type="text/javascript" src="gc-quotes-adapter.js"></script>
+<script type="text/javascript" src="content/purify.min.js"></script>
+<script type="module" src="content/dcc-quotes.js"></script>
+<script type="module" src="gc-quotes-adapter.js"></script>
 </body>
 </html>
 
