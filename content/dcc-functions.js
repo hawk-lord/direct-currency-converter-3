@@ -2,8 +2,6 @@
  * © Per Johansson
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- * Module pattern is used.
  */
 
 "use strict";
@@ -290,7 +288,7 @@ const DccFunctions = (function () {
                 entry = this.multipleIterator.next();
             }
             return {text: "", exponent: 0};
-        }
+        };
     };
 
     const multiples = {};
@@ -654,28 +652,7 @@ const DccFunctions = (function () {
         return prices;
     };
 
-
-    return {
-        checkMinorUnit: checkMinorUnit,
-        getMultiplicator: getMultiplicator,
-        formatDefaultIso4217Price: formatDefaultIso4217Price,
-        formatIso4217Price: formatIso4217Price,
-        formatOther: formatOther,
-        saveDefaultCurrencyNumberFormat: saveDefaultCurrencyNumberFormat,
-        saveNumberFormat: saveNumberFormat,
-        useUnit: useUnit,
-        parseAmount: parseAmount,
-        convertAmount: convertAmount,
-        replaceContent: replaceContent,
-        convertContent: convertContent,
-        findPricesInCurrency: findPricesInCurrency,
-        findPrices: findPrices,
-        findNumbers: findNumbers
-    }
-})();
-
-
-export const Price = function (aCurrency, anIso4217Currency, anOriginalCurrency, aMatch, aBeforeCurrencySymbol) {
+    const Price = function (aCurrency, anIso4217Currency, anOriginalCurrency, aMatch, aBeforeCurrencySymbol) {
     this.iso4217Currency = anIso4217Currency;
     this.originalCurrency = anOriginalCurrency;
     this.currency = aCurrency;
@@ -694,11 +671,32 @@ export const Price = function (aCurrency, anIso4217Currency, anOriginalCurrency,
     this.positionInString = aMatch.index;
 };
 
-export const CurrencyRegex = function (anIso4217Currency, aCurrency, aRegex1, aRegex2) {
+    const CurrencyRegex = function (anIso4217Currency, aCurrency, aRegex1, aRegex2) {
     this.iso4217Currency = anIso4217Currency;
     this.currency = aCurrency;
     this.regex1 = aRegex1;
     this.regex2 = aRegex2;
 };
+
+    return {
+        checkMinorUnit,
+        getMultiplicator,
+        formatDefaultIso4217Price,
+        formatIso4217Price,
+        formatOther,
+        saveDefaultCurrencyNumberFormat,
+        saveNumberFormat,
+        useUnit,
+        parseAmount,
+        convertAmount,
+        replaceContent,
+        convertContent,
+        findPricesInCurrency,
+        findPrices,
+        findNumbers,
+        Price,
+        CurrencyRegex
+    };
+})();
 
 export default DccFunctions;
