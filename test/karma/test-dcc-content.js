@@ -10,8 +10,7 @@
 import sinon from 'sinon';
 import {expect} from 'chai';
 import DccFunctions from '../../content/dcc-functions.js';
-import {DirectCurrencyContent} from '../../content/dcc-content.js';
-
+import DirectCurrencyContent from '../../content/dcc-content.js';
 
 /**
  * Real values except apiKey.

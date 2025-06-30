@@ -10,9 +10,12 @@
  */
 "use strict";
 
-import DccFunctions, {CurrencyRegex, Price} from '../../content/dcc-functions.js';
+import DccFunctions from '../../content/dcc-functions.js';
 import {expect} from 'chai';
 
+// Access CurrencyRegex and Price from the default export
+const CurrencyRegex = DccFunctions.CurrencyRegex;
+const Price = DccFunctions.Price;
 
 describe("CurrencyRegex", function () {
 
@@ -230,12 +233,12 @@ describe("DccFunctions", function () {
 
         it("should format the value (de-DE)", function () {
             DccFunctions.saveNumberFormat("de-DE", false);
-            expect(DccFunctions.formatOther(1.23, "xyz")).to.equal(" 1,23 xyz");
+            expect(DccFunctions.formatOther(1234.56, "xyz")).to.equal(" 1.234,56 xyz");
         });
 
-        it("should format the value (de-DE)", function () {
-            DccFunctions.saveNumberFormat("de-DE", false);
-            expect(DccFunctions.formatOther(1234, "xyz")).to.equal(" 1.234 xyz");
+        it("should format the value (de-DE, rounded)", function () {
+            DccFunctions.saveNumberFormat("de-DE", true);
+            expect(DccFunctions.formatOther(1234.56, "xyz")).to.equal(" 1.235 xyz");
         });
     });
 

@@ -26,7 +26,7 @@ const GcDirectCurrencyConverter = (function () {
     const quotesListener = (message, sender, sendResponse) => {
         console.log("quotesListener:", message, "from:", sender);
         if (message.target === "quotesTab" && message.command === "getQuotes") {
-            sendResponse(new Settings(dcc.informationHolder)); // Assume Settings is imported or globally available
+            sendResponse(new Settings(dcc.informationHolder));
         }
         return false;  // No response if not targeted
     };
@@ -100,9 +100,16 @@ const GcDirectCurrencyConverter = (function () {
 
     chrome.runtime.onInstalled.addListener((details) => {
         if (details.reason === "install" || details.reason === "update") {
-            //FIXME chrome.tabs.create({url: chrome.runtime.getURL("common/help.html")});
+            //FIXME This is annoying while testing, but needs to be present in final test and prod.
+            // chrome.tabs.create({url: chrome.runtime.getURL("common/help.html")});
         }
     });
 
+    return {
+        init: () => {
+        } // Provide an init method for external use if needed
+    };
 
 })();
+
+export default GcDirectCurrencyConverter;

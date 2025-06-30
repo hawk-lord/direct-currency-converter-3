@@ -7,8 +7,6 @@
 
 "use strict";
 
-import {eventAggregator} from './eventAggregator.js';
-
 export const QuotesServiceProvider = function(anEventAggregator) {
 
     // Perhaps better with separate classes.

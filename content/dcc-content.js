@@ -262,7 +262,6 @@ const DirectCurrencyContent = {
                     this.traverseDomTree(document);
                     const showOriginal = false;
                     this.substituteAll(document, showOriginal);
-                    hasConvertedElements = true;
                 }
             }
             this.isEnabled = aSettings.isEnabled;
