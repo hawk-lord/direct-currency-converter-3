@@ -6,8 +6,9 @@
  */
 
 export class TabState {
-	constructor(tabId, state) {
+	constructor(tabId, state, injected) {
 		this.tabId = tabId;
 		this.state = state;
+		this.injected = injected;
 	}
 }

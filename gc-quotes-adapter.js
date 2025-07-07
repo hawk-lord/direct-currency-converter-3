@@ -31,13 +31,13 @@ const QuotesAdapter = async function () {
 
     if (ready) {
         try {
-            console.log("QuotesAdapter sendMessage requestId " + requestId);
+            //console.log("QuotesAdapter sendMessage requestId " + requestId);
             const response = await chrome.runtime.sendMessage({
                 command: "getQuotes",
                 target: "quotesTab",
                 requestId: requestId
             });
-            console.log("QuotesAdapter after sendMessage " + response);
+            //console.log("QuotesAdapter after sendMessage " + response);
             if (response && !response.error) {
                 DirectCurrencyQuotes.onUpdateQuotes(response);
             } else {

@@ -206,22 +206,31 @@ export const CurrencylayerQuotesServiceProvider = function (anEventAggregator, a
         for (let resource in response.quotes) {
             anInformationHolder.setConversionQuote(resource.substring(3, 6), quote / response.quotes[resource]);
         }
-        // Workaround for missing STN
-        if (!response.quotes["USDSTN"]) {
+        // Workaround for missing currencies
+        if (!response.quotes["USDSTN"] && response.quotes["USDSTD"]) {
             anInformationHolder.setConversionQuote("STN", quote / response.quotes["USDSTD"] * 1000);
         }
+        if (!response.quotes["USDVED"] && response.quotes["USDVES"]) {
+            anInformationHolder.setConversionQuote("VED", quote / response.quotes["USDVES"] * 1000000);
+        }
+        if (!response.quotes["USDXCG"] && response.quotes["USDANG"]) {
+            anInformationHolder.setConversionQuote("XCG", quote / response.quotes["USDANG"]);
+        }
+        if (!response.quotes["USDZWG"] && response.quotes["USDZWL"]) {
+            anInformationHolder.setConversionQuote("ZWG", quote / response.quotes["USDZWL"] * 2498.7242);
+        }
 
-        console.log('Quotes parsed (Currencylayer)');
+        //console.log('Quotes parsed (Currencylayer)');
         eventAggregator.publish("quotesParsed");
     });
 
     const loadQuotes = (aQuotesService, apiKey) => {
         if (mockMode) {
-            console.log('Using mock Currencylayer API');
-            console.log('Mock response:', mockCurrencylayerData);
+            //console.log('Using mock Currencylayer API');
+            //console.log('Mock response:', mockCurrencylayerData);
             eventAggregator.publish('quotesReceivedCurrencylayer', mockCurrencylayerData);
         } else {
-            console.log('Using real Currencylayer API');
+            //console.log('Using real Currencylayer API');
             const urlString = "http://apilayer.net/api/live?access_key=" + apiKey + "&source=USD";
             aQuotesService.fetchQuotes(urlString, "Currencylayer");
         }

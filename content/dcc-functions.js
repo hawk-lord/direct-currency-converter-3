@@ -24,7 +24,6 @@ const DccFunctions = (function () {
     minorUnits.push(new MinorUnit("AFN", 2, ["pul"]));
     minorUnits.push(new MinorUnit("ALL", 2, ["qindarkë", "qindarka"]));
     minorUnits.push(new MinorUnit("AMD", 2, ["luma"]));
-    minorUnits.push(new MinorUnit("ANG", 2, ["cent"]));
     minorUnits.push(new MinorUnit("AOA", 2, ["cêntimo", "centimo"]));
     minorUnits.push(new MinorUnit("ARS", 2, ["centavo"]));
     minorUnits.push(new MinorUnit("AUD", 2, ["cent"]));
@@ -57,7 +56,6 @@ const DccFunctions = (function () {
     minorUnits.push(new MinorUnit("COP", 2, ["centavo"]));
     minorUnits.push(new MinorUnit("COU", 2, ["centavo"]));
     minorUnits.push(new MinorUnit("CRC", 2, ["centimo", "céntimo"]));
-    minorUnits.push(new MinorUnit("CUC", 2, ["centavo"]));
     minorUnits.push(new MinorUnit("CUP", 2, ["centavo"]));
     minorUnits.push(new MinorUnit("CVE", 0, []));
     minorUnits.push(new MinorUnit("CZK", 2, ["haléř", "haléře", "haléřů"]));
@@ -81,7 +79,6 @@ const DccFunctions = (function () {
     minorUnits.push(new MinorUnit("GYD", 2, ["cent"]));
     minorUnits.push(new MinorUnit("HKD", 2, ["cent"]));
     minorUnits.push(new MinorUnit("HNL", 2, ["centavo"]));
-    minorUnits.push(new MinorUnit("HRK", 2, ["lipa"]));
     minorUnits.push(new MinorUnit("HTG", 2, ["centime"]));
     minorUnits.push(new MinorUnit("HUF", 2, ["fillér"]));
     minorUnits.push(new MinorUnit("IDR", 2, ["sen"]));
@@ -149,7 +146,7 @@ const DccFunctions = (function () {
     minorUnits.push(new MinorUnit("SEK", 2, ["öre"]));
     minorUnits.push(new MinorUnit("SGD", 2, ["cent"]));
     minorUnits.push(new MinorUnit("SHP", 2, ["penny", "pence"]));
-    minorUnits.push(new MinorUnit("SLL", 2, ["cent"]));
+    minorUnits.push(new MinorUnit("SLE", 2, ["cent"]));
     minorUnits.push(new MinorUnit("SOS", 2, ["senti"]));
     minorUnits.push(new MinorUnit("SRD", 2, ["cent"]));
     minorUnits.push(new MinorUnit("SSP", 2, ["piaster"]));
@@ -174,10 +171,12 @@ const DccFunctions = (function () {
     minorUnits.push(new MinorUnit("UYU", 2, ["centésimo"]));
     minorUnits.push(new MinorUnit("UYW", 4, []));
     minorUnits.push(new MinorUnit("UZS", 2, ["tiyin"]));
+    minorUnits.push(new MinorUnit("VED", 2, ["céntimo"]));
     minorUnits.push(new MinorUnit("VES", 2, ["céntimo"]));
     minorUnits.push(new MinorUnit("VND", 0, []));
     minorUnits.push(new MinorUnit("VUV", 0, []));
     minorUnits.push(new MinorUnit("WST", 2, ["sene"]));
+    minorUnits.push(new MinorUnit("XAD", 0, []));
     minorUnits.push(new MinorUnit("XAF", 0, []));
     minorUnits.push(new MinorUnit("XAG", 0, []));
     minorUnits.push(new MinorUnit("XAU", 0, []));
@@ -186,6 +185,7 @@ const DccFunctions = (function () {
     minorUnits.push(new MinorUnit("XBC", 0, []));
     minorUnits.push(new MinorUnit("XBD", 0, []));
     minorUnits.push(new MinorUnit("XCD", 2, ["cent"]));
+    minorUnits.push(new MinorUnit("XCG", 2, ["cent"]));
     minorUnits.push(new MinorUnit("XDR", 0, []));
     minorUnits.push(new MinorUnit("XOF", 0, []));
     minorUnits.push(new MinorUnit("XPD", 0, []));
@@ -198,7 +198,7 @@ const DccFunctions = (function () {
     minorUnits.push(new MinorUnit("YER", 2, ["fils"]));
     minorUnits.push(new MinorUnit("ZAR", 2, ["cent"]));
     minorUnits.push(new MinorUnit("ZMW", 2, ["ngwee"]));
-    minorUnits.push(new MinorUnit("ZWL", 2, ["cent"]));
+    minorUnits.push(new MinorUnit("ZWG", 2, ["cent"]));
 
     const checkMinorUnit = (aPrice, aUnit, aMultiplicatorString) => {
         if (aMultiplicatorString && aMultiplicatorString !== "") {
@@ -454,10 +454,11 @@ const DccFunctions = (function () {
         const point = amount.includes(".");
         const apo = amount.includes("'");
         const colon = amount.includes(":");
-        const space = amount.includes(" ") || amount.includes("\u00A0");
+        const space = amount.includes(" ") || amount.includes("\u00A0") || amount.includes("\u2002") ||
+            amount.includes("\u2003") || amount.includes("\u2009") || amount.includes("\u202F");
         if (space) {
             amount = amount.replace(/,/g, ".");
-            amount = amount.replace(/\s/g, "");
+            amount = amount.replace(/[\s\u00A0\u2002\u2003\u2009\u202F]/g, "");
         } else {
             if (comma && point) {
                 if (amount.indexOf(",") < amount.indexOf(".")) {
@@ -644,7 +645,7 @@ const DccFunctions = (function () {
 
     const findNumbers = (anOriginalCurrency, aCurrency, aText) => {
         const prices = [];
-        const regex = new RegExp("((?:\\d{1,3}(?:[,.\\s']\\d{3})+|(?:\\d+))((?:[.,:])\\d{1,9})?)", "g");
+        const regex = new RegExp("((?:\\d{1,3}(?:[,.\\s\\u00A0\\u2002\\u2003\\u2009\\u202F']\\d{3})+|(?:\\d+))((?:[.,:])\\d{1,9})?)", "g");
         let match;
         while (match = regex.exec(aText)) {
             prices.push(new Price(aCurrency, true, anOriginalCurrency, match, true));
@@ -653,30 +654,30 @@ const DccFunctions = (function () {
     };
 
     const Price = function (aCurrency, anIso4217Currency, anOriginalCurrency, aMatch, aBeforeCurrencySymbol) {
-    this.iso4217Currency = anIso4217Currency;
-    this.originalCurrency = anOriginalCurrency;
-    this.currency = aCurrency;
+        this.iso4217Currency = anIso4217Currency;
+        this.originalCurrency = anOriginalCurrency;
+        this.currency = aCurrency;
     // 848,452.63 NOK
-    this.full = aMatch[0];
-    if (aBeforeCurrencySymbol) {
+        this.full = aMatch[0];
+        if (aBeforeCurrencySymbol) {
         // 848,452.63
-        this.amount = aMatch[1].trim();
-        this.mult = aMatch[2];
-    } else {
-        this.amount = aMatch[2].trim();
-        this.mult = aMatch[3];
-    }
+            this.amount = aMatch[1].trim();
+            this.mult = aMatch[2];
+        } else {
+            this.amount = aMatch[2].trim();
+            this.mult = aMatch[3];
+        }
     //console.log(this.mult);
     // 1 (position in the string where the price was found)
-    this.positionInString = aMatch.index;
-};
+        this.positionInString = aMatch.index;
+    };
 
     const CurrencyRegex = function (anIso4217Currency, aCurrency, aRegex1, aRegex2) {
-    this.iso4217Currency = anIso4217Currency;
-    this.currency = aCurrency;
-    this.regex1 = aRegex1;
-    this.regex2 = aRegex2;
-};
+        this.iso4217Currency = anIso4217Currency;
+        this.currency = aCurrency;
+        this.regex1 = aRegex1;
+        this.regex2 = aRegex2;
+    };
 
     return {
         checkMinorUnit,

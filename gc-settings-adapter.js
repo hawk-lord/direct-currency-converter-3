@@ -10,7 +10,7 @@ let settingsLoaded = false;
 
 const SettingsAdapter = {
     save(aSettings) {
-        console.log("SettingsAdapter.save");
+        //console.log("SettingsAdapter.save");
         chrome.runtime.sendMessage(
             {command: "saveSettings", settings: aSettings},
             (response) => {
@@ -18,13 +18,13 @@ const SettingsAdapter = {
                     console.error("Error sending saveSettings:", chrome.runtime.lastError);
                     return;
                 }
-                console.log("saveSettings response:", response);
+                //console.log("saveSettings response:", response);
                 window.close();
             }
         );
     },
     reset() {
-        console.log("SettingsAdapter.reset");
+        //console.log("SettingsAdapter.reset");
         chrome.runtime.sendMessage(
             {command: "reset"},
             (response) => {
@@ -32,13 +32,13 @@ const SettingsAdapter = {
                     console.error("Error sending reset:", chrome.runtime.lastError);
                     return;
                 }
-                console.log("reset response:", response);
+                //console.log("reset response:", response);
                 window.close();
             }
         );
     },
     resetQuotes() {
-        console.log("SettingsAdapter.resetQuotes");
+        //console.log("SettingsAdapter.resetQuotes");
         chrome.runtime.sendMessage(
             {command: "resetQuotes"},
             (response) => {
@@ -46,19 +46,19 @@ const SettingsAdapter = {
                     console.error("Error sending resetQuotes:", chrome.runtime.lastError);
                     return;
                 }
-                console.log("resetQuotes response:", response);
+                //console.log("resetQuotes response:", response);
             }
         );
     },
     loadSettings(callback) {
         if (settingsLoaded) {
-            console.log("Settings already loaded, ignoring request");
+            //console.log("Settings already loaded, ignoring request");
             return;
         }
         settingsLoaded = true;
-        console.log("Requesting settings from background script");
+        //console.log("Requesting settings from background script");
         chrome.runtime.sendMessage({command: "show"}, (response) => {
-            console.log("Background script response:", response);
+            //console.log("Background script response:", response);
             if (chrome.runtime.lastError) {
                 console.error("Error fetching settings:", chrome.runtime.lastError);
                 callback({});

@@ -24,7 +24,7 @@ const GcDirectCurrencyConverter = (function () {
     const dcc = new DirectCurrencyConverter();
 
     const quotesListener = (message, sender, sendResponse) => {
-        console.log("quotesListener:", message, "from:", sender);
+        //console.log("quotesListener:", message, "from:", sender);
         if (message.target === "quotesTab" && message.command === "getQuotes") {
             sendResponse(new Settings(dcc.informationHolder));
         }
@@ -40,7 +40,7 @@ const GcDirectCurrencyConverter = (function () {
      * @param sendResponse
      */
     const onMessageFromSettings = (message, sender, sendResponse) => {
-        console.log("onMessageFromSettings:", message);
+        //console.log("onMessageFromSettings:", message);
         if (message.target !== "quotesTab" && message.command === "show") {
             sendResponse(new Settings(dcc.informationHolder));
         } else if (message.target !== "quotesTab" && message.command === "saveSettings") {

@@ -20,11 +20,6 @@
     "mult": "()"
   },
   {
-    "name": "ANG",
-    "regex": "(ANG|NAƒ|ƒ|NAf\\.?)",
-    "mult": "()"
-  },
-  {
     "name": "AOA",
     "regex": "(AOA|[kK]z)",
     "mult": "()"
@@ -185,11 +180,6 @@
     "mult": "()"
   },
   {
-    "name": "CUC",
-    "regex": "(CUC|CUC\\s?\\$|\\$)",
-    "mult": "()"
-  },
-  {
     "name": "CUP",
     "regex": "(CUP|CUP\\s?\\$|MN\\$|\\$)",
     "mult": "()"
@@ -302,11 +292,6 @@
   {
     "name": "HNL",
     "regex": "(HNL|L\\.?)",
-    "mult": "()"
-  },
-  {
-    "name": "HRK",
-    "regex": "(HRK)",
     "mult": "()"
   },
   {
@@ -451,7 +436,7 @@
   },
   {
     "name": "MGA",
-    "regex": "(MGA|Ar)",
+    "regex": "(MGA|[aA]r)",
     "mult": "()"
   },
   {
@@ -645,8 +630,8 @@
     "mult": "()"
   },
   {
-    "name": "SLL",
-    "regex": "(SLL|L[eE]\\.?)",
+    "name": "SLE",
+    "regex": "(SLE|L[eE]\\.?)",
     "mult": "()"
   },
   {
@@ -770,6 +755,11 @@
     "mult": "()"
   },
   {
+    "name": "VED",
+    "regex": "(VED)",
+    "mult": "()"
+  },
+  {
     "name": "VES",
     "regex": "(VES|[bB]s\\.?[fF]?\\.?)",
     "mult": "()"
@@ -827,6 +817,11 @@
   {
     "name": "XCD",
     "regex": "(XCD|ECD?\\s?\\$|\\$)",
+    "mult": "()"
+  },
+  {
+    "name": "XCG",
+    "regex": "(XCG)",
     "mult": "()"
   },
   {
@@ -890,8 +885,8 @@
     "mult": "()"
   },
   {
-    "name": "ZWL",
-    "regex": "(ZWL|Z\\$)",
+    "name": "ZWG",
+    "regex": "(ZWG|Z\\$)",
     "mult": "()"
   }
 ]

@@ -128,7 +128,6 @@ export const DirectCurrencyConverter = function () {
      * Loads region and currency quotes.
      * Sets up various subscribers.
      *
-     * @param informationHolder
      */
     const onStorageServiceInitDone = () => {
         const mockSelect = "currencyLayerMock"; // Set to "currencyLayerMock", "ecbMock", or null

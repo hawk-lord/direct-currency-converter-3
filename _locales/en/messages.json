@@ -19,10 +19,6 @@
     "message": "Armenian Dram (AMD)",
     "description": ""
   },
-  "ANG": {
-    "message": "Netherlands Antillean Guilder (ANG)",
-    "description": ""
-  },
   "AOA": {
     "message": "Kwanza (AOA)",
     "description": ""
@@ -151,10 +147,6 @@
     "message": "Costa Rican Colon (CRC)",
     "description": ""
   },
-  "CUC": {
-    "message": "Peso Convertible (CUC)",
-    "description": ""
-  },
   "CUP": {
     "message": "Cuban Peso (CUP)",
     "description": ""
@@ -245,10 +237,6 @@
   },
   "HNL": {
     "message": "Lempira (HNL)",
-    "description": ""
-  },
-  "HRK": {
-    "message": "Kuna (HRK)",
     "description": ""
   },
   "HTG": {
@@ -519,8 +507,8 @@
     "message": "Saint Helena Pound (SHP)",
     "description": ""
   },
-  "SLL": {
-    "message": "Leone (SLL)",
+  "SLE": {
+    "message": "Leone (SLE)",
     "description": ""
   },
   "SOS": {
@@ -619,6 +607,10 @@
     "message": "Uzbekistan Sum (UZS)",
     "description": ""
   },
+  "VED": {
+    "message": "Bolívar Soberano (VED)",
+    "description": ""
+  },
   "VES": {
     "message": "Bolívar Soberano (VES)",
     "description": ""
@@ -633,6 +625,10 @@
   },
   "WST": {
     "message": "Tala (WST)",
+    "description": ""
+  },
+  "XAD": {
+    "message": "Arab Accounting Dinar (XAD)",
     "description": ""
   },
   "XAF": {
@@ -665,6 +661,10 @@
   },
   "XCD": {
     "message": "East Caribbean Dollar (XCD)",
+    "description": ""
+  },
+  "XCG": {
+    "message": "Caribbean Guilder (XCG)",
     "description": ""
   },
   "XDR": {
@@ -715,8 +715,8 @@
     "message": "Zambian Kwacha (ZMW)",
     "description": ""
   },
-  "ZWL": {
-    "message": "Zimbabwe Dollar (ZWL)",
+  "ZWG": {
+    "message": "Zimbabwe Gold (ZWG)",
     "description": ""
   }
 }

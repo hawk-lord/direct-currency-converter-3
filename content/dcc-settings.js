@@ -172,11 +172,11 @@ const DirectCurrencySettings = (function () {
 
     const onLoaded = () => {
         if (document.getElementById("targetCurrencyOptions").dataset.initialized) {
-            console.log("onLoaded already called, skipping");
+            //console.log("onLoaded already called, skipping");
             return;
         }
         document.getElementById("targetCurrencyOptions").dataset.initialized = true;
-        console.log("onLoaded started");
+        //console.log("onLoaded started");
         document.getElementById("targetCurrencyOptions").addEventListener("input", targetCurrencyChanged);
         document.getElementById("enableConversion").addEventListener("input", enableConversionChanged);
         document.getElementById("adjustmentPercentage").addEventListener("input", adjustmentPercentageChanged);
@@ -201,7 +201,7 @@ const DirectCurrencySettings = (function () {
     document.addEventListener("DOMContentLoaded", onLoaded);
 
     const setUIFromPreferences = function () {
-        console.log("setUIFromPreferences - excludedDomains:", excludedDomains);
+        //console.log("setUIFromPreferences - excludedDomains:", excludedDomains);
         const targetCurrencyOptions = document.getElementById("targetCurrencyOptions");
         targetCurrencyOptions.value = (convertToCurrency && convertToCountry) ? `${convertToCurrency}_${convertToCountry}` : '';
         document.getElementById("enableConversion").checked = enableOnStart || false;
@@ -281,12 +281,12 @@ const DirectCurrencySettings = (function () {
     };
 
     const showSettings = function (aSettings) {
-        console.log("showSettings input:", aSettings);
+        //console.log("showSettings input:", aSettings);
         convertToCurrency = escapeHtml(aSettings.convertToCurrency || '');
         convertToCountry = escapeHtml(aSettings.convertToCountry || '');
         enableOnStart = aSettings.enableOnStart || false;
         excludedDomains = Array.isArray(aSettings.excludedDomains) ? aSettings.excludedDomains.map(escapeHtml) : [];
-        console.log("excludedDomains after assignment:", excludedDomains);
+        //console.log("excludedDomains after assignment:", excludedDomains);
         includedDomains = Array.isArray(aSettings.includedDomains) ? aSettings.includedDomains.map(escapeHtml) : [];
         convertFroms = Array.isArray(aSettings.convertFroms) ? aSettings.convertFroms.map((item) => ({
             ...item,
