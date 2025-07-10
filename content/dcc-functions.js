@@ -449,6 +449,7 @@ const DccFunctions = (function () {
      * @returns {Number}
      */
     const parseAmount = (anAmount) => {
+        console.log(anAmount);
         let amount = anAmount;
         const comma = amount.includes(",");
         const point = amount.includes(".");
@@ -544,21 +545,25 @@ const DccFunctions = (function () {
      */
     const replaceContent = (aConvertedPrice, aConvertedContent, aShowOriginalPrices, aReplacedUnit,
                             aShowOriginalCurrencies, aPrice) => {
-        let convertedPrice = aConvertedPrice;
+        console.log(aConvertedPrice);
+        console.log(aConvertedContent);
+        console.log(aShowOriginalPrices);
+        console.log(aReplacedUnit);
+        console.log(aShowOriginalCurrencies);
+        console.log(aPrice);
+        let convertedPrice = aConvertedPrice.trim(); // Remove leading/trailing spaces
+        convertedPrice = convertedPrice.replace(/\s/g, '\u00A0'); // Use non-breaking spaces for number
         let convertedContent = aConvertedContent;
         if (aShowOriginalPrices) {
             if (!convertedContent.includes(aReplacedUnit) && aShowOriginalCurrencies) {
-                convertedPrice = convertedPrice + " (##__## [¤¤¤])";
+                convertedPrice = `${convertedPrice} (${aPrice.full}\u00A0${aReplacedUnit})`;
             } else {
-                convertedPrice = convertedPrice + " (##__##)";
+                convertedPrice = `${convertedPrice} (${aPrice.full})`;
             }
         }
-        // Replace all aPrice.full in convertedContent. RegExp does not work if $ and others are present.
         convertedContent = convertedContent.split(aPrice.full).join(convertedPrice);
-        if (aShowOriginalPrices) {
-            convertedContent = convertedContent.replace(/##__##/g, aPrice.full);
-            convertedContent = convertedContent.replace(/¤¤¤/g, aReplacedUnit);
-        }
+//    convertedContent = convertedContent.replace(/,(\s*\S)/g, ', $1'); // Add space only after value-separating commas
+        console.log(convertedContent);
         return convertedContent;
     };
 
@@ -657,18 +662,18 @@ const DccFunctions = (function () {
         this.iso4217Currency = anIso4217Currency;
         this.originalCurrency = anOriginalCurrency;
         this.currency = aCurrency;
-    // 848,452.63 NOK
+        // 848,452.63 NOK
         this.full = aMatch[0];
         if (aBeforeCurrencySymbol) {
-        // 848,452.63
+            // 848,452.63
             this.amount = aMatch[1].trim();
             this.mult = aMatch[2];
         } else {
             this.amount = aMatch[2].trim();
             this.mult = aMatch[3];
         }
-    //console.log(this.mult);
-    // 1 (position in the string where the price was found)
+        //console.log(this.mult);
+        // 1 (position in the string where the price was found)
         this.positionInString = aMatch.index;
     };
 

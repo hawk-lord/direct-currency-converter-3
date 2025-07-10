@@ -489,7 +489,7 @@ describe("DccFunctions", function () {
                 originalCurrency: "SEK",
                 positionInString: 0
             };
-            expect(DccFunctions.replaceContent(convertedPrice, convertedContent, true, "SEK", false, price)).to.equal(" 188 679,16 EUR  (2 miljoner kronor) till ungdomshandbollen");
+            expect(DccFunctions.replaceContent(convertedPrice, convertedContent, true, "SEK", false, price)).to.equal("188 679,16 EUR (2 miljoner kronor) till ungdomshandbollen");
         });
 
     });
@@ -507,7 +507,7 @@ describe("DccFunctions", function () {
                 positionInString: 0
             };
             const convertedContent = "2 miljoner kronor till ungdomshandbollen";
-            expect(DccFunctions.convertContent(price, 0.09433958227704578, "SEK", "EUR", false, true, false, convertedContent)).to.equal(" 188\u00A0679,16\u00A0EUR  (2 miljoner kronor) till ungdomshandbollen");
+            expect(DccFunctions.convertContent(price, 0.09433958227704578, "SEK", "EUR", false, true, false, convertedContent)).to.equal("188\u00A0679,16\u00A0EUR (2 miljoner kronor) till ungdomshandbollen");
         });
 
         it("should convert MSEK to EUR (sv-SE)", function () {
@@ -522,7 +522,7 @@ describe("DccFunctions", function () {
                 positionInString: 0
             };
             const convertedContent = "100 MSEK till ungdomshandbollen";
-            expect(DccFunctions.convertContent(price, 0.094345427, "SEK", "EUR", false, true, false, convertedContent)).to.equal(" 9\u00A0434\u00A0542,70\u00A0EUR  (100 MSEK) till ungdomshandbollen");
+            expect(DccFunctions.convertContent(price, 0.094345427, "SEK", "EUR", false, true, false, convertedContent)).to.equal("9\u00A0434\u00A0542,70\u00A0EUR (100 MSEK) till ungdomshandbollen");
         });
     });
 
