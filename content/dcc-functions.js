@@ -449,7 +449,7 @@ const DccFunctions = (function () {
      * @returns {Number}
      */
     const parseAmount = (anAmount) => {
-        console.log(anAmount);
+      //console.log(anAmount);
         let amount = anAmount;
         const comma = amount.includes(",");
         const point = amount.includes(".");
@@ -545,12 +545,12 @@ const DccFunctions = (function () {
      */
     const replaceContent = (aConvertedPrice, aConvertedContent, aShowOriginalPrices, aReplacedUnit,
                             aShowOriginalCurrencies, aPrice) => {
-        console.log(aConvertedPrice);
-        console.log(aConvertedContent);
-        console.log(aShowOriginalPrices);
-        console.log(aReplacedUnit);
-        console.log(aShowOriginalCurrencies);
-        console.log(aPrice);
+      //console.log(aConvertedPrice);
+      //console.log(aConvertedContent);
+      //console.log(aShowOriginalPrices);
+      //console.log(aReplacedUnit);
+      //console.log(aShowOriginalCurrencies);
+      //console.log(aPrice);
         let convertedPrice = aConvertedPrice.trim(); // Remove leading/trailing spaces
         convertedPrice = convertedPrice.replace(/\s/g, '\u00A0'); // Use non-breaking spaces for number
         let convertedContent = aConvertedContent;
@@ -563,7 +563,7 @@ const DccFunctions = (function () {
         }
         convertedContent = convertedContent.split(aPrice.full).join(convertedPrice);
 //    convertedContent = convertedContent.replace(/,(\s*\S)/g, ', $1'); // Add space only after value-separating commas
-        console.log(convertedContent);
+      //console.log(convertedContent);
         return convertedContent;
     };
 

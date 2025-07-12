@@ -32,28 +32,28 @@ let ignoredElements = ["audio", "colgroup", "embed", "head", "html", "img", "obj
 const replaceCurrency = (aNode, aCheckIfDataNode) => {
     "use strict";
     if (!aNode || !aNode.parentNode || aNode.nodeType !== Node.TEXT_NODE) {
-        console.log('replaceCurrency: Skipping invalid node', {node: aNode, nodeType: aNode?.nodeType});
+      //console.log('replaceCurrency: Skipping invalid node', {node: aNode, nodeType: aNode?.nodeType});
         return;
     }
     const isSibling = aNode.previousSibling;
     const dataNode = isSibling ? aNode.previousSibling : aNode.parentNode;
     if (!dataNode || dataNode.nodeType !== Node.ELEMENT_NODE) {
-        console.log('replaceCurrency: dataNode is not an element', {dataNode, nodeType: dataNode?.nodeType});
+      //console.log('replaceCurrency: dataNode is not an element', {dataNode, nodeType: dataNode?.nodeType});
         return;
     }
     if (aCheckIfDataNode && dataNode.className && typeof dataNode.className === "string" && dataNode.className.includes("dccConverted")) {
-        console.log('replaceCurrency: Skipping already converted node', {
-            tagName: dataNode.tagName,
-            className: dataNode.className
-        });
+      //console.log('replaceCurrency: Skipping already converted node', {
+      //      tagName: dataNode.tagName,
+      //      className: dataNode.className
+      //  });
         return;
     }
     if (!dataNode.dataset || typeof dataNode.dataset !== 'object') {
-        console.log('replaceCurrency: dataNode.dataset is invalid', {tagName: dataNode.tagName});
+      //console.log('replaceCurrency: dataNode.dataset is invalid', {tagName: dataNode.tagName});
         return;
     }
     if (ignoredElements.includes(dataNode.tagName.toLowerCase())) {
-        console.log('replaceCurrency: Skipping ignored element', {tagName: dataNode.tagName});
+      //console.log('replaceCurrency: Skipping ignored element', {tagName: dataNode.tagName});
         return;
     }
     let prices = [];
@@ -109,7 +109,7 @@ const replaceCurrency = (aNode, aCheckIfDataNode) => {
             let tempConvertedAmount = conversionQuote * DccFunctions.parseAmount(price.amount) * Math.pow(10, -decimals);
 
             if (isEnabled && showTooltip) {
-                console.log('Building tooltip for price', {price, isEnabled, showTooltip});
+              //console.log('Building tooltip for price', {price, isEnabled, showTooltip});
                 dccTitle += "Converted value: ";
                 dccTitle += price.iso4217Currency ?
                     DccFunctions.formatDefaultIso4217Price(tempConvertedAmount) :
@@ -134,7 +134,7 @@ const replaceCurrency = (aNode, aCheckIfDataNode) => {
     if (isEnabled && showTooltip && dccTitle) {
         try {
             dataNode.dataset.dcctitle = dccTitle;
-            console.log('Set data-dcctitle', {dccTitle, dataNode});
+          //console.log('Set data-dcctitle', {dccTitle, dataNode});
             const showOriginal = false;
             substituteOne(aNode, showOriginal, dccTitle);
         } catch (err) {
@@ -211,7 +211,7 @@ const resetDomTree = (aNode) => {
     "use strict";
     try {
         if (!aNode) {
-            console.log('resetDomTree: Node is null');
+          //console.log('resetDomTree: Node is null');
             return;
         }
         const nodeList = aNode.querySelectorAll(".dccConverted");
@@ -264,7 +264,7 @@ const filter = {
 const traverseDomTree = (aNode) => {
     "use strict";
     if (!aNode || document.URL === 'about:blank') {
-        console.log('traverseDomTree: Skipping due to null node or about:blank', {node: aNode, url: document.URL});
+      //console.log('traverseDomTree: Skipping due to null node or about:blank', {node: aNode, url: document.URL});
         return;
     }
     try {
@@ -284,13 +284,13 @@ const traverseDomTree = (aNode) => {
 const substituteOne = (aNode, isShowOriginal, aDccTitle) => {
     "use strict";
     if (!aNode || !aNode.parentNode || aNode.nodeType !== Node.TEXT_NODE) {
-        console.log('substituteOne: Skipping invalid node', {node: aNode, nodeType: aNode?.nodeType});
+      //console.log('substituteOne: Skipping invalid node', {node: aNode, nodeType: aNode?.nodeType});
         return;
     }
     const isSibling = aNode.previousSibling;
     const dataNode = isSibling ? aNode.previousSibling : aNode.parentNode;
     if (!dataNode || dataNode.nodeType !== Node.ELEMENT_NODE) {
-        console.log('substituteOne: dataNode is not an element', {dataNode, nodeType: dataNode?.nodeType});
+      //console.log('substituteOne: dataNode is not an element', {dataNode, nodeType: dataNode?.nodeType});
         return;
     }
     if (isSibling) {
@@ -298,7 +298,7 @@ const substituteOne = (aNode, isShowOriginal, aDccTitle) => {
             if (aDccTitle) {
                 try {
                     dataNode.dataset.dcctitle = aDccTitle;
-                    console.log('substituteOne: Set data-dcctitle', {aDccTitle, dataNode});
+                  //console.log('substituteOne: Set data-dcctitle', {aDccTitle, dataNode});
                 } catch (err) {
                     console.error('substituteOne: Error setting dcctitle', err);
                 }
@@ -316,7 +316,7 @@ const substituteOne = (aNode, isShowOriginal, aDccTitle) => {
             if (aDccTitle) {
                 try {
                     dataNode.dataset.dcctitle = aDccTitle;
-                    console.log('substituteOne: Set data-dcctitle', {aDccTitle, dataNode});
+                  //console.log('substituteOne: Set data-dcctitle', {aDccTitle, dataNode});
                 } catch (err) {
                     console.error('substituteOne: Error setting dcctitle', err);
                 }
@@ -335,7 +335,7 @@ const substituteOne = (aNode, isShowOriginal, aDccTitle) => {
 const substituteAll = (aNode, isShowOriginal) => {
     "use strict";
     if (!aNode) {
-        console.log('substituteAll: Node is null');
+      //console.log('substituteAll: Node is null');
         return;
     }
     const nodeList = aNode.querySelectorAll(".dccConverted");
@@ -343,7 +343,7 @@ const substituteAll = (aNode, isShowOriginal) => {
         const node = nodeList[i];
         const textNode = node.firstChild ? node.firstChild : node.nextSibling;
         if (!textNode || textNode.nodeType !== Node.TEXT_NODE) {
-            console.log('substituteAll: Skipping invalid textNode', {node, textNode});
+          //console.log('substituteAll: Skipping invalid textNode', {node, textNode});
             continue;
         }
         if (node.dataset && node.dataset.dccOriginalContent && node.dataset.dccConvertedContent) {
@@ -359,7 +359,7 @@ const substituteAll = (aNode, isShowOriginal) => {
         const node = nodeSiblingList[i];
         const textNode = node.nextSibling;
         if (!textNode || textNode.nodeType !== Node.TEXT_NODE) {
-            console.log('substituteAll: Skipping invalid sibling textNode', {node, textNode});
+          //console.log('substituteAll: Skipping invalid sibling textNode', {node, textNode});
             continue;
         }
         if (node.dataset && node.dataset.dccOriginalContentSibling && node.dataset.dccConvertedContentSibling) {
@@ -376,7 +376,7 @@ const onSendEnabledStatus = (aStatus) => {
     "use strict";
     try {
         isEnabled = aStatus.isEnabled;
-        console.log('onSendEnabledStatus:', aStatus);
+      //console.log('onSendEnabledStatus:', aStatus);
         if (aStatus.isEnabled && !aStatus.hasConvertedElements) {
             startObserve();
             traverseDomTree(document);
@@ -486,14 +486,14 @@ const startConversion = () => {
     "use strict";
     try {
         if (document.URL === 'about:blank') {
-            console.log('startConversion: Skipping about:blank frame');
+          //console.log('startConversion: Skipping about:blank frame');
             return;
         }
-        console.log('startConversion: Processing DOM for', document.URL);
+      //console.log('startConversion: Processing DOM for', document.URL);
         if (document.body) {
             traverseDomTree(document.body);
         } else {
-            console.log('startConversion: document.body is null');
+          //console.log('startConversion: document.body is null');
         }
     } catch (err) {
         console.error('startConversion: Error starting conversion', err);
@@ -503,7 +503,7 @@ const startConversion = () => {
 const loaded = () => {
     "use strict";
     try {
-        console.log('loaded: DOMContentLoaded for', document.URL);
+      //console.log('loaded: DOMContentLoaded for', document.URL);
         startConversion();
     } catch (err) {
         console.error('loaded: Error in DOMContentLoaded', err);

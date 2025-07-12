@@ -4,20 +4,16 @@ New screenshots?
 
 Rename module direct-currency-converter, and Github repo too?
 
-Error with VEF.
 
 Make mult work with GSEK.
 
 Unit tests.
 
-Remove freegeoip and nekudo
 Use http://ip-api.com/json
 
 Change Price to Quantity.
 
 Popup should use multiples.
-
-Use local test file instead of joint.ax if possible.
 
 Different currency sets for different data sources? (Less Unknown).
 

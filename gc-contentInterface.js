@@ -18,17 +18,17 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
     const checkScriptInjected = (tabId, callback) => {
         let tabIdState = tabIdStates.find(t => t.tabId === tabId);
         if (tabIdState && tabIdState.isInjected) {
-            console.log(`checkScriptInjected: Tab ${tabId} already marked as injected`);
+          //console.log(`checkScriptInjected: Tab ${tabId} already marked as injected`);
             callback(true);
             return;
         }
 
         chrome.tabs.sendMessage(tabId, {action: 'ping'}, {frameId: 0}, (response) => {
             if (chrome.runtime.lastError || !response || response.status !== 'pong') {
-                console.log(`checkScriptInjected: Ping failed for tab ${tabId}, error:`, chrome.runtime.lastError?.message);
+              //console.log(`checkScriptInjected: Ping failed for tab ${tabId}, error:`, chrome.runtime.lastError?.message);
                 callback(false);
             } else {
-                console.log(`checkScriptInjected: Ping succeeded for tab ${tabId}`);
+              //console.log(`checkScriptInjected: Ping succeeded for tab ${tabId}`);
                 if (!tabIdState) {
                     tabIdState = new TabState(tabId, false, true);
                     tabIdStates.push(tabIdState);
@@ -46,7 +46,7 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
      status.url = aParameters.url;
      */
     const sendEnabledStatus = (tabId, status) => {
-        console.log(`sendEnabledStatus: Processing tab ${tabId}, isEnabled: ${status.isEnabled}, url: ${status.url}`);
+      //console.log(`sendEnabledStatus: Processing tab ${tabId}, isEnabled: ${status.isEnabled}, url: ${status.url}`);
         const settings = new Settings(anInformationHolder);
 
         const injectScript = () => {
@@ -68,7 +68,7 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
                     } else {
                         tabIdState.isInjected = true;
                     }
-                    console.log(`sendEnabledStatus: Script injected into tab ${tabId}`);
+                  //console.log(`sendEnabledStatus: Script injected into tab ${tabId}`);
                     sendMessage();
                 }).catch((err) => {
                     console.error(`Failed to execute script for tab ${tabId}:`, err);
@@ -86,7 +86,7 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
                     if (chrome.runtime.lastError) {
                         console.error(`Failed to send message to tab ${tabId}, frameId: ${frameId || 'all'}:`, chrome.runtime.lastError.message);
                         if (chrome.runtime.lastError.message.includes('message port closed') && !status.url.startsWith(`chrome-extension://${chrome.runtime.id}/`)) {
-                            console.log(`sendEnabledStatus: Retrying injection for tab ${tabId} due to closed port`);
+                          //console.log(`sendEnabledStatus: Retrying injection for tab ${tabId} due to closed port`);
                             let tabIdState = tabIdStates.find(t => t.tabId === tabId);
                             if (tabIdState) {
                                 tabIdState.isInjected = false;
@@ -94,7 +94,7 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
                             injectScript();
                         }
                     } else {
-                        console.log(`Settings message sent to tab ${tabId}, frameId: ${frameId || 'all'}, isEnabled: ${status.isEnabled}`);
+                      //console.log(`Settings message sent to tab ${tabId}, frameId: ${frameId || 'all'}, isEnabled: ${status.isEnabled}`);
                     }
                 });
             } catch (err) {
@@ -103,31 +103,31 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
         };
 
         if (settings.includedDomains && settings.includedDomains.length > 0 && !DccFunctions.isUrlInArray(settings.includedDomains, status.url)) {
-            console.log(`sendEnabledStatus: Tab ${tabId} URL ${status.url} not in includedDomains`);
+          //console.log(`sendEnabledStatus: Tab ${tabId} URL ${status.url} not in includedDomains`);
             return;
         }
 
         if (DccFunctions.isUrlInArray(settings.excludedDomains, status.url)) {
-            console.log(`sendEnabledStatus: Tab ${tabId} URL ${status.url} is in excludedDomains`);
+          //console.log(`sendEnabledStatus: Tab ${tabId} URL ${status.url} is in excludedDomains`);
             return;
         }
 
         const internalPageUrl = `chrome-extension://${chrome.runtime.id}/`;
         if (status.url.startsWith(internalPageUrl)) {
-            console.log(`sendEnabledStatus: Internal page ${status.url}, assuming script injected, sending settings`);
+          //console.log(`sendEnabledStatus: Internal page ${status.url}, assuming script injected, sending settings`);
             sendMessage();
             return;
         }
 
         checkScriptInjected(tabId, (isInjected) => {
             if (isInjected) {
-                console.log(`sendEnabledStatus: Script already injected in tab ${tabId}, sending settings`);
+              //console.log(`sendEnabledStatus: Script already injected in tab ${tabId}, sending settings`);
                 sendMessage();
                 return;
             }
 
             if (!status.isEnabled) {
-                console.log(`sendEnabledStatus: Conversion disabled for tab ${tabId}, sending settings without injection`);
+              //console.log(`sendEnabledStatus: Conversion disabled for tab ${tabId}, sending settings without injection`);
                 sendMessage();
                 return;
             }
@@ -144,7 +144,7 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
         } else if (changeInfo.status === 'complete') {
             tabIdState.isInjected = false;
             tabIdState.state = false;
-            console.log(`tabOnUpdated: Reset tab ${tabId} state and isInjected on status complete`);
+          //console.log(`tabOnUpdated: Reset tab ${tabId} state and isInjected on status complete`);
         }
         aChromeInterface.setButtonStatus(tabIdState.state);
     };
@@ -166,7 +166,7 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
             const index = tabIdStates.findIndex(t => t.tabId === tabId);
             if (index !== -1) {
                 tabIdStates.splice(index, 1);
-                console.log(`tabOnRemoved: Removed tab ${tabId} from tabIdStates`);
+              //console.log(`tabOnRemoved: Removed tab ${tabId} from tabIdStates`);
             }
         });
     };
@@ -177,7 +177,7 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
     const toggleConversion = (aParameters) => {
         const updateTab = (aTab) => {
             if (aTab.url && aTab.url.startsWith("chrome://")) {
-                console.log(`toggleConversion: Skipping chrome:// URL for tab ${aTab.id}`);
+              //console.log(`toggleConversion: Skipping chrome:// URL for tab ${aTab.id}`);
                 return;
             }
             anInformationHolder.conversionEnabled = aParameters.conversionEnabled;
@@ -186,7 +186,7 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
                 status.isEnabled = aParameters.conversionEnabled;
                 status.hasConvertedElements = false;
                 status.url = aParameters.url || aTab.url;
-                console.log(`makeEnabledStatus: Tab ${tabId}, isEnabled: ${status.isEnabled}, url: ${status.url}`);
+              //console.log(`makeEnabledStatus: Tab ${tabId}, isEnabled: ${status.isEnabled}, url: ${status.url}`);
                 try {
                     sendEnabledStatus(tabId, status);
                 } catch (err) {
@@ -195,13 +195,13 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
                 let tabIdState = tabIdStates.find(t => t.tabId === tabId);
                 if (tabIdState && tabIdState.state !== status.isEnabled) {
                     tabIdState.state = status.isEnabled;
-                    console.log(`makeEnabledStatus: Updated tabIdState.state to ${tabIdState.state} for tab ${tabId}`);
+                  //console.log(`makeEnabledStatus: Updated tabIdState.state to ${tabIdState.state} for tab ${tabId}`);
                 }
             };
             makeEnabledStatus(aTab.id);
         };
         const updateActiveTabs = (aTabs) => {
-            console.log(`updateActiveTabs: Processing ${aTabs.length} tabs`);
+          //console.log(`updateActiveTabs: Processing ${aTabs.length} tabs`);
             aTabs.map(updateTab);
         };
         chrome.tabs.query({active: true, currentWindow: true}, updateActiveTabs);
