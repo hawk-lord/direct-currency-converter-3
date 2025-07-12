@@ -100,8 +100,8 @@ const GcDirectCurrencyConverter = (function () {
 
     chrome.runtime.onInstalled.addListener((details) => {
         if (details.reason === "install" || details.reason === "update") {
-            //FIXME This is annoying while testing, but needs to be present in final test and prod.
-            // chrome.tabs.create({url: chrome.runtime.getURL("common/help.html")});
+            //TODO This is annoying while testing, but needs to be present in final test and prod.
+            chrome.tabs.create({url: chrome.runtime.getURL("common/help.html")});
         }
     });
 

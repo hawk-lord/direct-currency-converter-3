@@ -4,17 +4,18 @@
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 -->
-<html>
+<html lang="en">
 <head>
     <title>Direct Currency Converter</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8">
     <meta name=viewport content="width=device-width, initial-scale=1">
 
     <style>
         body {
-            font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
+
         span {
             margin: 1em;
             background-color: beige;
@@ -22,17 +23,14 @@
     </style>
 </head>
 <body>
+<h1>Direct Currency Converter</h1>
+<h2>Getting started</h2>
 <p>
-Welcome to Direct Currency Converter (DCC) 3.4.0.
+    Welcome to Direct Currency Converter (DCC) 3.4.0.
 </p>
 <p>
-    This version is using Chrome Manifest V3, meaning that it will continue to work with the Google Chrome browser.
-</p>
-<p>
-    News: the conversion of prices on a newly opened browser tab will be done only when you press the $€ icon (it turns green).
-</p>
-<p>
-    News: the menu is removed for now.
+    The conversion of prices on a newly opened browser tab will be done only when you press the $€ icon (it turns
+    green).
 </p>
 <p>
     DCC can get its currency quotes from two different data sources.
@@ -42,13 +40,30 @@ Welcome to Direct Currency Converter (DCC) 3.4.0.
     <li>Currencylayer (168 currencies, requires a free or paid API key)</li>
 </ul>
 <p>
-    The data source is selected in the DCC options.
-    The easiest way is to use ECB.
-    If you need more currencies, <a href="https://currencylayer.com/">Currencylayer</a> is recommended.
-    You need an API key that is available from their site.
+    The data source is selected in the DCC options.<br>
+    The easiest way is to use ECB.<br>
+    If you need more currencies, <a href="https://currencylayer.com/">Currencylayer</a> is recommended.<br>
+    You need an API key that is available from their site.<br>
     Store the key in the DCC settings, and you are ready to go.
-
 </p>
+<h2>News</h2>
+<ul>
+    <li>
+        The Settings page now opens in its own tab.
+    </li>
+    <li>
+        New internal test page (instead of the old external page).
+    </li>
+    <li>
+        New context menu to open test page and curreny list page.
+    </li>
+    <li>
+        Updated currencies list: SLE, VED, XCG, ZWG added.
+    </li>
+    <li>
+        Improved handling of spaces and other features in found prices. In particular, improved handling of USD prices.
+    </li>
+</ul>
 </body>
 </html>
 
