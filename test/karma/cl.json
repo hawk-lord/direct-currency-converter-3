@@ -1,9 +1,4 @@
 {
-  "success":true,
-  "terms":"https:\/\/currencylayer.com\/terms",
-  "privacy":"https:\/\/currencylayer.com\/privacy",
-  "timestamp":1751137205,
-  "source":"USD",
   "quotes":{
     "USDAED":3.672504,
     "USDAFN":70.181275,
