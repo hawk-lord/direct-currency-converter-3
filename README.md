@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.3.0, date 2024-09-07
+Version 3.4.0, date 2025-07-12
 
 ## Introduction
 
@@ -19,7 +19,7 @@ There are no ads or spyware.
 
 ## Settings
 
-The currencies to be converted is shown in a list in priority order.
+The currencies to be converted are shown in a list in priority order.
 The currencies can be reordered using drag and drop. 
 For instance, if AUD is before USD and both are selected, "$100" will be converted from AUD.
 Select All will select all currencies.
@@ -59,6 +59,22 @@ and Currencylayer to cover most currencies.
 External libraries:  DOM Purify, Drag Drop Touch.
 
 ## Changelog
+
+### 3.4.0, 2025-07-12
+The Settings page now opens in its own tab.
+New internal test page (instead of the old external page).
+New context menu to open test page and curreny list page.
+Updated currencies list: SLE, VED, XCG, ZWG added.
+Improved handling of spaces and other features in found prices. In particular, improved handling of USD prices.
+
+Internal changes:
+Added webpack build configuration.
+Added check so content scripts will be sent when needed only.
+Improved messaging between background and content scripts.
+Updated external dependencies
+Using ESM modules where possible
+Fixed failing unit tests
+Removed old geolocation services.
 
 ### 3.3.0, 2024-09-07
 

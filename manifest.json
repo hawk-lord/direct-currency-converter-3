@@ -1,8 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Direct Currency Converter",
-  "version": "3.3.0",
-
+  "version": "3.4.0",
   "default_locale": "en",
   "description": "Converts prices from any currency (€, $, £, ¥, ؋, ৳, ฿, ៛, ₡, etc.) to prices in a selectable currency automatically while browsing.",
   "icons": {
@@ -10,19 +9,20 @@
     "48": "images/1415072079_currency_exchange_1-48.png",
     "128": "images/1415072098_currency_exchange_1-128.png"
   },
-
   "author": "Per Johansson",
   "background": {
     "service_worker": "gc-main.js",
     "type": "module"
   },
   "options_ui": {
-    "page": "settings.html"
+    "page": "settings.html",
+    "open_in_tab": true
   },
   "permissions": [
     "storage",
     "activeTab",
-    "scripting"
+    "scripting",
+    "contextMenus"
   ],
   "short_name": "DC Converter",
   "action": {

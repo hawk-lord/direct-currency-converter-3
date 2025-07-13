@@ -1,58 +1,54 @@
-Remove console.log.
+All data to JSON.
 
-New screenshots?
+Intro file with demo.
+
+Single listing of currencies, possible to add your own.
+
+Prices page activate conversion on start.
+
+Improve conversion hover page.
+
+Firefox
+Firefox Android
+
+Clear up model of currencies vs other units.
+
+Users create your own regexes.
+
+Check when to send and update scripts and settings.
+
+Rename/remodel InformationHolder.
+
+Use framework?
+
+Safari version.
+
+Replace console.log with configurable logging.
+
+New screenshots
 
 Rename module direct-currency-converter, and Github repo too?
-
-Error with VEF.
 
 Make mult work with GSEK.
 
 Unit tests.
 
-Remove freegeoip and nekudo
 Use http://ip-api.com/json
 
-Change Price to Quantity.
+Change Price to Quantity or other (see old AI conversation)
 
 Popup should use multiples.
 
-Use local test file instead of joint.ax if possible.
-
-Different currency sets for different data sources? (Less Unknown).
+Centralised currency sets for different data sources.
 
 ECB quotes: add also currencies with fixed rates.
-IMF quotes?
 
-Check the set of quotes shown in the quotes list.
+IMF quotes?
 
 Use analysis patterns.
 
-
-DONE:
-
-Internal improvements.
-
-Bug: wrong currency was shown in popup.
-
-Bug: prices in the same element were converted repeatedly.
-
-Bug: drag and drop on touchscreen did not work.
-
-ISO 4217 amendments 166 to 169 added. Notably the latest Venezolan currency, VES.
-
-Updated external libraries jQuery, jQuery UI, jQuery UI Touch-Punch, DOM Purify.
-
-
-Data source switch works.
-
 File organisation.
-
-README add
 
 On/off in Android
 
-Exclude build files in distribution.
-
-help.html add
 

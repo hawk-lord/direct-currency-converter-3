@@ -20,11 +20,6 @@
     "mult": "()"
   },
   {
-    "name": "ANG",
-    "regex": "(ANG|NAƒ|ƒ|NAf\\.?)",
-    "mult": "()"
-  },
-  {
     "name": "AOA",
     "regex": "(AOA|[kK]z)",
     "mult": "()"
@@ -185,11 +180,6 @@
     "mult": "()"
   },
   {
-    "name": "CUC",
-    "regex": "(CUC|CUC\\s?\\$|\\$)",
-    "mult": "()"
-  },
-  {
     "name": "CUP",
     "regex": "(CUP|CUP\\s?\\$|MN\\$|\\$)",
     "mult": "()"
@@ -302,11 +292,6 @@
   {
     "name": "HNL",
     "regex": "(HNL|L\\.?)",
-    "mult": "()"
-  },
-  {
-    "name": "HRK",
-    "regex": "(HRK)",
     "mult": "()"
   },
   {
@@ -451,7 +436,7 @@
   },
   {
     "name": "MGA",
-    "regex": "(MGA|Ar)",
+    "regex": "(MGA|[aA]r)",
     "mult": "()"
   },
   {
@@ -645,8 +630,8 @@
     "mult": "()"
   },
   {
-    "name": "SLL",
-    "regex": "(SLL|L[eE]\\.?)",
+    "name": "SLE",
+    "regex": "(SLE|L[eE]\\.?)",
     "mult": "()"
   },
   {
@@ -741,7 +726,7 @@
   },
   {
     "name": "USD",
-    "regex": "(USD|USD\\s?\\$?|US\\s?\\$|Us\\s?\\$|\\$|\\$USD|U\\$S|доллара?|долларов|доллара? США|долларов США|бакса?|баксов)",
+    "regex": "(USD|USD\\s?\\$?|US\\s?\\$|Us\\s?\\$|\\$|\\$USD|U\\$S|US\\$|USD\\$|доллара?|долларов|доллара? США|долларов США|бакса?|баксов)",
     "mult": "(|[mM]illions?|[mM]illiards?|[bB]illions?)"
   },
   {
@@ -767,6 +752,11 @@
   {
     "name": "UZS",
     "regex": "(UZS)",
+    "mult": "()"
+  },
+  {
+    "name": "VED",
+    "regex": "(VED)",
     "mult": "()"
   },
   {
@@ -830,6 +820,11 @@
     "mult": "()"
   },
   {
+    "name": "XCG",
+    "regex": "(XCG)",
+    "mult": "()"
+  },
+  {
     "name": "XDR",
     "regex": "(XDR|SDR)",
     "mult": "()"
@@ -890,8 +885,8 @@
     "mult": "()"
   },
   {
-    "name": "ZWL",
-    "regex": "(ZWL|Z\\$)",
+    "name": "ZWG",
+    "regex": "(ZWG|Z\\$)",
     "mult": "()"
   }
 ]

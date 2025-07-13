@@ -17,11 +17,20 @@ import {GcStorageServiceProvider} from './gc-storage-service.js';
 import {GcChromeInterface} from './gc-chromeInterface.js';
 
 
-const GcDirectCurrencyConverter = (function() {
+const GcDirectCurrencyConverter = (function () {
 
     const localisation = new GcLocalisation();
     const _ = localisation._;
     const dcc = new DirectCurrencyConverter();
+
+    const quotesListener = (message, sender, sendResponse) => {
+        //console.log("quotesListener:", message, "from:", sender);
+        if (message.target === "quotesTab" && message.command === "getQuotes") {
+            sendResponse(new Settings(dcc.informationHolder));
+        }
+        return false;  // No response if not targeted
+    };
+    chrome.runtime.onMessage.addListener(quotesListener);
 
 
     /**
@@ -31,20 +40,20 @@ const GcDirectCurrencyConverter = (function() {
      * @param sendResponse
      */
     const onMessageFromSettings = (message, sender, sendResponse) => {
-        if (message.command === "show") {
+        //console.log("onMessageFromSettings:", message);
+        if (message.target !== "quotesTab" && message.command === "show") {
             sendResponse(new Settings(dcc.informationHolder));
-        }
-        else if (message.command === "save") {
-            eventAggregator.publish("saveSettings", {
-                settings: message.settings
-            })
-        }
-        else if (message.command === "reset") {
+        } else if (message.target !== "quotesTab" && message.command === "saveSettings") {
+            eventAggregator.publish("saveSettings", {settings: message.settings});
+            sendResponse({success: true});
+        } else if (message.target !== "quotesTab" && message.command === "reset") {
             eventAggregator.publish("resetSettings");
-        }
-        else if (message.command === "resetQuotes") {
+            sendResponse({success: true});
+        } else if (message.target !== "quotesTab" && message.command === "resetQuotes") {
             eventAggregator.publish("resetQuotes");
+            sendResponse({success: true});
         }
+        return false;
     };
     chrome.runtime.onMessage.addListener(onMessageFromSettings);
 
@@ -91,9 +100,16 @@ const GcDirectCurrencyConverter = (function() {
 
     chrome.runtime.onInstalled.addListener((details) => {
         if (details.reason === "install" || details.reason === "update") {
-            chrome.tabs.create({ url:chrome.runtime.getURL("common/help.html")} );
+            //TODO This is annoying while testing, but needs to be present in final test and prod.
+            chrome.tabs.create({url: chrome.runtime.getURL("common/help.html")});
         }
     });
-    
+
+    return {
+        init: () => {
+        } // Provide an init method for external use if needed
+    };
 
 })();
+
+export default GcDirectCurrencyConverter;

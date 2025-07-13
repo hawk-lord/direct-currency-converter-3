@@ -4,11 +4,13 @@
  * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *
  */
+const {merge} = require('webpack-merge');
+const common = require('./webpack.common.cjs');
 
-export class TabState {
-	constructor(tabId, state, injected) {
-		this.tabId = tabId;
-		this.state = state;
-		this.injected = injected;
-	}
-}
+module.exports = merge(common, {
+    mode: 'production',
+    devtool: false,
+    optimization: {
+        minimize: true
+    }
+});

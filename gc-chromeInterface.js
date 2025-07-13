@@ -9,54 +9,84 @@
 
 import {eventAggregator} from './common/eventAggregator.js';
 
-export const GcChromeInterface = function(conversionEnabled) {
+export const GcChromeInterface = function (conversionEnabled) {
     let buttonStatus = false;
     const setButtonAppearance = () => {
         const colour = buttonStatus ? "green" : "red";
         const text = buttonStatus ? "On" : "Off";
-		chrome.action.setBadgeBackgroundColor(
-		  {color: colour}
-		);
-		chrome.action.setBadgeText(
-		  {text: text}
-		);
+        chrome.action.setBadgeBackgroundColor(
+            {color: colour}
+        );
+        chrome.action.setBadgeText(
+            {text: text}
+        );
 
     };
     setButtonAppearance();
     const onBrowserAction = (tab) => {
-		if (tab) {
-			// console.log("onBrowserAction tab id: " + tab.id )
-		}
-		// console.log("Before: " + buttonStatus);
-		buttonStatus = !buttonStatus;
-		// console.log("After: " + buttonStatus);
+        if (tab) {
+            // console.log("onBrowserAction tab id: " + tab.id )
+        }
+        // console.log("Before: " + buttonStatus);
+        buttonStatus = !buttonStatus;
+        // console.log("After: " + buttonStatus);
         setButtonAppearance();
         // console.log("toggleConversion");
         eventAggregator.publish("toggleConversion", {conversionEnabled: buttonStatus, url: ""});
     };
-	// console.log("gc-chromeInterface chrome.action.onClicked.addListener");
+    // console.log("gc-chromeInterface chrome.action.onClicked.addListener");
     chrome.action.onClicked.addListener(onBrowserAction);
-    
+
     const setButtonStatus = (aButtonStatus) => {
-		buttonStatus = aButtonStatus;
-		setButtonAppearance();
-	}
-
-    const onMessageFromPanel = (message, sender, sendResponse) => {
-        if (message.command === "toggleConversion") {
-            onBrowserAction();
-        }
-        else if (message.command === "showQuotesTab") {
-            eventAggregator.publish("showQuotesTab");
-        }
-        else if (message.command === "showTestTab") {
-            eventAggregator.publish("showTestTab");
-        }
+        buttonStatus = aButtonStatus;
+        setButtonAppearance();
     };
-    chrome.runtime.onMessage.addListener(onMessageFromPanel);
-    
-	return {
-        setButtonStatus: setButtonStatus
-    }
 
+    // Send ready signal when a new quotes tab is created
+    chrome.tabs.onCreated.addListener((tab) => {
+        if (tab.url && tab.url.includes("quotes.html")) {
+            chrome.runtime.sendMessage({
+                command: "ready",
+                requestId: crypto.randomUUID() // Generate a new ID for each tab
+            });
+        }
+    });
+
+    // Add context menu items
+    chrome.contextMenus.create({
+        id: "toggle-conversion",
+        title: "Toggle conversion",
+        contexts: ["page"]
+    });
+
+    chrome.contextMenus.create({
+        id: "open-quotes",
+        title: "Open quotes page",
+        contexts: ["page"]
+    });
+
+    chrome.contextMenus.create({
+        id: "open-test",
+        title: "Open test page",
+        contexts: ["page"]
+    });
+
+    // Handle context menu clicks
+    chrome.contextMenus.onClicked.addListener((info, tab) => {
+        switch (info.menuItemId) {
+            case "toggle-conversion":
+                onBrowserAction(tab);
+                break;
+            case "open-quotes":
+                eventAggregator.publish("showQuotesTab");
+                break;
+            case "open-test":
+                eventAggregator.publish("showTestTab");
+                break;
+        }
+    });
+
+    return {
+        setButtonStatus: setButtonStatus
+    };
 };

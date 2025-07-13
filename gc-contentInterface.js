@@ -2,313 +2,241 @@
  * © Per Johansson
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
- *
  */
 
 "use strict";
 
-
-/*
-
-State machine.
-
-On install and activate:
-
-Send scripts to every page visited, except blacklisted.
-OR
-Send scripts to every page in whitelist.
-
-When script is loaded, ask for state.
-
-If ON, send message to convert.
-
-If OFF -> ON, send message to convert
-
-If ON -> OFF, remove conversions.
-
-If HIDE -> SHOW, show converted.
-
-If SHOW -> HIDE, hide converted.
+import {Settings} from './common/settings.js';
+import {DccFunctions} from './common/functions.js';
+import {TabState} from './common/tab-state.js';
 
 
-On new tab or navigate
-Same as above.
+export const GcContentInterface = function (anInformationHolder, aChromeInterface) {
 
+    const tabIdStates = [];
 
+    const checkScriptInjected = (tabId, callback) => {
+        let tabIdState = tabIdStates.find(t => t.tabId === tabId);
+        if (tabIdState && tabIdState.isInjected) {
+          //console.log(`checkScriptInjected: Tab ${tabId} already marked as injected`);
+            callback(true);
+            return;
+        }
 
-*/
+        chrome.tabs.sendMessage(tabId, {action: 'ping'}, {frameId: 0}, (response) => {
+            if (chrome.runtime.lastError || !response || response.status !== 'pong') {
+              //console.log(`checkScriptInjected: Ping failed for tab ${tabId}, error:`, chrome.runtime.lastError?.message);
+                callback(false);
+            } else {
+              //console.log(`checkScriptInjected: Ping succeeded for tab ${tabId}`);
+                if (!tabIdState) {
+                    tabIdState = new TabState(tabId, false, true);
+                    tabIdStates.push(tabIdState);
+                } else {
+                    tabIdState.isInjected = true;
+                }
+                callback(true);
+            }
+        });
+    };
 
-import { Settings } from './common/settings.js';
-import { DccFunctions } from './common/functions.js';
-import { TabState } from './common/tab-state.js';
+    /**
+     status.isEnabled = aParameters.conversionEnabled;
+     status.hasConvertedElements = false;
+     status.url = aParameters.url;
+     */
+    const sendEnabledStatus = (tabId, status) => {
+      //console.log(`sendEnabledStatus: Processing tab ${tabId}, isEnabled: ${status.isEnabled}, url: ${status.url}`);
+        const settings = new Settings(anInformationHolder);
 
+        const injectScript = () => {
+            try {
+                chrome.scripting.insertCSS({
+                    target: {tabId: tabId, allFrames: true},
+                    files: ["title.css"]
+                }).catch((err) => {
+                    console.error(`Failed to insert CSS for tab ${tabId}:`, err);
+                });
+                chrome.scripting.executeScript({
+                    target: {tabId: tabId, allFrames: true},
+                    files: ["content-bundle.js"]
+                }).then(() => {
+                    let tabIdState = tabIdStates.find(t => t.tabId === tabId);
+                    if (!tabIdState) {
+                        tabIdState = new TabState(tabId, false, true);
+                        tabIdStates.push(tabIdState);
+                    } else {
+                        tabIdState.isInjected = true;
+                    }
+                  //console.log(`sendEnabledStatus: Script injected into tab ${tabId}`);
+                    sendMessage();
+                }).catch((err) => {
+                    console.error(`Failed to execute script for tab ${tabId}:`, err);
+                });
 
-export const GcContentInterface = function(anInformationHolder, aChromeInterface) {
+            } catch (err) {
+                console.error(`Failed to execute script for tab ${tabId}:`, err);
+            }
+        };
 
-	const tabIdStates = [];
+        const sendMessage = () => {
+            try {
+                const frameId = status.url.startsWith(`chrome-extension://${chrome.runtime.id}/`) ? undefined : 0;
+                chrome.tabs.sendMessage(tabId, settings, {frameId}, (response) => {
+                    if (chrome.runtime.lastError) {
+                        console.error(`Failed to send message to tab ${tabId}, frameId: ${frameId || 'all'}:`, chrome.runtime.lastError.message);
+                        if (chrome.runtime.lastError.message.includes('message port closed') && !status.url.startsWith(`chrome-extension://${chrome.runtime.id}/`)) {
+                          //console.log(`sendEnabledStatus: Retrying injection for tab ${tabId} due to closed port`);
+                            let tabIdState = tabIdStates.find(t => t.tabId === tabId);
+                            if (tabIdState) {
+                                tabIdState.isInjected = false;
+                            }
+                            injectScript();
+                        }
+                    } else {
+                      //console.log(`Settings message sent to tab ${tabId}, frameId: ${frameId || 'all'}, isEnabled: ${status.isEnabled}`);
+                    }
+                });
+            } catch (err) {
+                console.error(`Failed to send message to tab ${tabId}:`, err);
+            }
+        };
 
-	/**
-		status.isEnabled = aParameters.conversionEnabled;
-		status.hasConvertedElements = false;
-		status.url = aParameters.url;
-	*/
-	const sendEnabledStatus = (tabId, status) => {
+        if (settings.includedDomains && settings.includedDomains.length > 0 && !DccFunctions.isUrlInArray(settings.includedDomains, status.url)) {
+          //console.log(`sendEnabledStatus: Tab ${tabId} URL ${status.url} not in includedDomains`);
+            return;
+        }
 
-		if (!status.isEnabled) {
-			//return;
-		}
-		const settings = new Settings(anInformationHolder);
+        if (DccFunctions.isUrlInArray(settings.excludedDomains, status.url)) {
+          //console.log(`sendEnabledStatus: Tab ${tabId} URL ${status.url} is in excludedDomains`);
+            return;
+        }
 
-		const onScriptExecuted = (injectionResult) => {
-			// console.log("sendEnabledStatus onScriptExecuted injectionResult " + injectionResult);
-			// console.log("sendEnabledStatus onScriptExecuted tabId " + tabId);
-			try {
-				if (!chrome.runtime.onMessage.hasListener(finishedTabProcessingHandler)) {
-					// console.log("Add finishedTabProcessingHandler");
-					chrome.runtime.onMessage.addListener(finishedTabProcessingHandler);
-				}
-				chrome.tabs.sendMessage(tabId, settings)
-			}
-			catch (err) {
-				console.error(err);
-			}
-		};
+        const internalPageUrl = `chrome-extension://${chrome.runtime.id}/`;
+        if (status.url.startsWith(internalPageUrl)) {
+          //console.log(`sendEnabledStatus: Internal page ${status.url}, assuming script injected, sending settings`);
+            sendMessage();
+            return;
+        }
 
-		if (settings.includedDomains && settings.includedDomains.length > 0 && !DccFunctions.isUrlInArray(settings.includedDomains, status.url)) {
-			return;
-		}
+        checkScriptInjected(tabId, (isInjected) => {
+            if (isInjected) {
+              //console.log(`sendEnabledStatus: Script already injected in tab ${tabId}, sending settings`);
+                sendMessage();
+                return;
+            }
 
-		if (DccFunctions.isUrlInArray(settings.excludedDomains, status.url)) {
-			return;
-		}
+            if (!status.isEnabled) {
+              //console.log(`sendEnabledStatus: Conversion disabled for tab ${tabId}, sending settings without injection`);
+                sendMessage();
+                return;
+            }
 
-		// console.log("function sendEnabledStatus, sending to tab id: " + tabId)
-		try {
-			chrome.scripting.insertCSS({
-				target: { tabId: tabId },
-				files: ["title.css"]
-			})
-				.then(() => {  })
-				.catch((err) => { console.error(err) });
-			chrome.scripting.executeScript({
-				target: { tabId: tabId, allFrames: true },
-				files: ["content/dcc-functions.js", "content/dcc-content.js", "gc-content-adapter.js"],
-			})
-				.then(onScriptExecuted)
-				.catch((err) => { console.error(err) });
+            injectScript();
+        });
+    };
 
-		}
-		catch (err) {
-			console.error(`failed to execute script: err`);
-		}
+    const tabOnUpdated = (tabId, changeInfo, tab) => {
+        let tabIdState = tabIdStates.find(t => t.tabId === tabId);
+        if (!tabIdState) {
+            tabIdState = new TabState(tabId, false, false);
+            tabIdStates.push(tabIdState);
+        } else if (changeInfo.status === 'complete') {
+            tabIdState.isInjected = false;
+            tabIdState.state = false;
+          //console.log(`tabOnUpdated: Reset tab ${tabId} state and isInjected on status complete`);
+        }
+        aChromeInterface.setButtonStatus(tabIdState.state);
+    };
 
+    const tabOnActivated = (tab) => {
+        let tabIdState = tabIdStates.find(t => t.tabId === tab.tabId);
+        if (!tabIdState) {
+            tabIdState = new TabState(tab.tabId, false, false);
+            tabIdStates.push(tabIdState);
+        }
 
-	};
+        aChromeInterface.setButtonStatus(tabIdState.state);
+    };
 
-	const finishedTabProcessingHandler = (message, sender, sendResponse) => {
-		//console.log("finishedTabProcessingHandler message: " + message.command);
-		if (message.command === "getEnabledState") {
-			/*
-			try {
-				console.log("finishedTabProcessingHandler message " + message);
-				console.log("finishedTabProcessingHandler sender " + sender);
-				console.log("finishedTabProcessingHandler tab " + sender.tab.id);
-				if (sender.tab) {
-					let tabIdState = tabIdStates.find(tabIdState => tabIdState.tabId === sender.tab.id);
-					console.log("finishedTabProcessingHandler tabIdState: " + tabIdState);
-					if (!tabIdState) {
-						tabIdState = new TabState(sender.tab.id, false);
-						tabIdStates.push(tabIdState);
-						console.log("finishedTabProcessingHandler Pushed tabIdState to tabIdStates");
-					}
-					else {
-						// Switch state
-						console.log("finishedTabProcessingHandler Before: " + tabIdState.state);
-						tabIdState.state = !tabIdState.state;
-						console.log("finishedTabProcessingHandler After: " + tabIdState.state);
-					}
-				}
-			}
-			catch (err) {
-				console.error("finishedTabProcessingHandler " + err);
-			}
-			*/
-		}
-	};
+    const watchForPages = () => {
+        chrome.tabs.onUpdated.addListener(tabOnUpdated);
+        chrome.tabs.onActivated.addListener(tabOnActivated);
+        chrome.tabs.onRemoved.addListener((tabId) => {
+            const index = tabIdStates.findIndex(t => t.tabId === tabId);
+            if (index !== -1) {
+                tabIdStates.splice(index, 1);
+              //console.log(`tabOnRemoved: Removed tab ${tabId} from tabIdStates`);
+            }
+        });
+    };
 
-	/**
-	 * Called from tabs.onUpdated
-	 *
-	 * @param tabId
-	 * @param changeInfo
-	 * @param tab
-	 */
-	const tabOnUpdated = (tabId, changeInfo, tab) => {
-		//console.log("chrome.tabs.onUpdated handler: tabOnUpdated " + tabId + " status " + changeInfo.status + " url " + changeInfo.url);
-		let tabIdState = tabIdStates.find(t => t.tabId === tabId);
-		//console.log("tabOnUpdated tabIdState: " + tabIdState);
-		if (!tabIdState) {
-			tabIdState = new TabState(tabId, false);
-			tabIdStates.push(tabIdState);
-			//console.log("tabOnUpdated Pushed tabIdState to tabIdStates");
-		}
-		else {
-			tabIdState.state = false;
-		}
-		// Set state of icon
-		//tabIdState.state;
-		// eventAggregator
-		// send state to new GcChromeInterface(tabIdState.state);
-		aChromeInterface.setButtonStatus(tabIdState.state);
-	};
+    /**
+     * aParameters {conversionEnabled: buttonStatus, url: ""}
+     */
+    const toggleConversion = (aParameters) => {
+        const updateTab = (aTab) => {
+            if (aTab.url && aTab.url.startsWith("chrome://")) {
+              //console.log(`toggleConversion: Skipping chrome:// URL for tab ${aTab.id}`);
+                return;
+            }
+            anInformationHolder.conversionEnabled = aParameters.conversionEnabled;
+            const makeEnabledStatus = (tabId) => {
+                const status = {};
+                status.isEnabled = aParameters.conversionEnabled;
+                status.hasConvertedElements = false;
+                status.url = aParameters.url || aTab.url;
+              //console.log(`makeEnabledStatus: Tab ${tabId}, isEnabled: ${status.isEnabled}, url: ${status.url}`);
+                try {
+                    sendEnabledStatus(tabId, status);
+                } catch (err) {
+                    console.error(`ContentInterface: Error in makeEnabledStatus for tab ${tabId}:`, err);
+                }
+                let tabIdState = tabIdStates.find(t => t.tabId === tabId);
+                if (tabIdState && tabIdState.state !== status.isEnabled) {
+                    tabIdState.state = status.isEnabled;
+                  //console.log(`makeEnabledStatus: Updated tabIdState.state to ${tabIdState.state} for tab ${tabId}`);
+                }
+            };
+            makeEnabledStatus(aTab.id);
+        };
+        const updateActiveTabs = (aTabs) => {
+          //console.log(`updateActiveTabs: Processing ${aTabs.length} tabs`);
+            aTabs.map(updateTab);
+        };
+        chrome.tabs.query({active: true, currentWindow: true}, updateActiveTabs);
+    };
 
-	/*
-   const sendSettingsToPage = (tabId, changeInfo, tab) => {
-	   console.log("chrome.tabs.onUpdated handler: sendSettingsToPage " + tabId + " status " + changeInfo.status + " url " + changeInfo.url);
-	   if (changeInfo.status !== "complete") {
-		   return;
-	   }
+    const showQuotesTab = () => {
+        const requestId = crypto.randomUUID();
+        chrome.tabs.create({
+            url: chrome.runtime.getURL("quotes.html") + `?requestId=${requestId}`
+        }, (tab) => {
+            const onTabUpdated = (updatedTabId, changeInfo, updatedTab) => {
+                if (updatedTabId === tab.id && changeInfo.status === "complete") {
+                    chrome.runtime.sendMessage({
+                        command: "ready",
+                        requestId: requestId
+                    });
+                    chrome.tabs.onUpdated.removeListener(onTabUpdated);
+                }
+            };
+            chrome.tabs.onUpdated.addListener(onTabUpdated);
+        });
+    };
 
+    const showTestTab = () => {
+        const requestId = crypto.randomUUID();
+        chrome.tabs.create({
+            url: chrome.runtime.getURL("prices.html") + `?requestId=${requestId}`
+        });
+    };
 
-	   const settings = new Settings(anInformationHolder);
-
-	   const onScriptExecuted = (injectionResult) => {
-		   console.log("sendSettingsToPage onScriptExecuted injectionResult " + injectionResult);
-		   console.log("sendSettingsToPage onScriptExecuted tabId " + tabId);
-		   try {
-			   if (!chrome.runtime.onMessage.hasListener(finishedTabProcessingHandler)) {
-				   // console.log("Add finishedTabProcessingHandler");
-				   chrome.runtime.onMessage.addListener(finishedTabProcessingHandler);
-			   }
-			   chrome.tabs.sendMessage(tabId, settings)
-		   }
-		   catch (err) {
-			   console.log(err);
-		   }
-	   };
-
-	   if (settings.includedDomains && settings.includedDomains.length > 0 && !DccFunctions.isUrlInArray(settings.includedDomains, tab.url)) {
-		   return;
-	   }
-
-	   if (DccFunctions.isUrlInArray(settings.excludedDomains, tab.url)) {
-		   return;
-	   }
-
-	   console.log("sending to tab id: " + tabId)
-	   try {
-		   // Does not work with activeTab permission only.
-		   chrome.scripting.insertCSS({
-			   target: { tabId: tabId },
-			   files: ["title.css"]
-		   })
-		   .then(() => {console.log("insertCSS done")})
-		   .catch((err) => {console.error(err)});
-		   chrome.scripting.executeScript({
-			   target :  {tabId: tabId, allFrames: true },
-			   files : [ "content/dcc-functions.js", "content/dcc-content.js", "gc-content-adapter.js"],
-		   })
-		   .then(onScriptExecuted)
-		   .catch((err) => {console.error(err)});
-
-	   }
-	   catch (err) {
-		   console.error(`failed to execute script: err`);
-		 }
-
-   };
-*/
-
-
-	const tabOnActivated = (tab) => {
-		// if new tab, add it
-		// if old tab, read state and set icon
-		// Where to update state in tabIdStates?
-		//console.log("chrome.tabs.onActivated handler: tabId = " + tab.tabId + ", windowId = " + tab.windowId);
-		// tabIdStates.find(tabIdState => tabIdState === tab.tabId)
-		let tabIdState = tabIdStates.find(t => t.tabId === tab.tabId);
-		//console.log("tabOnActivated tabIdState: " + tabIdState);
-		if (!tabIdState) {
-			tabIdState = new TabState(tab.tabId, false);
-			tabIdStates.push(tabIdState);
-			//console.log("tabOnActivated Pushed tabIdState to tabIdStates");
-		}
-		// Set state of icon
-		//tabIdState.state;
-		// eventAggregator
-		// send state to new GcChromeInterface(tabIdState.state);
-		aChromeInterface.setButtonStatus(tabIdState.state);
-
-	}
-
-	const watchForPages = () => {
-		//console.log("addListener sendSettingsToPage");
-		//chrome.tabs.onUpdated.addListener(sendSettingsToPage);
-		//console.log("addListener tabOnUpdated");
-		chrome.tabs.onUpdated.addListener(tabOnUpdated);
-		//console.log("addListener tabOnActivated");
-		chrome.tabs.onActivated.addListener(tabOnActivated);
-	};
-
-	/**
-	 * aParameters {conversionEnabled: buttonStatus, url: ""}
-	 */
-	const toggleConversion = (aParameters) => {
-		//console.log("DCC toggleConversion enabled: " + aParameters.conversionEnabled + ", URL:" + aParameters.url);
-		const updateTab = (aTab) => {
-			// console.log("updateTab " + aTab.id + ", find in tabIdStates: " + tabIdStates[aTab.id]);
-			if (aTab.url && aTab.url.startsWith("chrome")) {
-				return;
-			}
-			anInformationHolder.conversionEnabled = aParameters.conversionEnabled;
-			const makeEnabledStatus = (tabId) => {
-				const status = {};
-				status.isEnabled = aParameters.conversionEnabled;
-				status.hasConvertedElements = false;
-				status.url = aParameters.url;
-				try {
-					sendEnabledStatus(tabId, status);
-				}
-				catch (err) {
-					console.error("ContentInterface: " + err);
-				}
-				let tabIdState = tabIdStates.find(t => t.tabId === tabId);
-				// console.log("makeEnabledStatus, tabIdState: " + tabIdState);
-				if (tabIdState && tabIdState.state !== status.isEnabled) {
-					// console.log("makeEnabledStatus Before: " + tabIdState.state);
-					tabIdState.state = status.isEnabled;
-					// console.log("makeEnabledStatus After: " + tabIdState.state);
-				}
-			};
-			makeEnabledStatus(aTab.id);
-		};
-		const updateActiveTabs = (aTabs) => {
-			// console.log("updateActiveTabs:" + aTabs);
-			aTabs.map(updateTab);
-		};
-		// Active tab and active window, should only be one tab.
-		chrome.tabs.query({ active: true, currentWindow: true }, updateActiveTabs);
-	};
-
-	const showQuotesTab = () => {
-		const quotesListener = (message, sender, sendResponse) => {
-			sendResponse(new Settings(anInformationHolder));
-		};
-		const quotesCallback = (aTab) => {
-			chrome.runtime.onMessage.addListener(quotesListener);
-		};
-		chrome.tabs.create({ url: chrome.runtime.getURL("quotes.html") }, quotesCallback);
-	};
-
-	const showTestTab = () => {
-		chrome.tabs.create({ "url": "http://home.aland.net/ma37296-p1/extensions/prices.html" });
-	};
-
-	return {
-		watchForPages: watchForPages,
-		toggleConversion: toggleConversion,
-		showQuotesTab: showQuotesTab,
-		showTestTab: showTestTab
-	}
+    return {
+        watchForPages: watchForPages,
+        toggleConversion: toggleConversion,
+        showQuotesTab: showQuotesTab,
+        showTestTab: showTestTab
+    };
 };
 
