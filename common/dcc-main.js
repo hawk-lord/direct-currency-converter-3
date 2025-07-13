@@ -130,7 +130,7 @@ export const DirectCurrencyConverter = function () {
      *
      */
     const onStorageServiceInitDone = () => {
-        const mockSelect = "currencyLayerMock"; // Set to "currencyLayerMock", "ecbMock", or null
+        const mockSelect = null; // Set to "currencyLayerMock", "ecbMock", or null
 
         commonQuotesService = new QuotesServiceProvider(eventAggregator);
         let quotesProvider;
