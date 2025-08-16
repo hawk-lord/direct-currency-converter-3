@@ -41,7 +41,7 @@ export const QuotesServiceProvider = function(anEventAggregator) {
 
     };
     return {
-        fetchQuotes: fetchQuotes
+            fetchQuotes: fetchQuotes
     };
 };
 

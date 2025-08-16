@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.4.0, date 2025-07-12
+Version 3.4.1, date 2025-08-08
 
 ## Introduction
 
@@ -59,6 +59,9 @@ and Currencylayer to cover most currencies.
 External libraries:  DOM Purify, Drag Drop Touch.
 
 ## Changelog
+
+### 3.4.1, 2025-08-08
+Firefox port from Chrome.
 
 ### 3.4.0, 2025-07-12
 The Settings page now opens in its own tab.
@@ -122,8 +125,15 @@ ISO 4217 amendments 166 to 169 included. Notably the latest Venezolan currency, 
 
 Updated the external libraries jQuery, jQuery UI, jQuery UI Touch-Punch, DOM Purify.
 
+## Build
 
-### Author
+Download and install Node.js v22 (or any compatible version) with npm from https://nodejs.org
+
+Run build-mozilla.sh (or execute the commands therein)
+
+
+
+## Author
 
 Per Johansson
 

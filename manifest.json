@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Direct Currency Converter",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "default_locale": "en",
   "description": "Converts prices from any currency (€, $, £, ¥, ؋, ৳, ฿, ៛, ₡, etc.) to prices in a selectable currency automatically while browsing.",
   "icons": {
@@ -11,6 +11,16 @@
   },
   "author": "Per Johansson",
   "background": {
+    "scripts": [
+      "gc-l10n.js",
+      "common/dcc-main.js",
+      "common/eventAggregator.js",
+      "gc-contentInterface.js",
+      "common/settings.js",
+      "gc-storage-service.js",
+      "gc-chromeInterface.js",
+      "gc-main.js"
+    ],
     "service_worker": "gc-main.js",
     "type": "module"
   },
@@ -27,5 +37,10 @@
   "short_name": "DC Converter",
   "action": {
     "default_title": "Direct Currency Converter"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "dcc-vaovao@joint.ax"
+    }
   }
 }
