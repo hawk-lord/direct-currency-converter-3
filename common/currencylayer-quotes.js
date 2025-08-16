@@ -231,7 +231,7 @@ export const CurrencylayerQuotesServiceProvider = function (anEventAggregator, a
             eventAggregator.publish('quotesReceivedCurrencylayer', mockCurrencylayerData);
         } else {
             //console.log('Using real Currencylayer API');
-            const urlString = "http://apilayer.net/api/live?access_key=" + apiKey + "&source=USD";
+            const urlString = "https://apilayer.net/api/live?access_key=" + apiKey + "&source=USD";
             aQuotesService.fetchQuotes(urlString, "Currencylayer");
         }
     };

@@ -3,13 +3,18 @@ All data to JSON.
 Intro file with demo.
 
 Single listing of currencies, possible to add your own.
+Read currency rates on demand.
 
 Prices page activate conversion on start.
 
 Improve conversion hover page.
 
+host_permissions to fetched urls.
+
 Firefox
 Firefox Android
+
+Other UI than drag drop?
 
 Clear up model of currencies vs other units.
 
