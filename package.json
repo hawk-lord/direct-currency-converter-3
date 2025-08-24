@@ -1,7 +1,7 @@
 {
   "name": "direct-currency-converter",
   "license": "MPL-2.0",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "type": "module",
   "scripts": {
     "test": "karma start test/karma.conf.cjs",

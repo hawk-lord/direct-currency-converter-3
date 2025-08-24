@@ -22,6 +22,7 @@ const GcDirectCurrencyConverter = (function () {
     const localisation = new GcLocalisation();
     const _ = localisation._;
     const dcc = new DirectCurrencyConverter();
+    const chromeInterface = new GcChromeInterface();
 
     const quotesListener = (message, sender, sendResponse) => {
         //console.log("quotesListener:", message, "from:", sender);
@@ -66,11 +67,17 @@ const GcDirectCurrencyConverter = (function () {
 
         eventAggregator.subscribe("storageInitDone", () => {
             dcc.createInformationHolder(gcStorageServiceProvider, _);
-            const chromeInterface = new GcChromeInterface(dcc.informationHolder.conversionEnabled);
             const contentInterface = new GcContentInterface(dcc.informationHolder, chromeInterface);
             eventAggregator.subscribe("quotesParsed", () => {
                 // console.log("quotesParsed");
                 contentInterface.watchForPages();
+                // Initialize button state for current active tab
+                chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                    if (tabs[0]) {
+                        // Trigger the existing tabOnActivated logic to set button state
+                        contentInterface.tabOnActivated({tabId: tabs[0].id});
+                    }
+                });
             });
 
             eventAggregator.subscribe("toggleConversion", (eventArgs) => {

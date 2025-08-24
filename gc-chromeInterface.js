@@ -9,7 +9,7 @@
 
 import {eventAggregator} from './common/eventAggregator.js';
 
-export const GcChromeInterface = function (conversionEnabled) {
+export const GcChromeInterface = function () {
     let buttonStatus = false;
     const setButtonAppearance = () => {
         const colour = buttonStatus ? "green" : "red";
@@ -24,15 +24,21 @@ export const GcChromeInterface = function (conversionEnabled) {
     };
     setButtonAppearance();
     const onBrowserAction = (tab) => {
+        // console.log("GcChromeInterface onBrowserAction", tab);
+        // console.log("GcChromeInterface: Action button clicked, current buttonStatus:", buttonStatus);
+
         if (tab) {
             // console.log("onBrowserAction tab id: " + tab.id )
         }
         // console.log("Before: " + buttonStatus);
         buttonStatus = !buttonStatus;
         // console.log("After: " + buttonStatus);
+        // console.log("GcChromeInterface: New buttonStatus:", buttonStatus);
+
         setButtonAppearance();
-        // console.log("toggleConversion");
-        eventAggregator.publish("toggleConversion", {conversionEnabled: buttonStatus, url: ""});
+        // console.log("GcChromeInterface: Publishing toggleConversion with:", {conversionEnabled: buttonStatus, url: tab.url || ""});
+
+        eventAggregator.publish("toggleConversion", {conversionEnabled: buttonStatus, url: tab.url});
     };
     // console.log("gc-chromeInterface chrome.action.onClicked.addListener");
     chrome.action.onClicked.addListener(onBrowserAction);

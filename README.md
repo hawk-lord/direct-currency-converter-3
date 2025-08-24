@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.4.1, date 2025-08-08
+Version 3.4.2, date 2025-08-25
 
 ## Introduction
 
@@ -47,7 +47,8 @@ Reset quotes will reload the currency quotes.
 
 ## About
 
-DCC was originally created in 2014 as a remake of the Firefox add-on Simple Currency Converter.
+DCC was originally created in 2014 as a remake of the Firefox add-on Simple Currency Converter 
+(which was very different from the extension of the same name currently in addons.mozilla.org).
 Later it was ported to work in SeaMonkey, Chrome, Opera, Safari and Edge browsers.
 Since Mozilla abandoned its own API to use the Chrome API instead, the Chrome version became the master branch.
 Since Microsoft decided to change Edge into a Chromium based application, DCC for Edge has been discontinued.
@@ -59,6 +60,9 @@ and Currencylayer to cover most currencies.
 External libraries:  DOM Purify, Drag Drop Touch.
 
 ## Changelog
+
+### 3.4.2, 2025-08-25
+Bug fix: Changed to non-persistence scripts to avoid timeouts in Firefox.
 
 ### 3.4.1, 2025-08-08
 Firefox port from Chrome.
