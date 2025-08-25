@@ -62,7 +62,7 @@ External libraries:  DOM Purify, Drag Drop Touch.
 ## Changelog
 
 ### 3.4.2, 2025-08-25
-Bug fix: Changed to non-persistence scripts to avoid timeouts in Firefox.
+Bug fix: Changed to non-persistent scripts to avoid timeouts in Firefox.
 
 ### 3.4.1, 2025-08-08
 Firefox port from Chrome.
