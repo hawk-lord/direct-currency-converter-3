@@ -187,11 +187,35 @@ export const CurrencylayerQuotesServiceProvider = function (anEventAggregator, a
             "USDZWL": 321.999592
         }
     };
-
+    /*
+    Currencylayer error response:
+        {
+        "success": false,
+        "error": {
+            "code": 104,
+            "info": "Your monthly usage limit has been reached. Please upgrade your subscription plan."
+            }
+        }
+    */
+    /**
+     *
+     */
     eventAggregator.subscribe("quotesReceivedCurrencylayer", (eventArgs) => {
-        // Convert from Currencylayer response.
-//        const response = JSON.parse(eventArgs.response);
         const response = eventArgs;
+        if (!response) {
+            eventAggregator.publish("quotesParsed", "Currencylayer error");
+        }
+        if (!response.success) {
+            if (response.error.code) {
+                console.error("Currencylayer error code: " + response.error.code);
+            }
+            if (response.error.info) {
+                console.error("Currencylayer error info: " + response.error.info);
+                eventAggregator.publish("quotesParsed", "Currencylayer error: " + response.error.info);
+                return;
+            }
+            eventAggregator.publish("quotesParsed", "Currencylayer error");
+        }
         let quote = 1;
         // Currencylayer free subscription always converts from USD.
         // Check quote between USD and target currency.
@@ -220,7 +244,6 @@ export const CurrencylayerQuotesServiceProvider = function (anEventAggregator, a
             anInformationHolder.setConversionQuote("ZWG", quote / response.quotes["USDZWL"] * 2498.7242);
         }
 
-        //console.log('Quotes parsed (Currencylayer)');
         eventAggregator.publish("quotesParsed");
     });
 

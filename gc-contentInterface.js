@@ -9,16 +9,17 @@
 import {Settings} from './common/settings.js';
 import {DccFunctions} from './common/functions.js';
 import {TabState} from './common/tab-state.js';
-
+import {eventAggregator} from './common/eventAggregator.js';
 
 export const GcContentInterface = function (anInformationHolder, aChromeInterface) {
 
     let tabIdStates = [];
-    let isLoaded = false;
+    let isTabIdStatesLoadingAttempted = false;
+    let isQuotesLoaded = false;
 
     // Load tabIdStates from storage.session
     const loadTabIdStates = async () => {
-        if (isLoaded) return;
+        if (isTabIdStatesLoadingAttempted) return;
 
         try {
             // console.log('Loading tabIdStates from storage...');
@@ -31,11 +32,11 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
             );
 
             // console.log(`Loaded ${tabIdStates.length} tab states`);
-            isLoaded = true;
+            isTabIdStatesLoadingAttempted = true;
         } catch (error) {
             console.error('Failed to load tabIdStates:', error);
             tabIdStates = [];
-            isLoaded = true;
+            isTabIdStatesLoadingAttempted = true;
         }
     };
 
@@ -46,22 +47,70 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
 
             await chrome.storage.session.set({tabIdStates});
             // console.log('Saved tabIdStates successfully');
-
-            // Verify save worked (for Firefox debugging)
-            const verification = await chrome.storage.session.get({tabIdStates: []});
-            // console.log('Verification - storage now contains:', verification.tabIdStates?.length || 0, 'items');
-
         } catch (error) {
             console.error('Failed to save tabIdStates:', error);
         }
     };
 
-    // Ensure state is loaded before any operation that needs it
+    // Load quotes extension state
+    const loadQuotesState = async () => {
+        try {
+            const result = await chrome.storage.session.get({
+                quotesState: {errorMessage: null}
+            });
+            isQuotesLoaded = true;
+            return result.quotesState;
+        } catch (error) {
+            console.error('Failed to load quotes state:', error);
+            isQuotesLoaded = true;
+            return {errorMessage: null};
+        }
+    };
+
+    const saveQuotesState = async (state) => {
+        try {
+            await chrome.storage.session.set({quotesState: state});
+          //  console.log('Saved quotes state:', state);
+        } catch (error) {
+            console.error('Failed to save quotes state:', error);
+        }
+    };
+
+    /**
+     * Ensure state is loaded before any operation that needs it
+     *
+     * @param operation
+     * @returns {Promise<*>}
+     */
     const withLoadedState = async (operation) => {
-        if (!isLoaded) {
+        if (!isTabIdStatesLoadingAttempted) {
             await loadTabIdStates();
         }
+        if (!isQuotesLoaded) {
+            await loadQuotesState();
+        }
         return operation();
+    };
+
+    /**
+     * Update button for active tab with current status
+     *
+     * @returns {Promise<void>}
+     */
+    const updateButtonForActiveTab = async () => {
+        chrome.tabs.query({active: true, currentWindow: true}, async (tabs) => {
+            if (tabs[0]) {
+                await withLoadedState(async () => {
+                    const tabState = tabIdStates.find(t => t.tabId === tabs[0].id);
+                    const quotesState = await loadQuotesState();
+
+                    aChromeInterface.setButtonStatus(
+                        tabState ? tabState.state : false,
+                        quotesState.errorMessage
+                    );
+                });
+            }
+        });
     };
 
     const checkScriptInjected = (tabId, callback) => {
@@ -207,9 +256,10 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
             }
 
             // Only update button if this is the active tab in current window
-            chrome.tabs.query({active: true, currentWindow: true}, (activeTabs) => {
+            chrome.tabs.query({active: true, currentWindow: true}, async (activeTabs) => {
                 if (activeTabs[0] && activeTabs[0].id === tabId) {
-                    aChromeInterface.setButtonStatus(tabIdState.state);
+                    const quotesState = await loadQuotesState();
+                    aChromeInterface.setButtonStatus(tabIdState.state, quotesState.errorMessage);
                 }
             });
 
@@ -218,14 +268,15 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
     };
 
     const tabOnActivated = (tab) => {
-        withLoadedState(() => {
+        withLoadedState(async () => {
             let tabIdState = tabIdStates.find(t => t.tabId === tab.tabId);
             if (!tabIdState) {
                 tabIdState = new TabState(tab.tabId, false, false);
                 tabIdStates.push(tabIdState);
             }
 
-            aChromeInterface.setButtonStatus(tabIdState.state);
+            const quotesState = await loadQuotesState();
+            aChromeInterface.setButtonStatus(tabIdState.state, quotesState.errorMessage);
             saveTabIdStates();
         });
     };
@@ -249,14 +300,15 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
             if (windowId !== chrome.windows.WINDOW_ID_NONE) {
                 chrome.tabs.query({active: true, windowId: windowId}, (tabs) => {
                     if (tabs[0]) {
-                        withLoadedState(() => {
+                        withLoadedState(async () => {
                             let tabIdState = tabIdStates.find(t => t.tabId === tabs[0].id);
                             if (!tabIdState) {
                                 tabIdState = new TabState(tabs[0].id, false, false);
                                 tabIdStates.push(tabIdState);
                                 saveTabIdStates();
                             }
-                            aChromeInterface.setButtonStatus(tabIdState.state);
+                            const quotesState = await loadQuotesState();
+                            aChromeInterface.setButtonStatus(tabIdState.state, quotesState.errorMessage);
                         });
                     }
                 });
@@ -313,6 +365,31 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
         chrome.tabs.query({active: true, currentWindow: true}, updateActiveTabs);
     };
 
+    /**
+     * Handle quotes error - set quotes error state
+     *
+     * @param error
+     * @returns {Promise<void>}
+     */
+    const onQuotesError = async (error) => {
+        await saveQuotesState({errorMessage: error.message});
+        updateButtonForActiveTab();
+    };
+
+    /**
+     * Handle quotes loaded successfully - clear error state
+     *
+     * @returns {Promise<void>}
+     */
+    const onQuotesLoaded = async () => {
+        await saveQuotesState({errorMessage: null});
+        updateButtonForActiveTab();
+    };
+
+    eventAggregator.subscribe("quotesError", onQuotesError);
+    eventAggregator.subscribe("quotesLoaded", onQuotesLoaded);
+    eventAggregator.subscribe("quotesParsed", onQuotesLoaded);
+
     const showQuotesTab = () => {
         const requestId = crypto.randomUUID();
         chrome.tabs.create({
@@ -338,15 +415,17 @@ export const GcContentInterface = function (anInformationHolder, aChromeInterfac
         });
     };
 
-    // Initialize tabIdStates when the module loads
+    // Initialize states when the module loads
     loadTabIdStates();
+    loadQuotesState();
 
     return {
         watchForPages: watchForPages,
         toggleConversion: toggleConversion,
         showQuotesTab: showQuotesTab,
         showTestTab: showTestTab,
-        tabOnActivated: tabOnActivated
+        tabOnActivated: tabOnActivated,
+        updateButtonForActiveTab: updateButtonForActiveTab
     };
 };
 

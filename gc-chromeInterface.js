@@ -11,40 +11,48 @@ import {eventAggregator} from './common/eventAggregator.js';
 
 export const GcChromeInterface = function () {
     let buttonStatus = false;
+    let errorMessage = null;
     const setButtonAppearance = () => {
-        const colour = buttonStatus ? "green" : "red";
-        const text = buttonStatus ? "On" : "Off";
+        const colour = errorMessage ? "red" : buttonStatus ? "green" : "orange";
+        const text = errorMessage ? "!" : buttonStatus ? "On" : "Off";
         chrome.action.setBadgeBackgroundColor(
             {color: colour}
         );
         chrome.action.setBadgeText(
             {text: text}
         );
-
-    };
-    setButtonAppearance();
-    const onBrowserAction = (tab) => {
-        // console.log("GcChromeInterface onBrowserAction", tab);
-        // console.log("GcChromeInterface: Action button clicked, current buttonStatus:", buttonStatus);
-
-        if (tab) {
-            // console.log("onBrowserAction tab id: " + tab.id )
+        if (errorMessage) {
+            chrome.action.setTitle({title: `Error: ${errorMessage}`});
+        } else {
+            const title = buttonStatus ? "Conversion On" : "Conversion Off";
+            chrome.action.setTitle({title: title});
         }
-        // console.log("Before: " + buttonStatus);
+    };
+
+    setButtonAppearance();
+
+
+    const onBrowserAction = (tab) => {
+
+        // If there's an error, trigger quotes reset
+        if (errorMessage) {
+            //  console.log("GcChromeInterface: Retrying quotes after error:", errorMessage);
+            eventAggregator.publish("resetQuotes");
+            return;
+        }
+
         buttonStatus = !buttonStatus;
-        // console.log("After: " + buttonStatus);
-        // console.log("GcChromeInterface: New buttonStatus:", buttonStatus);
-
         setButtonAppearance();
-        // console.log("GcChromeInterface: Publishing toggleConversion with:", {conversionEnabled: buttonStatus, url: tab.url || ""});
-
         eventAggregator.publish("toggleConversion", {conversionEnabled: buttonStatus, url: tab.url});
     };
-    // console.log("gc-chromeInterface chrome.action.onClicked.addListener");
+
+    //  console.log("gc-chromeInterface chrome.action.onClicked.addListener");
     chrome.action.onClicked.addListener(onBrowserAction);
 
-    const setButtonStatus = (aButtonStatus) => {
+    const setButtonStatus = (aButtonStatus, anErrorMessage = null) => {
+        //  console.log("GcChromeInterface: setButtonStatus called with:", aButtonStatus, "errorMessage:", anErrorMessage);
         buttonStatus = aButtonStatus;
+        errorMessage = anErrorMessage;
         setButtonAppearance();
     };
 
@@ -53,7 +61,7 @@ export const GcChromeInterface = function () {
         if (tab.url && tab.url.includes("quotes.html")) {
             chrome.runtime.sendMessage({
                 command: "ready",
-                requestId: crypto.randomUUID() // Generate a new ID for each tab
+                requestId: crypto.randomUUID()
             });
         }
     });

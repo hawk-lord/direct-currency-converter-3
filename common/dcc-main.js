@@ -14,6 +14,10 @@ import {QuotesServiceProvider} from './quotes-service.js';
 import {EcbQuotesServiceProvider} from './ecb-quotes.js';
 import {ParseSettings} from './parseSettings.js';
 import {CurrencylayerQuotesServiceProvider} from './currencylayer-quotes.js';
+import currencyData from './currencyData.json' with {type: 'json'};
+import iso4217Currencies from './iso4217Currencies.json' with {type: 'json'};
+import regexes1imported from './regexes1.json' with {type: 'json'};
+import regexes2imported from './regexes2.json' with {type: 'json'};
 
 
 export const DirectCurrencyConverter = function () {
@@ -24,22 +28,22 @@ export const DirectCurrencyConverter = function () {
     /**
      * Fractions, regions, and dates.
      */
-    let iso4217CurrencyMetaData;
+    let iso4217CurrencyMetaData = currencyData;
 
     /**
      * Currency converted or not.
      */
-    let iso4217CurrenciesEnabled;
+    let iso4217CurrenciesEnabled = iso4217Currencies;
 
     /**
      * Unit before currency: EUR 1,00
      */
-    let regexes1;
+    let regexes1 = regexes1imported;
 
     /**
      * Unit after currency: 1,00 EUR
      */
-    let regexes2;
+    let regexes2 = regexes2imported;
 
     /**
      * Kitchen sink for all sorts of information.
@@ -48,69 +52,6 @@ export const DirectCurrencyConverter = function () {
 
     let commonQuotesService;
     let quotesService;
-
-
-    /**
-     * All JSON data files are read.
-     */
-    const onSettingsRead = () => {
-        if (iso4217CurrencyMetaData && iso4217CurrenciesEnabled && regexes1 && regexes2) {
-            eventAggregator.publish("allSettingsRead");
-        }
-    };
-
-
-    /**
-     * Read currency data
-     * @param result
-     */
-    const onCurrencyDataRead = (result) => {
-        iso4217CurrencyMetaData = result;
-        onSettingsRead();
-    };
-    // TODO Do not use chrome funtions here
-    fetch(chrome.runtime.getURL('common/currencyData.json'))
-        .then((resp) => resp.json())
-        .then(onCurrencyDataRead);
-
-
-    /**
-     * Read currencies enabled
-     * @param result
-     */
-    const onIso4217CurrenciesRead = (result) => {
-        iso4217CurrenciesEnabled = result;
-        onSettingsRead();
-    };
-    fetch(chrome.runtime.getURL('common/iso4217Currencies.json'))
-        .then((resp) => resp.json())
-        .then(onIso4217CurrenciesRead);
-
-
-    /**
-     * Read default regexes
-     * @param result
-     */
-    const onRegexes1RequestRead = (result) => {
-        regexes1 = result;
-        onSettingsRead();
-    };
-    fetch(chrome.runtime.getURL('common/regexes1.json'))
-        .then((resp) => resp.json())
-        .then(onRegexes1RequestRead);
-
-    /**
-     * Read default regexes
-     * @param result
-     */
-    const onRegexes2RequestRead = (result) => {
-        regexes2 = result;
-        onSettingsRead();
-    };
-    fetch(chrome.runtime.getURL('common/regexes2.json'))
-        .then((resp) => resp.json())
-        .then(onRegexes2RequestRead);
-
 
     /**
      *

@@ -1,17 +1,24 @@
 All data to JSON.
+currencylayer-quotes
+dcc-functions
+gc-storageservice
+
+Menu to select and convert a price.
+
+Use standard names (see Grok chat)
+
 
 Intro file with demo.
 
 Single listing of currencies, possible to add your own.
 Read currency rates on demand.
 
-Prices page activate conversion on start.
+Prices page activate conversion on start. Tabs permission needed?
+host_permissions to fetched urls if loaded automatically.
 
 Improve conversion hover page.
 
-host_permissions to fetched urls.
 
-Firefox
 Firefox Android
 
 Other UI than drag drop?
@@ -57,3 +64,5 @@ File organisation.
 On/off in Android
 
 
+
+DONE

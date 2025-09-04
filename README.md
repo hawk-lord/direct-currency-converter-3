@@ -1,6 +1,6 @@
 # Direct Currency Converter - DCC
 
-Version 3.4.2, date 2025-08-25
+Version 3.4.3, date 2025-09-01
 
 ## Introduction
 
@@ -25,7 +25,7 @@ For instance, if AUD is before USD and both are selected, "$100" will be convert
 Select All will select all currencies.
 Select None will turn off all selections.
 
-Convert to is the currency all other currencies will be converted to.
+Convert to: the currency all other currencies will be converted to.
 Any combination will work.
 
 You can select how conversions are done and shown.
@@ -60,6 +60,13 @@ and Currencylayer to cover most currencies.
 External libraries:  DOM Purify, Drag Drop Touch.
 
 ## Changelog
+
+### 3.4.3, 2025-09-01
+Added error information if the currency quote service fails.
+New colour scheme.
+Orange: conversion disabled on tab
+Green: conversion enabled on tab
+Red: conversion error
 
 ### 3.4.2, 2025-08-25
 Bug fix: Changed to non-persistent scripts to avoid timeouts in Firefox.

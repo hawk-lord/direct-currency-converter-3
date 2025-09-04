@@ -58,52 +58,43 @@ const GcDirectCurrencyConverter = (function () {
     };
     chrome.runtime.onMessage.addListener(onMessageFromSettings);
 
-    /**
-     * Called when JSON settings have been read so we can read correct data from storage.
-     */
-    eventAggregator.subscribe("allSettingsRead", () => {
-
-        // console.log("allSettingsRead");
-
-        eventAggregator.subscribe("storageInitDone", () => {
-            dcc.createInformationHolder(gcStorageServiceProvider, _);
-            const contentInterface = new GcContentInterface(dcc.informationHolder, chromeInterface);
-            eventAggregator.subscribe("quotesParsed", () => {
-                // console.log("quotesParsed");
-                contentInterface.watchForPages();
-                // Initialize button state for current active tab
-                chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-                    if (tabs[0]) {
-                        // Trigger the existing tabOnActivated logic to set button state
-                        contentInterface.tabOnActivated({tabId: tabs[0].id});
-                    }
-                });
+    eventAggregator.subscribe("storageInitDone", () => {
+        dcc.createInformationHolder(gcStorageServiceProvider, _);
+        const contentInterface = new GcContentInterface(dcc.informationHolder, chromeInterface);
+        eventAggregator.subscribe("quotesParsed", (eventArgs) => {
+            if (eventArgs) {
+                // Show error
+                chromeInterface.setButtonStatus(false, eventArgs);
+                return;
+            }
+            contentInterface.watchForPages();
+            // Initialize button state for current active tab
+            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                if (tabs[0]) {
+                    // Trigger the existing tabOnActivated logic to set button state
+                    contentInterface.tabOnActivated({tabId: tabs[0].id});
+                }
             });
-
-            eventAggregator.subscribe("toggleConversion", (eventArgs) => {
-                //console.log("toggleConversion" + eventArgs);
-                contentInterface.toggleConversion(eventArgs);
-            });
-
-            eventAggregator.subscribe("showQuotesTab", () => {
-                contentInterface.showQuotesTab();
-            });
-
-            eventAggregator.subscribe("showTestTab", () => {
-                contentInterface.showTestTab();
-            });
-
-            dcc.onStorageServiceInitDone();
         });
-        /*
-        eventAggregator.subscribe("storageReInitDone", () => {
-            onStorageServiceReInitDone();
-        });
-        */
-        const gcStorageServiceProvider = new GcStorageServiceProvider();
-        gcStorageServiceProvider.initSettings(dcc.iso4217CurrenciesEnabled, dcc.defaultExcludedDomains, dcc.defaultIncludedDomains);
 
+        eventAggregator.subscribe("toggleConversion", (eventArgs) => {
+            //console.log("toggleConversion" + eventArgs);
+            contentInterface.toggleConversion(eventArgs);
+        });
+
+        eventAggregator.subscribe("showQuotesTab", () => {
+            contentInterface.showQuotesTab();
+        });
+
+        eventAggregator.subscribe("showTestTab", () => {
+            contentInterface.showTestTab();
+        });
+
+        dcc.onStorageServiceInitDone();
     });
+    const gcStorageServiceProvider = new GcStorageServiceProvider();
+    gcStorageServiceProvider.initSettings(dcc.iso4217CurrenciesEnabled, dcc.defaultExcludedDomains, dcc.defaultIncludedDomains);
+
 
     chrome.runtime.onInstalled.addListener((details) => {
         if (details.reason === "install" || details.reason === "update") {

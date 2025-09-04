@@ -7,41 +7,45 @@
 
 "use strict";
 
-export const QuotesServiceProvider = function(anEventAggregator) {
+export const QuotesServiceProvider = function (anEventAggregator) {
 
-    // Perhaps better with separate classes.
     let source;
 
     const onComplete = (aResponse) => {
         try {
             // console.log("onComplete aResponse " + aResponse);
             anEventAggregator.publish("quotesReceived" + source, aResponse);
-        }
-        catch(err) {
-            console.error("err " + err);
+        } catch (err) {
+            console.error(err);
+            anEventAggregator.publish("quotesError", new Error(`Failed to process quotes response: ${err.message}`));
         }
     };
-    const fetchQuotes = (aUrlString, aSource) => {
-        // console.log("fetchQuotes ");
-        source = aSource;
-        const urlString = aUrlString;
-        /*
-        const request = new XMLHttpRequest();
-        request.open("GET", aUrlString, true);
-        request.onreadystatechange = () => {
-            if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-                onComplete({response: request.response, responseXml: request.responseXML});
-            }
-        };
-        request.send(null);
-        */
-		fetch(urlString)
-    		.then((resp) => resp.json())
-    		.then(onComplete);
 
+    const onError = (error) => {
+        console.error("QuotesServiceProvider error:", error);
+        anEventAggregator.publish("quotesError", error);
+    };
+
+    const fetchQuotes = (aUrlString, aSource) => {
+        source = aSource;
+
+        fetch(aUrlString)
+            .then((resp) => {
+                // Check if response is ok (status 200-299)
+                if (!resp.ok) {
+                    throw new Error(`HTTP error! status: ${resp.status}`);
+                }
+                return resp.json();
+            })
+            .then(onComplete)
+            .catch((error) => {
+                // Handle network errors, JSON parsing errors, etc.
+                const errorMessage = error.message || 'Unknown error occurred';
+                onError(new Error(`Failed to fetch quotes from ${aSource}: ${errorMessage}`));
+            });
     };
     return {
-            fetchQuotes: fetchQuotes
+        fetchQuotes: fetchQuotes
     };
 };
 
